@@ -1,0 +1,3 @@
+nodes:
+- role: worker
+  image: kindest/node:v1.30.2

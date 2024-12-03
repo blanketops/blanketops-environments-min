@@ -1,0 +1,21 @@
+apiVersion: autoscaling.aws.upbound.io/v1beta1
+kind: LifecycleHook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: autoscaling/v1beta1/lifecyclehook
+  labels:
+    testing.upbound.io/example-name: blanketops-autoscaling-lifecyclehook
+  name: blanketops-autoscaling-lifecyclehook
+spec:
+  forProvider:
+    autoscalingGroupNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-autoscaling-group
+    defaultResult: CONTINUE
+    heartbeatTimeout: 2000
+    lifecycleTransition: autoscaling:EC2_INSTANCE_LAUNCHING
+    notificationMetadata: |
+      {
+        "blanketops-autoscaling-group": "EC2_INSTANCE_LAUNCHING"
+      }
+    region: eu-north-1

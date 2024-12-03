@@ -1,0 +1,16 @@
+apiVersion: compute.azure.upbound.io/v1beta1
+kind: VirtualMachineRunCommand
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/virtualmachineruncommand
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    location: West Europe
+    source:
+    - script: echo 'hello world'
+    virtualMachineIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

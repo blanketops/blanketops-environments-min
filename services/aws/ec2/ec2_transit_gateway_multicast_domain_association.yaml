@@ -1,0 +1,13 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGatewayMulticastDomainAssociation
+metadata:
+  name: blanketops-ec2-transit-gateway-multicast-domain-association
+spec:
+  forProvider:
+    region: eu-north-1
+    subnetIdRef:
+      name: sample-subnet1
+    transitGatewayAttachmentIdRef:
+      name: example
+    transitGatewayMulticastDomainIdRef:
+      name: domain

@@ -1,0 +1,14 @@
+apiVersion: inspector.aws.upbound.io/v1beta1
+kind: ResourceGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: inspector/v1beta1/resourcegroup
+  labels:
+    testing.upbound.io/example-name: blanketops-inspector-resource-group
+  name: blanketops-inspector-resource-group
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Env: dev
+      Name: BlanketOpsDev

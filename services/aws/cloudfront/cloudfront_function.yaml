@@ -1,0 +1,14 @@
+apiVersion: cloudfront.aws.upbound.io/v1beta1
+kind: Function
+metadata:
+  name: blanketops-cloudfront-function
+spec:
+  forProvider:
+    codeSecretRef:
+      key: code
+      name: codesecret
+      namespace: upbound-system
+    comment: my function
+    publish: true
+    region: eu-north-1
+    runtime: cloudfront-js-1.0

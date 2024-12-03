@@ -1,0 +1,10 @@
+apiVersion: compute.azure.upbound.io/v1beta1
+kind: DedicatedHost
+metadata:
+  name: example
+spec:
+  forProvider:
+    dedicatedHostGroupId: <host-group-id>
+    location: West Europe
+    platformFaultDomain: 0
+    skuName: DCSv2-Type1

@@ -1,0 +1,9 @@
+apiVersion: kms.aws.upbound.io/v1beta1
+kind: Alias
+metadata:
+  name: blanketops-kms-alias
+spec:
+  forProvider:
+    region: eu-north-1
+    targetKeyIdRef:
+      name: blanketops-kms-key

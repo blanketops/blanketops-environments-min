@@ -1,0 +1,30 @@
+apiVersion: compute.azure.upbound.io/v1beta1
+kind: WindowsVirtualMachine
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/windowsvirtualmachine
+  labels:
+    testing.upbound.io/example-name: example
+  name: example
+spec:
+  forProvider:
+    adminPasswordSecretRef:
+      key: password
+      name: example-secret
+      namespace: upbound-system
+    adminUsername: adminuser
+    location: West Europe
+    networkInterfaceIdsRefs:
+    - name: example
+    osDisk:
+    - caching: ReadWrite
+      storageAccountType: Standard_LRS
+    resourceGroupNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    size: Standard_F2
+    sourceImageReference:
+    - offer: WindowsServer
+      publisher: MicrosoftWindowsServer
+      sku: 2016-Datacenter
+      version: latest

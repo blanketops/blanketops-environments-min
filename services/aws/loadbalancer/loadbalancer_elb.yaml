@@ -1,0 +1,20 @@
+apiVersion: elb.aws.upbound.io/v1beta1
+kind: ELB
+metadata:
+  annotations:
+    meta.upbound.io/example-id: elb/v1beta1/lbsslnegotiationpolicy
+    upjet.upbound.io/manual-intervention: It requires a certificate in Issued State
+  labels:
+    testing.upbound.io/example-name: blanketops-elb-loadbalancer
+  name: blanketops-elb-loadbalancer
+spec:
+  forProvider:
+    availabilityZones:
+    - eu-north-1b
+    listener:
+    - instancePort: 8000
+      instanceProtocol: https
+      lbPort: 443
+      lbProtocol: https
+      sslCertificateId: arn:aws:acm:eu-north-1:686255954747:certificate/3761707c-a179-4137-b133-a2bffd9fd1c7
+    region: eu-north-1

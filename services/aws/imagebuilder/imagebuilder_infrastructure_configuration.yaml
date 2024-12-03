@@ -1,0 +1,16 @@
+apiVersion: imagebuilder.aws.upbound.io/v1beta1
+kind: InfrastructureConfiguration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: imagebuilder/v1beta1/infrastructureconfiguration
+  labels:
+    testing.upbound.io/example-name: blanketops-imagebuilder-infrastructure-configuration
+  name: blanketops-imagebuilder-infrastructure-configuration
+spec:
+  forProvider:
+    description: blanketops infrastructure configuration
+    instanceProfileNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-instance-profile
+    name: blanketops-imagebuilder-infrastructure-configuration
+    region: eu-north-1

@@ -1,0 +1,20 @@
+apiVersion: ansible.crossplane.io/v1alpha1
+kind: AnsibleRun
+metadata:
+  annotations:
+    ansible.crossplane.io/runPolicy: CheckWhenObserve
+  name: gcpdisk
+spec:
+  forProvider:
+    roles:
+    - name: ansible_provider.gcpdisk_role
+      src: https://github.com/multicloudlab/crossplane-ansible-provider-sample.git
+    vars:
+      project:
+        disk:
+          key: 718BDCC469891
+          size: 20
+          zone: europe-west1-b
+        id: test_project
+  providerConfigRef:
+    name: gcpconfig

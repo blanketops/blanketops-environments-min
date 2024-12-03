@@ -1,0 +1,17 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCPeeringConnectionAccepter
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpcpeeringconnectionaccepter
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-vcp-peering-connection-accepter
+  name: blanketops-ec2-vpc-for-vcp-peering-connection-accepter
+spec:
+  forProvider:
+    autoAccept: true
+    region: eu-north-1
+    tags:
+      Side: Accepter
+    vpcPeeringConnectionIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vcp-peering-connection

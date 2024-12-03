@@ -1,0 +1,27 @@
+apiVersion: compute.azure.upbound.io/v1beta1
+kind: GalleryApplicationVersion
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/galleryapplicationversion
+  labels:
+    testing.upbound.io/example-name: galleryappversion
+  name: galleryappversion
+spec:
+  forProvider:
+    galleryApplicationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: galleryappversiongalleryapp
+    location: West Europe
+    manageAction:
+    - install: "[install command]"
+      remove: "[remove command]"
+    name: 1.0.0
+    source:
+    - mediaLinkSelector:
+        matchLabels:
+          testing.upbound.io/example-name: galleryappversionstorblob
+    targetRegion:
+    - nameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: galleryappversiongalleryapp
+      regionalReplicaCount: 1

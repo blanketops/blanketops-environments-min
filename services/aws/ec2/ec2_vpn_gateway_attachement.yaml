@@ -1,0 +1,17 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPNGatewayAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpngatewayattachment
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpn-attachment
+  name: blanketops-ec2-vpn-attachment
+spec:
+  forProvider:
+    region: eu-north-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vpn-gateway-attachment
+    vpnGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpn-gateway-for-attachment

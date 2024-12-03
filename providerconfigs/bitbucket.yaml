@@ -1,0 +1,12 @@
+apiVersion: bitbucket-server.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: example
+spec:
+  baseURL: https://bitbucket.company.example.com
+  credentials:
+    secretRef:
+      key: credentials
+      name: example-provider-secret
+      namespace: crossplane-system
+    source: Secret

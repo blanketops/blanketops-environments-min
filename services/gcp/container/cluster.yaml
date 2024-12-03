@@ -1,0 +1,31 @@
+apiVersion: container.gcp.upbound.io/v1beta1
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: container/v1beta1/cluster
+  labels:
+    testing.upbound.io/example-name: cluster
+  name: cluster
+spec:
+  forProvider:
+    deletionProtection: false
+    enableAutopilot: true
+    enableIntranodeVisibility: true
+    ipAllocationPolicy:
+    - {}
+    location: europe-north1
+---
+apiVersion: container.gcp.upbound.io/v1beta1
+kind: Cluster
+metadata:
+  annotations:
+    meta.upbound.io/example-id: container/v1beta1/cluster
+  labels:
+    testing.upbound.io/example-name: nodepool
+  name: nodepool
+spec:
+  forProvider:
+    deletionProtection: false
+    initialNodeCount: 1
+    location: us-central1-a
+    removeDefaultNodePool: true

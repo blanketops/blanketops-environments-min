@@ -1,0 +1,38 @@
+apiVersion: sns.aws.upbound.io/v1beta1
+kind: TopicPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sns/v1beta1/topicpolicy
+  labels:
+    testing.upbound.io/example-name: blanketops-sns-topic-policy
+  name: blanketops-sns-topic-policy
+spec:
+  forProvider:
+    arnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    policy: |
+      {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Sid": "Stmt1670943316577",
+            "Action": [
+              "sns:AddPermission",
+              "sns:DeleteTopic",
+              "sns:GetTopicAttributes",
+              "sns:ListSubscriptionsByTopic",
+              "sns:Publish",
+              "sns:RemovePermission",
+              "sns:SetTopicAttributes",
+              "sns:Subscribe"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:sns:eu-north-1:686255954747:test",
+            "Principal": {
+              "AWS": "*"
+            }
+          }
+        ]
+      }
+    region: eu-north-1

@@ -1,0 +1,196 @@
+apiVersion: cloudformation.aws.upbound.io/v1beta1
+kind: Stack
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudformation/v1beta1/stack
+  labels:
+    testing.upbound.io/example-name: blanketops-cloudformation-ec2-autoscaling-stack
+  name: blanketops-cloudformation-ec2-autoscaling-stack
+spec:
+  forProvider:
+    name: blanketops-cloudformation-ec2-autoscaling-stack
+    parameters:
+      VPCCidr: 172.31.0.0/16
+    region: eu-north-1
+    templateBody: >
+      {
+        "Parameters" : {
+          "VPCCidr" : {
+            "Type" : "String",
+            "Default" : "",
+            "AllowedPattern": "^(?:vpc-[0-9a-f]{8,17}|)$",
+            "ConstraintDescription": "VPC Id must begin with 'vpc-' and have a valid uuid",
+            "Description" : "Optional - Specifies the ID of an existing VPC in which to launch your container instances. If you specify a VPC ID, you must specify a list of existing subnets in that VPC. If you do not specify a VPC ID, a new VPC is created with at least 1 subnet."
+          },
+          "ECSClusterName" : {
+            "Type" : "String",
+            "Description" : "Specifies the ECS Cluster Name with which the resources would be associated",
+            "Default" : "DevCluster"
+          },
+          "SubnetIds": {
+            "Type": "CommaDelimitedList",
+            "Description": "Optional - Specifies the Comma separated list of existing VPC Subnet Ids where ECS instances will run",
+            "Default": ""
+          },
+          "LatestECSOptimizedAMI": {
+            "Description": "AMI ID",
+            "Type": "AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>",
+            "Default": "/aws/service/ecs/optimized-ami/amazon-linux-2023/recommended/image_id"
+          }, 
+         "IamRoleInstanceProfile": {
+           "Type": "String",
+           "Description": "Specifies the Name or the Amazon Resource Name (ARN) of the instance profile associated with the IAM role for the instance",
+           "Default": "arn:aws:iam::686255954747:instance-profile/AmazonEC2ContainerServiceforEC2Role"
+          }
+        },
+        "Resources" : {
+          "myVpc": {
+            "Type" : "AWS::EC2::VPC",
+            "Properties" : {
+              "CidrBlock" : { "Ref" : "VPCCidr" },
+              "Tags" : [
+                {"Key": "Name", "Value": "Primary_CF_VPC"}
+              ]
+            }
+          },
+          "ECSLaunchTemplate": {
+            "Type": "AWS::EC2::LaunchTemplate",
+            "DependsOn": "ECSCluster",
+            "Properties": {
+              "LaunchTemplateData": {
+                "ImageId": {
+                  "Ref": "LatestECSOptimizedAMI"
+                },
+              "SecurityGroupIds": {
+                 "Ref": "SecurityGroupIds"
+              },
+              "InstanceType": "t2.xlarge",
+              "KeyName": "id_rsa",
+              "IamInstanceProfile": {
+                "Arn": {
+                  "Ref": "IamRoleInstanceProfile"
+                }
+              },
+              "BlockDeviceMappings": [
+                {
+                  "DeviceName": "/dev/xvda",
+                  "Ebs": {
+                    "VolumeSize": "30"
+                  }
+                }
+              ],
+              "UserData": {
+                "Fn::Base64": {
+                  "Fn::Sub": [
+                    "#!/bin/ash \necho ECS_CLUSTER=${ClusterName} >> /etc/ecs/ecs.config;",
+                    {
+                      "ClusterName": {
+                        "Ref": "ECSClusterName"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "ECSAutoScalingGroup": {
+         "Type": "AWS::AutoScaling::AutoScalingGroup",
+        "DependsOn": "ECSCluster",
+        "Properties": {
+          "MinSize": 0,
+          "MaxSize": 5,
+          "DesiredCapacity": 0,
+          "LaunchTemplate": {
+            "LaunchTemplateId": {
+              "Ref": "ECSLaunchTemplate"
+            },
+            "Version": {
+              "Fn::GetAtt": [
+                "ECSLaunchTemplate",
+                "LatestVersionNumber"
+              ]
+            }
+          },
+          "VPCZoneIdentifier": {
+            "Ref": "SubnetIds"
+          },
+          "Tags": [
+            {
+              "Key": "Name",
+              "PropagateAtLaunch": true,
+              "Value": {
+                "Fn::Join": [
+                  " - ",
+                  [
+                    "ECS Instance",
+                    {
+                      "Ref": "ECSClusterName"
+                    }
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "ECSCluster": {
+        "Type": "AWS::ECS::Cluster",
+        "Properties": {
+          "ClusterName": {
+            "Ref": "ECSClusterName"
+          },
+          "ClusterSettings": [
+            {
+              "Name": "containerInsights",
+              "Value": "disabled"
+            }
+          ],
+          "ServiceConnectDefaults": {
+            "Namespace": "DevCluster"
+          },
+          "Tags": []
+        }
+      },
+      "EC2CapacityProvider": {
+        "Type": "AWS::ECS::CapacityProvider",
+        "Properties": {
+          "AutoScalingGroupProvider": {
+            "AutoScalingGroupArn": {
+              "Ref": "ECSAutoScalingGroup"
+            },
+            "ManagedScaling": {
+              "Status": "ENABLED",
+              "TargetCapacity": 100
+            },
+            "ManagedTerminationProtection": "DISABLED"
+          }
+        }
+      },
+      "ClusterCPAssociation": {
+        "Type": "AWS::ECS::ClusterCapacityProviderAssociations",
+        "DependsOn": "ECSCluster",
+        "Properties": {
+          "Cluster": {
+            "Ref": "ECSClusterName"
+          },
+          "CapacityProviders": [
+            {
+              "Ref": "EC2CapacityProvider"
+            }
+          ],
+          "DefaultCapacityProviderStrategy": [
+            {
+              "Base": 0,
+              "Weight": 1,
+              "CapacityProvider": {
+                "Ref": "EC2CapacityProvider"
+              }
+            }
+          ]
+        }
+      }
+    },
+
+        }
+      }

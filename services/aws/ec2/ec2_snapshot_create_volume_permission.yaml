@@ -1,0 +1,15 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SnapshotCreateVolumePermission
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/snapshotcreatevolumepermission
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-snapshot-create-volume-permission
+  name: blanketops-ec2-snapshot-create-volume-permission
+spec:
+  forProvider:
+    accountId: "686255954747"
+    region: eu-north-1
+    snapshotIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ebs-snapshot

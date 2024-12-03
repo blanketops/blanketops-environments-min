@@ -1,0 +1,18 @@
+apiVersion: compute.azure.upbound.io/v1beta1
+kind: Snapshot
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/snapshot
+  labels:
+    testing.upbound.io/example-name: example
+  name: snapshot
+spec:
+  forProvider:
+    createOption: Copy
+    location: West Europe
+    resourceGroupNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    sourceUriSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

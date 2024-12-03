@@ -1,0 +1,10 @@
+apiVersion: kms.aws.upbound.io/v1beta1
+kind: Key
+metadata:
+  name: blanketops-kms-key
+spec:
+  forProvider:
+    deletionWindowInDays: 7
+    description: Created with Crossplane
+    multiRegion: true
+    region: eu-north-1

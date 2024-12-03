@@ -1,0 +1,12 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: AvailabilityZoneGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/carriergateway
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-availability-group
+  name: eu-north-1a
+spec:
+  forProvider:
+    optInStatus: opted-in
+    region: eu-north-1a

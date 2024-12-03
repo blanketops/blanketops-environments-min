@@ -1,0 +1,45 @@
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: Instance
+# metadata:
+#   labels:
+#     testing.upbound.io/example-name: blanketops-ec2-instance-network-interface
+#   name: blanketops-ec2-instance-network-interface
+# spec:
+#   forProvider:
+#     ami: ami-0716d3c0decf6a203
+#     instanceType: t2.micro
+#     networkInterface:
+#     - deviceIndex: 0
+#       networkInterfaceIdRef:
+#         name: blanketops-ecs-network-interface
+#     region: eu-north-1
+# ---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Instance
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-instance-web
+  name: blanketops-ec2-instance-web
+spec:
+  forProvider:
+    ami: ami-0716d3c0decf6a203
+    availabilityZone: eu-north-1a
+    instanceType: t2.xlarge
+    region: eu-north-1
+    tags:
+      Name: BlanketOps
+
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: Instance
+# metadata:
+#   labels:
+#     testing.upbound.io/example-name: blanketops-ec2-instance
+#   name: blanketops-ec2-instance
+# spec:
+#   forProvider:
+#     ami: ami-0716d3c0decf6a203
+#     instanceType: t2.xlarge
+#     region: eu-north-1
+#     tags:
+#       type: upbound-test-instance

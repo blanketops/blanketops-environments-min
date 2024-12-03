@@ -1,0 +1,16 @@
+apiVersion: compute.gcp.upbound.io/v1beta1
+kind: DiskIAMMember
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/diskiammember
+  labels:
+    testing.upbound.io/example-name: disk-iam-member
+  name: disk-iam-member
+spec:
+  forProvider:
+    member: ${data.google_iam_member.member}
+    nameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: disk-iam-member
+    role: roles/viewer
+    zone: us-central1-a

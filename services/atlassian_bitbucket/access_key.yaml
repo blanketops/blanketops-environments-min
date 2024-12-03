@@ -1,0 +1,14 @@
+apiVersion: accesskey.bitbucket-server.crossplane.io/v1alpha1
+kind: AccessKey
+metadata:
+  name: example
+spec:
+  forProvider:
+    projectKey: TEST
+    publicKey:
+      key: ssh-rsa 100
+      label: test2
+      permission: REPO_WRITE
+    repoName: test
+  providerConfigRef:
+    name: example

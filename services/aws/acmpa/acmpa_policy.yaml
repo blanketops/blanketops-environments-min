@@ -1,0 +1,51 @@
+apiVersion: acmpca.aws.upbound.io/v1beta1
+kind: Policy
+metadata:
+   annotations:
+      meta.upbound.io/example-id: acmpca/v1beta1/policy
+   labels:
+      testing.upbound.io/example-name: blanketops-acmpa-policy
+   name: blanketops-acmpa-policy
+spec:
+   forProvider:
+      policy: >
+         {                        
+            "Version":"2012-10-17",
+            "Statement":[
+               {    
+                  "Sid":"1",
+                  "Effect":"Allow",         
+                  "Principal":{                                                                                                                                               
+                     "AWS":"${data.aws_caller_identity.current.account_id}"                                                                                
+                  },
+                  "Action":[
+                     "acm-pca:DescribeCertificateAuthority",
+                     "acm-pca:GetCertificate",
+                     "acm-pca:GetCertificateAuthorityCertificate",
+                     "acm-pca:ListPermissions",
+                     "acm-pca:ListTags"                                                                                   
+                  ],                                                                                              
+                  "Resource":"${aws_acmpca_certificate_authority.example.arn}"
+               },
+               {
+                  "Sid":"1",  
+                  "Effect":"Allow",
+                  "Principal":{
+                     "AWS":"${data.aws_caller_identity.current.account_id}"
+                  },
+                  "Action":[
+                     "acm-pca:IssueCertificate"
+                  ],
+                  "Resource":"${aws_acmpca_certificate_authority.example.arn}",
+                  "Condition":{
+                     "StringEquals":{
+                        "acm-pca:TemplateArn":"arn:aws:acm-pca:::template/EndEntityCertificate/V1"
+                     }
+                  }
+               }
+            ]
+         }
+      region: eu-north-1
+      resourceArnSelector:
+         matchLabels:
+            testing.upbound.io/example-name: blanketops-acmpa-certificate-authority

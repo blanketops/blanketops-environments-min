@@ -1,0 +1,24 @@
+apiVersion: cloudfront.aws.upbound.io/v1beta1
+kind: FieldLevelEncryptionConfig
+metadata:
+  labels:
+    testing.upbound.io/example-name: publickey
+  name: blanketops-cloudfront-field-level-encryption-config
+spec:
+  forProvider:
+    comment: BlanketOps CloudFront Field Level Encryption Config
+    contentTypeProfileConfig:
+    - contentTypeProfiles:
+      - items:
+        - contentType: application/x-www-form-urlencoded
+          format: URLEncoded
+      forwardWhenContentTypeIsUnknown: true
+    queryArgProfileConfig:
+    - forwardWhenQueryArgProfileIsUnknown: true
+      queryArgProfiles:
+      - items:
+        - profileIdSelector:
+            matchLabels:
+              testing.upbound.io/example-name: publickey
+          queryArg: Arg1
+    region: eu-north-1

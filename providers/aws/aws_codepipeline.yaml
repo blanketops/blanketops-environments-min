@@ -1,0 +1,6 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-aws-codepipeline
+spec:
+  package: xpkg.upbound.io/upbound/provider-aws-codepipeline:v1.17.0

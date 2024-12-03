@@ -1,0 +1,61 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPNGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpngateway
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpn-gateway
+  name: blanketops-ec2-vpn-gateway
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Name: blanketops-ec2-vpn-gateway
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vpn-gateway
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPNGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpnconnectionroute
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpn-gateway-for-connection-route
+  name: blanketops-ec2-vpn-gateway-for-connection-route
+spec:
+  forProvider:
+    region: eu-north-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vpn-connection-route
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPNGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpngatewayattachment
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpn-gateway-for-attachment
+  name: blanketops-ec2-vpn-gateway-for-attachment
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Name: blanketops-ec2-vpn-gateway-for-attachment
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPNGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpngatewayroutepropagation
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpn-gateway-for-propagation
+  name: blanketops-ec2-vpn-gateway-for-propagation
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Name: blanketops-ec2-vpn-gateway-for-propagation
+    vpcIdRef:
+      name: blanketops-ec2-vpc-for-vpn-gateway-propagation

@@ -1,0 +1,61 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCPeeringConnection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpcpeeringconnectionaccepter
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vcp-peering-connection-for-accepter
+  name: blanketops-ec2-vcp-peering-connection-for-accepter
+spec:
+  forProvider:
+    autoAccept: false
+    peerOwnerId: ${data.aws_account_id}
+    peerRegion: eu-north-1
+    peerVpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vcp-peering-connection-accepter
+    region: eu-north-1
+    tags:
+      Side: Requester
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vcp-peering-connection-accepter
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCPeeringConnection
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vcp-peering-connection
+  name: blanketops-ec2-vcp-peering-connection
+spec:
+  forProvider:
+    peerOwnerId: <peer-owner-id>
+    peerVpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vcp-peering-connection-for-accepter
+    region: eu-north-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vcp-peering-connection-accepter
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCPeeringConnection
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpcpeeringconnectionaccepter
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vcp-peering-connection
+  name: blanketops-ec2-vcp-peering-connection
+spec:
+  forProvider:
+    autoAccept: true
+    peerOwnerId: ${data.aws_account_id}
+    peerVpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vcp-peering-connection-accepter
+    region: eu-north-1
+    tags:
+      Side: Requester
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vcp-peering-connection-accepter

@@ -1,0 +1,10 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Tag
+metadata:
+  name: blanketops-ec2-tag
+spec:
+  forProvider:
+    key: karpenter.sh/discovery
+    region: eu-north-1
+    resourceId: <resourceid-arn>
+    value: sample-eks-cluster

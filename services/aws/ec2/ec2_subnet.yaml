@@ -1,0 +1,215 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-subnet-for-vpc-attach
+  name: blanketops-ec2-subnet-for-vpc-attach
+spec:
+  forProvider:
+    availabilityZone: eu-north-1a
+    cidrBlock: 10.0.5.0/24
+    region: eu-north-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vpc-attach
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-subnet-for-vpc-attach2
+  name: blanketops-ec2-subnet-for-vpc-attach2
+spec:
+  forProvider:
+    availabilityZone: eu-north-1b
+    cidrBlock: 10.0.1.0/24
+    region: eu-north-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vpc-attach
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/networkinsightsanalysis
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-subnet-for-network-network-insights-analysis
+  name: blanketops-ec2-subnet-for-network-network-insights-analysis
+spec:
+  forProvider:
+    cidrBlock: 10.0.1.0/24
+    region: eu-north-1
+    tags:
+      Name: Main
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-network-insights-analysis
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/transitgatewayconnect
+  name: blanketops-ec2-subnet-for-transit-gateway-connect
+spec:
+  forProvider:
+    availabilityZone: eu-north-1b
+    cidrBlock: 172.16.10.0/24
+    region: eu-north-1
+    vpcIdRef:
+      name: blanketops-ec2-vpc-for-transit-gateway-connect
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/networkinsightsanalysis
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-network-insights-analysis2
+  name: blanketops-ec2-vpc-for-network-insights-analysis2
+spec:
+  forProvider:
+    cidrBlock: 10.0.0.0/24
+    region: eu-north-1
+    tags:
+      Name: Main
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-network-insights-analys
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/natgateway
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-subnet-for-nat-gateway
+  name: blanketops-ec2-subnet-for-nat-gateway
+spec:
+  forProvider:
+    availabilityZone: eu-north-1a
+    cidrBlock: 172.16.10.0/24
+    region: eu-north-1
+    vpcIdRef:
+      name: blanketops-ec2-vpc-for-nat-gateway
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/instance
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-subnet-for-instance
+  name: blanketops-ec2-subnet-for-instance
+spec:
+  forProvider:
+    availabilityZone: eu-north-1b
+    cidrBlock: 172.16.10.0/24
+    region: eu-north-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-instance
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/networkinsightspath
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-network-insights-path
+  name: blanketops-ec2-vpc-for-network-insights-path
+spec:
+  forProvider:
+    cidrBlock: 10.0.1.0/24
+    region: eu-north-1
+    tags:
+      Name: Main
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-network-insights-path
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/subnetcidrreservation
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-subnet-example
+  name: sample-subnet1
+spec:
+  forProvider:
+    availabilityZone: eu-north-1b
+    cidrBlock: 172.16.10.0/24
+    region: eu-north-1
+    vpcIdRef:
+      name: default
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: sample-subnet2
+spec:
+  forProvider:
+    availabilityZone: eu-north-1c
+    cidrBlock: 172.16.11.0/24
+    region: eu-north-1
+    vpcIdRef:
+      name: sample-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-subnet-for-vpc1
+  name: blanketops-ec2-subnet-for-vpc1
+spec:
+  forProvider:
+    cidrBlock: 10.0.1.0/24
+    region: eu-north-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-vpc1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  name: blanketops-ec2-subnet-for-vpc
+spec:
+  forProvider:
+    availabilityZone: eu-north-1b
+    cidrBlock: 172.16.10.0/24
+    region: eu-north-1
+    vpcIdRef:
+      name: blanketops-ec2-vpc-for-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-subnet-for-route-table-association
+  name: blanketops-ec2-subnet-for-route-table-association
+spec:
+  forProvider:
+    cidrBlock: 10.0.1.0/24
+    region: eu-north-1
+    vpcIdRef:
+      name: blanketops-ec2-vpc-for-main-route-table-association
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/networkinsightspath
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-network-insights-path2
+  name: blanketops-ec2-vpc-for-network-insights-path2
+spec:
+  forProvider:
+    cidrBlock: 10.0.1.0/24
+    region: eu-north-1
+    tags:
+      Name: Main
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-vpc-for-network-insights-path

@@ -1,0 +1,15 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: CapacityReservation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/capacityreservation
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-capacity-reservation
+  name: blanketops-ec2-capacity-reservation
+spec:
+  forProvider:
+    availabilityZone: eu-north-1a
+    instanceCount: 1
+    instancePlatform: Linux/UNIX
+    instanceType: t2.xlarge
+    region: eu-north-1

@@ -1,0 +1,39 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/securitygrouprule
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-security-group-rule-ingress
+  name: blanketops-ec2-security-group-rule-ingress
+spec:
+  forProvider:
+    cidrBlocks:
+    - 10.0.0.0/16
+    fromPort: 0
+    protocol: tcp
+    region: eu-north-1
+    securityGroupIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-security-group-ingress-rule
+    toPort: 65535
+    type: ingress
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SecurityGroupRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/securitygrouprule
+  name: blanketops-ec2-security-group-rule-test-vpc-security-group-ingress-delete
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    fromPort: 22
+    protocol: tcp
+    region: eu-north-1
+    securityGroupIdSelector:
+      matchLabels:
+        selector: blanketops-ec2-security-group-ingress-rule
+    self: true
+    toPort: 22
+    type: ingress

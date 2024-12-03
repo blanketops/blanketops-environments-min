@@ -1,0 +1,62 @@
+apiVersion: codepipeline.aws.upbound.io/v1beta1
+kind: Codepipeline
+metadata:
+  annotations:
+    meta.upbound.io/example-id: codepipeline/v1beta1/codepipeline
+  labels:
+    testing.upbound.io/example-name: codepipeline
+  name: codepipeline
+spec:
+  forProvider:
+    artifactStore:
+    - locationSelector:
+        matchLabels:
+          testing.upbound.io/example-name: codepipeline_bucket
+      type: S3
+    region: eu-north-1
+    roleArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: codepipeline_role
+    stage:
+    - action:
+      - category: Source
+        configuration:
+          Branch: master
+          OAuthToken: your-token-here
+          Owner: my-organization
+          Repo: test
+        name: Source
+        outputArtifacts:
+        - test
+        owner: ThirdParty
+        provider: GitHub
+        version: "1"
+      name: Source
+    - action:
+      - category: Build
+        configuration:
+          ProjectName: test
+        inputArtifacts:
+        - test
+        name: Build
+        outputArtifacts:
+        - build_output
+        owner: AWS
+        provider: CodeBuild
+        version: "1"
+      name: Build
+    - action:
+      - category: Deploy
+        configuration:
+          ActionMode: REPLACE_ON_FAILURE
+          Capabilities: CAPABILITY_AUTO_EXPAND,CAPABILITY_IAM
+          OutputFileName: CreateStackOutput.json
+          StackName: MyStack
+          TemplatePath: build_output::sam-templated.yaml
+        inputArtifacts:
+        - build_output
+        name: Deploy
+        owner: AWS
+        provider: CloudFormation
+        version: "1"
+      name: Deploy

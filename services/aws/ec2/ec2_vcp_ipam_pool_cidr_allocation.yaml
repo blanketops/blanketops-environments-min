@@ -1,0 +1,15 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCIpamPoolCidrAllocation
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpcipampoolcidrallocation
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-ipam-pool-cidr-allocation
+  name: blanketops-ec2-vpc-ipam-pool-cidr-allocation
+spec:
+  forProvider:
+    cidr: 172.2.0.0/24
+    ipamPoolIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    region: eu-north-1

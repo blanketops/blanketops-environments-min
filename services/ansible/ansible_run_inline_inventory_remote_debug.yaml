@@ -1,0 +1,15 @@
+apiVersion: ansible.crossplane.io/v1alpha1
+kind: AnsibleRun
+metadata:
+  name: inline-inventory-remote-debug
+spec:
+  forProvider:
+    inventoryInline: |
+      127.14.1.2
+    playbookInline: |
+      ---
+      - hosts: all
+        tasks:
+          - name: ansibleplaybook-simple
+            debug:
+              msg: Your are running 'ansibleplaybook-simple' example

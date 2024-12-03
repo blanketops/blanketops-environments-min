@@ -1,0 +1,27 @@
+apiVersion: autoscalingplans.aws.upbound.io/v1beta1
+kind: ScalingPlan
+metadata:
+  annotations:
+    meta.upbound.io/example-id: autoscalingplans/v1beta1/scalingplan
+  labels:
+    testing.upbound.io/example-name: blanketops-autoscalingplans-scaling-plan
+  name: blanketops-autoscalingplans-scaling-plan
+spec:
+  forProvider:
+    applicationSource:
+    - tagFilter:
+      - key: application
+        values:
+        - example
+    name: example-dynamic-cost-optimization
+    region: eu-north-1
+    scalingInstruction:
+    - maxCapacity: 3
+      minCapacity: 0
+      resourceId: autoScalingGroup/blanketops-autoscaling-group
+      scalableDimension: autoscaling:autoScalingGroup:DesiredCapacity
+      serviceNamespace: autoscaling
+      targetTrackingConfiguration:
+      - predefinedScalingMetricSpecification:
+        - predefinedScalingMetricType: ASGAverageCPUUtilization
+        targetValue: 70

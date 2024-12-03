@@ -1,0 +1,19 @@
+apiVersion: acmpca.aws.upbound.io/v1beta1
+kind: Permission
+metadata:
+  annotations:
+    meta.upbound.io/example-id: acmpca/v1beta1/permission
+  labels:
+    testing.upbound.io/example-name: blanketops-acmpa-permission
+  name: blanketops-acmpa-permission
+spec:
+  forProvider:
+    actions:
+    - IssueCertificate
+    - GetCertificate
+    - ListPermissions
+    certificateAuthorityArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-acmpa-certificate-authority
+    principal: acm.amazonaws.com
+    region: eu-north-1

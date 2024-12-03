@@ -1,0 +1,16 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: CustomerGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/customergateway
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-customer-gateway
+  name: blanketops-ec2-customer-gateway
+spec:
+  forProvider:
+    bgpAsn: "65000"
+    ipAddress: 172.83.124.10
+    region: eu-north-1
+    tags:
+      Name: blanketops-ec2-customer-gateway
+    type: ipsec.1

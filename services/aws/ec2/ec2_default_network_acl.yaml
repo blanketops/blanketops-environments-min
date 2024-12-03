@@ -1,0 +1,28 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: DefaultNetworkACL
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/defaultnetworkacl
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-default-network-acl
+  name: blanketops-ec2-default-network-acl
+spec:
+  forProvider:
+    defaultNetworkAclIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: mainvpc
+    egress:
+    - action: allow
+      cidrBlock: 0.0.0.0/0
+      fromPort: 0
+      protocol: "-1"
+      ruleNo: 100
+      toPort: 0
+    ingress:
+    - action: allow
+      cidrBlock: 10.1.0.0/16
+      fromPort: 0
+      protocol: "-1"
+      ruleNo: 100
+      toPort: 0
+    region: eu-north-1

@@ -1,0 +1,49 @@
+apiVersion: sns.aws.upbound.io/v1beta1
+kind: Topic
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sns/v1beta1/topic
+  labels:
+    testing.upbound.io/example-name: blanketops-sns-topic
+  name: blanketops-sns-topic
+spec:
+  forProvider:
+    policy: |-
+      {
+        "Statement": [
+        {
+          "Sid": "publish",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": [
+              "arn:aws:iam::686255954747:role/sample-role"
+            ]
+          },
+          "Action": "sns:Publish",
+          "Resource": "arn:aws:sns:eu-north-1:123456789110:resource1"
+        },
+        {
+          "Sid": "get-attributes",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": [
+              "arn:aws:iam::686255954747:role/sample-role"
+            ]
+          },
+          "Action": "sns:GetTopicAttributes",
+          "Resource": "arn:aws:sns:eu-north-1:123456789110:resource1"
+        },
+        {
+          "Sid": "list-subscriptions",
+          "Effect": "Allow",
+          "Principal": {
+            "AWS": [
+              "arn:aws:iam::686255954747:role/sample-role"
+            ]
+          },
+          "Action": "sns:ListSubscriptionsByTopic",
+          "Resource": "arn:aws:sns:eu-north-1:123456789110:resource1"
+        }
+        ]
+      }
+    region: eu-north-1

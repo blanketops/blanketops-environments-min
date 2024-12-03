@@ -1,0 +1,9 @@
+apiVersion: backup.aws.upbound.io/v1beta1
+kind: GlobalSettings
+metadata:
+  name: blanketops-backup-global-settings
+spec:
+  forProvider:
+    globalSettings:
+      isCrossAccountBackupEnabled: "true"
+    region: eu-north-1

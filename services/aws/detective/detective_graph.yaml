@@ -1,0 +1,13 @@
+apiVersion: detective.aws.upbound.io/v1beta1
+kind: Graph
+metadata:
+  annotations:
+    meta.upbound.io/example-id: detective/v1beta1/graph
+  labels:
+    testing.upbound.io/example-name: blanketops-detective-graph
+  name: blanketops-detective-graph
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Name: blanketops-detective-graph

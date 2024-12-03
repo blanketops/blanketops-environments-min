@@ -1,0 +1,21 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: FlowLog
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/flowlog
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-flow-log
+  name: blanketops-ec2-flow-log
+spec:
+  forProvider:
+    iamRoleArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    logDestinationSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    region: eu-north-1
+    trafficType: ALL
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

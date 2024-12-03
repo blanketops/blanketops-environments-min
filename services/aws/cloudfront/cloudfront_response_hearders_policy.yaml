@@ -1,0 +1,22 @@
+apiVersion: cloudfront.aws.upbound.io/v1beta1
+kind: ResponseHeadersPolicy
+metadata:
+  name: blanketops-cloudfront-response-headers-policy
+spec:
+  forProvider:
+    comment: BlanketOps CloudFront Response Headers Policy
+    corsConfig:
+    - accessControlAllowCredentials: true
+      accessControlAllowHeaders:
+      - items:
+        - blanketops
+      accessControlAllowMethods:
+      - items:
+        - GET
+      accessControlAllowOrigins:
+      - items:
+        - blanketops.co.za
+        - argocd.blanketops.co.za
+      originOverride: true
+    name: blanketops-cloudfront-response-headers-policy
+    region: eu-north-1

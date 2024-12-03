@@ -1,0 +1,15 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCEndpointRouteTableAssociation
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-endpoint-route-table-association
+  name: blanketops-ec2-vpc-endpoint-route-table-association
+spec:
+  forProvider:
+    region: eu-north-1
+    routeTableIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-route-table-route
+    vpcEndpointIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

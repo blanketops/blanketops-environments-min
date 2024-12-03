@@ -1,0 +1,63 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: AMI
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/ami
+  labels:
+    testing.upbound.io/example-name: blanketops-ami
+  name: blanketops-ami
+spec:
+  forProvider:
+    ebsBlockDevice:
+    - deviceName: /dev/sda1
+      snapshotIdSelector:
+        matchLabels:
+          testing.upbound.io/example-name: blanketops-ec2-ebs-snapshot
+      volumeSize: 1
+    name: blanketops-ami-device
+    region: eu-north-1
+    rootDeviceName: /dev/sda1
+    virtualizationType: hvm
+
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: AMI
+# metadata:
+#   annotations:
+#     meta.upbound.io/example-id: ec2/v1beta1/amicopy
+#   labels:
+#     testing.upbound.io/example-name: blanketops-ec2-ami-for-ami-copy
+#   name: blanketops-ec2-ami-for-ami-copy
+# spec:
+#   forProvider:
+#     ebsBlockDevice:
+#     - deviceName: /dev/xvda
+#       snapshotIdSelector:
+#         matchLabels:
+#           testing.upbound.io/example-name: blanketops-ebs-snapshot
+#       volumeSize: 8
+#     name: blanketops-ami-device
+#     region: eu-north-1
+#     rootDeviceName: /dev/xvda
+#     virtualizationType: hvm
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: AMI
+# metadata:
+#   annotations:
+#     meta.upbound.io/example-id: ec2/v1beta1/amilaunchpermission
+#   labels:
+#     testing.upbound.io/example-name: blanketops-ec2-ami-for-launch-permission
+#   name: blanketops-ec2-ami-for-launch-permission
+# spec:
+#   forProvider:
+#     ebsBlockDevice:
+#     - deviceName: /dev/xvda
+#       snapshotIdSelector:
+#         matchLabels:
+#           testing.upbound.io/example-name: blanketops-ebs-snapshot
+#       volumeSize: 1
+#     name: blanketops-ami-device
+#     region: eu-north-1
+#     rootDeviceName: /dev/xvda
+#     virtualizationType: hvm

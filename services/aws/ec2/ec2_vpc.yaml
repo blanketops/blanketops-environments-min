@@ -1,0 +1,362 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpc
+  name: blanketops-ec2-vpc
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsVPC
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta2/vpcpeeringconnectionaccepter
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-vcp-peering-connection-accepter
+  name: blanketops-ec2-vpc-for-vcp-peering-connection-accepter
+spec:
+  forProvider:
+    cidrBlock: 10.1.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsPeeringConnectionVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/carriergateway
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-carrier-gateway
+  name: blanketops-ec2-vpc-for-carrier-gateway
+spec:
+  forProvider:
+    cidrBlock: 10.7.0.0/16
+    enableDnsHostnames: true
+    enableDnsSupport: true
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsCarrierGateWayVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/defaultroutetable
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-default-route-table
+  name: blanketops-ec2-vpc-for-default-route-table
+spec:
+  forProvider:
+    cidrBlock: 172.31.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsDefaultRouteTableVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta2/route
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-route
+  name: blanketops-ec2-vpc-for-route
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsRouteVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpc-ipampool
+  name: blanketops-ec2-vpc-for-ipam-pool
+spec:
+  forProvider:
+    ipv4IpamPoolIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: ipampool
+    ipv4NetmaskLength: 28
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsIAMPoolVpc
+
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: VPC
+# metadata:
+#   labels:
+#     testing.upbound.io/example-name: blanketops-ec2-vpc-for-route-vpc
+#   name: blanketops-ec2-vpc-for-route-vpc
+# spec:
+#   forProvider:
+#     cidrBlock: 172.16.0.0/16
+#     region: eu-north-1
+#     tags:
+#       Name: BlanketOpsRouteVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/securitygrouprule
+  name: blanketops-ec2-vpc-for-security-group-rule
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsSecurityGroupVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta2/flowlog
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-flow-log
+  name: blanketops-ec2-vpc-for-flow-log
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsFlowLogVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpngatewayroutepropagation
+  name: blanketops-ec2-vpc-for-vpn-gateway-propagation
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsGateWayPropagationVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/natgateway
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-nat-gateway
+  name: blanketops-ec2-vpc-for-nat-gateway
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsNatGatewayVpc
+
+# ---
+# apiVersion: ec2.aws.upbound.io/v1beta1
+# kind: VPC
+# metadata:
+#   name: blanketops-ec2-route-table-association
+#   forProvider:
+#     cidrBlock: 10.0.0.0/16
+#     region: eu-north-1
+#     # tags:
+#     #   Name: BlanketOpsRouteTableAssociationVPC
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpngatewayattachment
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-vpn-gateway-attachment
+  name: blanketops-ec2-vpc-for-vpn-gateway-attachment
+spec:
+  forProvider:
+    cidrBlock: 10.0.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsVPNGateWayAttachmentVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpngateway
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-vpn-gateway
+  name: blanketops-ec2-vpc-for-vpn-gateway
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsVPNGateWayVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  labels:
+    testing.upbound.io/example-name: vpcattach
+  name: blanketops-ec2-vpc-for-vpc-attach
+spec:
+  forProvider:
+    cidrBlock: 10.0.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsVPCAttachVpc
+---
+
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/networkinsightsanalysis
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-network-insights-analysis
+  name: blanketops-ec2-vpc-for-network-insights-analysis
+spec:
+  forProvider:
+    cidrBlock: 10.0.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsNetworkInsightsAnalysisVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta2/instance
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-instance
+  name: blanketops-ec2-vpc-for-instance
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsInstanceVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/mainroutetableassociation
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-main-route-table-association
+  name: blanketops-ec2-vpc-for-main-route-table-association
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsMainRouteTableAssociationVpc
+---
+
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-vpc1
+  name: blanketops-ec2-vpc-for-vpc1
+spec:
+  forProvider:
+    cidrBlock: 10.0.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsVPC1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpnconnectionroute
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-vpn-connection-route
+  name: blanketops-ec2-vpc-for-vpn-connection-route
+spec:
+  forProvider:
+    cidrBlock: 10.0.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsVPNConnectionRouteVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/securitygroup
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-security-group
+  name: blanketops-ec2-vpc-for-security-group
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsSecurityGroupVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/securitygrouprule
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-security-group
+  name: blanketops-ec2-vpc-for-security-group-rule
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsSecurityGroupRuleVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/transitgatewayconnect
+  name: blanketops-ec2-vpc-for-transit-gateway-connect
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsTransitGateWayConnectVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/securitygroupegressrule
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-security-group-egress-rule
+  name: blanketops-ec2-vpc-for-security-group-egress-rule
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsSecurityGroupEgressRuleVpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPC
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/securitygroupingressrule
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-for-security-group-inress-rule
+  name: blanketops-ec2-vpc-for-security-group-inress-rule
+spec:
+  forProvider:
+    cidrBlock: 172.16.0.0/16
+    region: eu-north-1
+    tags:
+      Name: BlanketOpsSecurityGroupIngressRuleVpc

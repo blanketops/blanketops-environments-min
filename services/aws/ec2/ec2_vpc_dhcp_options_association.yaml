@@ -1,0 +1,11 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCDHCPOptionsAssociation
+metadata:
+  name: blanketops-ec2-vcp-dhcp-options-association
+spec:
+  forProvider:
+    dhcpOptionsId: ${aws_vpc_dhcp_options.foo.id}
+    region: eu-north-1
+    vpcIdRef:
+      # not sure which one to pass here?
+      name: blanketops-ec2-vpc

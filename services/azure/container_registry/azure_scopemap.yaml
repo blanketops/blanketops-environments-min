@@ -1,0 +1,59 @@
+apiVersion: containerregistry.azure.upbound.io/v1beta1
+kind: ScopeMap
+metadata:
+  annotations:
+    meta.upbound.io/example-id: containerregistry/v1beta1/tokenpassword
+  labels:
+    testing.upbound.io/example-name: tokenpasswordsm
+  name: tokenpasswordsm
+spec:
+  forProvider:
+    actions:
+    - repositories/repo1/content/read
+    - repositories/repo1/content/write
+    containerRegistryNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: tokenpasswordregistry
+    resourceGroupNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: tokenpassword-rg
+---
+apiVersion: containerregistry.azure.upbound.io/v1beta1
+kind: ScopeMap
+metadata:
+  name: example
+spec:
+  forProvider:
+    actions:
+    - repositories/repo1/content/read
+    - repositories/repo1/content/delete
+    - repositories/repo1/content/write
+    - repositories/repo1/metadata/read
+    - repositories/repo1/metadata/write
+    - gateway/examplecr/config/read
+    - gateway/examplecr/config/write
+    - gateway/examplecr/message/read
+    - gateway/examplecr/message/write
+    containerRegistryName: upbound
+    resourceGroupNameRef:
+      name: example-containerreg
+---
+apiVersion: containerregistry.azure.upbound.io/v1beta1
+kind: ScopeMap
+metadata:
+  annotations:
+    meta.upbound.io/example-id: containerregistry/v1beta2/tokenpassword
+  labels:
+    testing.upbound.io/example-name: tokenpasswordsm
+  name: tokenpasswordsm
+spec:
+  forProvider:
+    actions:
+    - repositories/repo1/content/read
+    - repositories/repo1/content/write
+    containerRegistryNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: tokenpasswordregistry
+    resourceGroupNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: tokenpassword-rg

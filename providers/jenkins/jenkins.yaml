@@ -1,0 +1,6 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Provider
+metadata:
+  name: provider-jenkins
+spec:
+  package: xpkg.upbound.io/ankasoftco/provider-jenkins:0.0.2

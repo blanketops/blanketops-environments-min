@@ -1,0 +1,13 @@
+apiVersion: autoscaling.aws.upbound.io/v1beta1
+kind: LaunchConfiguration
+metadata:
+  annotations:
+    meta.upbound.io/example-id: autoscaling/v1beta1/autoscalinggroup
+  labels:
+    testing.upbound.io/example-name: blanketops-autoscaling-launch-configuration
+  name: blanketops-autoscaling-launch-configuration
+spec:
+  forProvider:
+    imageId: ami-0716d3c0decf6a203
+    instanceType: t2.xlarge
+    region: eu-north-1

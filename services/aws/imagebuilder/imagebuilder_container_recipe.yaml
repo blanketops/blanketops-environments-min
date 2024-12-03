@@ -1,0 +1,27 @@
+apiVersion: imagebuilder.aws.upbound.io/v1beta1
+kind: ContainerRecipe
+metadata:
+  annotations:
+    meta.upbound.io/example-id: imagebuilder/v1beta1/containerrecipe
+  labels:
+    testing.upbound.io/example-name: blanketops-imagebuilder-container-recipe
+  name: blanketops-imagebuilder-container-recipe
+spec:
+  forProvider:
+    component:
+    - componentArn: arn:aws:imagebuilder:eu-north-1:686255954747:component/component/1.0.0/1
+    containerType: DOCKER
+    dockerfileTemplateData: |
+      FROM {{{ imagebuilder:parentImage }}}
+      {{{ imagebuilder:environments }}}
+      {{{ imagebuilder:components }}}
+    name: example
+    parentImage: arn:aws:imagebuilder:eu-north-1:aws:component/docker-ce-linux/x.x.x
+    region: eu-north-1
+    targetRepository:
+    - repositoryNameSelector:
+        matchLabels:
+          testing.upbound.io/example-name: crossplane-blanketops-ecr-repository
+      service: ECR
+    version: 1.0.0
+    # We need to point this recipe to an existing docker image in the ECR, Delete for now

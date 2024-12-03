@@ -1,0 +1,24 @@
+apiVersion: codepipeline.aws.upbound.io/v1beta1
+kind: Webhook
+metadata:
+  annotations:
+    meta.upbound.io/example-id: codepipeline/v1beta1/webhook
+  labels:
+    testing.upbound.io/example-name: codepipeline
+  name: codepipeline-webhook
+spec:
+  forProvider:
+    authentication: GITHUB_HMAC
+    authenticationConfiguration:
+    - secretTokenSecretRef:
+        key: example-key
+        name: example-secret-webhook
+        namespace: upbound-system
+    filter:
+    - jsonPath: $.ref
+      matchEquals: refs/heads/{Branch}
+    region: eu-north-1
+    targetAction: Source
+    targetPipelineSelector:
+      matchLabels:
+        testing.upbound.io/example-name: codepipeline

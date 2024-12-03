@@ -1,0 +1,24 @@
+apiVersion: acmpca.aws.upbound.io/v1beta1
+kind: CertificateAuthority
+metadata:
+  name: blanketops-acmpa-certificate-authority
+spec:
+  forProvider:
+    certificateAuthorityConfiguration:
+    - keyAlgorithm: RSA_4096
+      signingAlgorithm: SHA512WITHRSA
+      subject:
+      - commonName: blanketops.co.za
+      # - localityName: Welkom
+      # - provinceName: Free State
+      # - organizationName: BlanketOps
+      # - organizationUnitName: Intertia
+      # - countryName: SA
+    permanentDeletionTimeInDays: 7
+    region: eu-north-1
+    type: ROOT
+  providerConfigRef:
+    name: default
+  writeConnectionSecretToRef:
+    name: blanketops-acmpca-ca
+    namespace: upbound-system

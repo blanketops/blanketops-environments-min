@@ -1,0 +1,16 @@
+apiVersion: cloudfront.aws.upbound.io/v1beta1
+kind: OriginAccessControl
+metadata:
+  annotations:
+    meta.upbound.io/example-id: cloudfront/v1beta1/originaccesscontrol
+  labels:
+    testing.upbound.io/example-name: blanketops-cloudfront-origin-access-control
+  name: blanketops-cloudfront-origin-access-control
+spec:
+  forProvider:
+    description: BlanketOps Origin Access Control
+    name: blanketops-cloudfront-origin-access-control
+    originAccessControlOriginType: s3
+    region: eu-north-1
+    signingBehavior: always
+    signingProtocol: sigv4

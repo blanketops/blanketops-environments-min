@@ -1,0 +1,17 @@
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: VPCAssociationAuthorization
+metadata:
+  annotations:
+    meta.upbound.io/example-id: route53/v1beta1/zoneassociation
+  labels:
+    testing.upbound.io/example-name: blanketops-route53-vpc-association-authorization
+  name: blanketops-route53-vpc-association-authorization
+spec:
+  forProvider:
+    region: eu-north-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-vpc
+    zoneIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-route53-zone

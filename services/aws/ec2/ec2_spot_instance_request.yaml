@@ -1,0 +1,9 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: SpotInstanceRequest
+metadata:
+  name: blanketops-ec2-spot-instance-request
+spec:
+  forProvider:
+    ami: ami-0d9858aa3c6322f73
+    instanceType: t2.xlarge
+    region: eu-north-1

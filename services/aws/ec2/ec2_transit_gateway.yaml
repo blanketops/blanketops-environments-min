@@ -1,0 +1,101 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/transitgatewayconnect
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-for-connect
+  name: blanketops-ec2-transit-gateway-for-connect
+spec:
+  forProvider:
+    multicastSupport: enable
+    region: eu-north-1
+    transitGatewayCidrBlocks:
+    - 172.16.0.0/16
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/transitgatewayconnect
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-for-connect-no-cidr-blocks
+  name: blanketops-ec2-transit-gateway-for-connect-no-cidr-blocks
+spec:
+  forProvider:
+    multicastSupport: enable
+    region: eu-north-1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta2/vpnconnection
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-for-vpc-connection
+  name: blanketops-ec2-transit-gateway-for-vpc-connection
+spec:
+  forProvider:
+    region: eu-north-1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/transitgatewaypolicytable
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-for-policy-table
+  name: blanketops-ec2-transit-gateway-for-policy-table
+spec:
+  forProvider:
+    multicastSupport: enable
+    region: eu-north-1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/transitgatewaypeeringattachmentaccepter
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-for-peering-attachment-accepter-local
+  name: blanketops-ec2-transit-gateway-for-peering-attachment-accepter-local
+spec:
+  forProvider:
+    multicastSupport: enable
+    region: eu-north-1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/transitgatewaypeeringattachmentaccepter
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-for-peering-attachment-accepter-peer
+  name: blanketops-ec2-transit-gateway-for-peering-attachment-accepter-peer
+spec:
+  forProvider:
+    multicastSupport: enable
+    region: eu-north-1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGateway
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpnconnection
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-for-vpc-connection
+  name: blanketops-ec2-transit-gateway-for-vpc-connection
+spec:
+  forProvider:
+    region: eu-north-1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGateway
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway
+  name: blanketops-ec2-transit-gateway
+spec:
+  forProvider:
+    multicastSupport: enable
+    region: eu-north-1

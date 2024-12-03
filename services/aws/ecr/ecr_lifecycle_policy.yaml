@@ -1,0 +1,173 @@
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: LifecyclePolicy
+metadata:
+  name: blanketops-ecr-backend-lifecycle-policy
+spec:
+  forProvider:
+    policy: |
+      {
+          "rules": [
+              {
+                  "rulePriority": 1,
+                  "description": "Expire images older than 14 days",
+                  "selection": {
+                      "tagStatus": "untagged",
+                      "countType": "sinceImagePushed",
+                      "countUnit": "days",
+                      "countNumber": 14
+                  },
+                  "action": {
+                      "type": "expire"
+                  }
+              }
+          ]
+      }
+    region: eu-north-1
+    repository: blanketops-crossplane-ecr-backend-repository
+  providerConfigRef:
+    name: default
+---
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: LifecyclePolicy
+metadata:
+  name: blanketops-ecr-frontend-lifecycle-policy
+spec:
+  forProvider:
+    policy: |
+      {
+          "rules": [
+              {
+                  "rulePriority": 1,
+                  "description": "Expire images older than 14 days",
+                  "selection": {
+                      "tagStatus": "untagged",
+                      "countType": "sinceImagePushed",
+                      "countUnit": "days",
+                      "countNumber": 14
+                  },
+                  "action": {
+                      "type": "expire"
+                  }
+              }
+          ]
+      }
+    region: eu-north-1
+    repository: blanketops-crossplane-ecr-fronted-repository
+  providerConfigRef:
+    name: default
+---
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: LifecyclePolicy
+metadata:
+  name: blanketops-ecr-mobile-lifecycle-policy
+spec:
+  forProvider:
+    policy: |
+      {
+          "rules": [
+              {
+                  "rulePriority": 1,
+                  "description": "Expire images older than 14 days",
+                  "selection": {
+                      "tagStatus": "untagged",
+                      "countType": "sinceImagePushed",
+                      "countUnit": "days",
+                      "countNumber": 14
+                  },
+                  "action": {
+                      "type": "expire"
+                  }
+              }
+          ]
+      }
+    region: eu-north-1
+    repository: blanketops-crossplane-ecr-mobile-repository
+  providerConfigRef:
+    name: default
+---
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: LifecyclePolicy
+metadata:
+  name: blanketops-ecr-web-server-lifecycle-policy
+spec:
+  forProvider:
+    policy: |
+      {
+          "rules": [
+              {
+                  "rulePriority": 1,
+                  "description": "Expire images older than 14 days",
+                  "selection": {
+                      "tagStatus": "untagged",
+                      "countType": "sinceImagePushed",
+                      "countUnit": "days",
+                      "countNumber": 14
+                  },
+                  "action": {
+                      "type": "expire"
+                  }
+              }
+          ]
+      }
+    region: eu-north-1
+    repository: blanketops-crossplane-ecr-web-server-repository
+  providerConfigRef:
+    name: default
+---
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: LifecyclePolicy
+metadata:
+  name: blanketops-ecr-single-lifecycle-policy
+spec:
+  forProvider:
+    policy: |
+      {
+          "rules": [
+              {
+                  "rulePriority": 1,
+                  "description": "Expire images older than 14 days",
+                  "selection": {
+                      "tagStatus": "untagged",
+                      "countType": "sinceImagePushed",
+                      "countUnit": "days",
+                      "countNumber": 14
+                  },
+                  "action": {
+                      "type": "expire"
+                  }
+              }
+          ]
+      }
+    region: eu-north-1
+    repository: blanketops-crossplane-ecr-single-repository
+  providerConfigRef:
+    name: default
+---
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: LifecyclePolicy
+metadata:
+  name: blanketops-ecr-microservice-lifecycle-policy
+spec:
+  forProvider:
+    policy: |
+      {
+          "rules": [
+              {
+                  "rulePriority": 1,
+                  "description": "Expire images older than 14 days",
+                  "selection": {
+                      "tagStatus": "untagged",
+                      "countType": "sinceImagePushed",
+                      "countUnit": "days",
+                      "countNumber": 14
+                  },
+                  "action": {
+                      "type": "expire"
+                  }
+              }
+          ]
+      }
+    region: eu-north-1
+    repository: blanketops-crossplane-ecr-microservice-repository
+  providerConfigRef:
+    name: default

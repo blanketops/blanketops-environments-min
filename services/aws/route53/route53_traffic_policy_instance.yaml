@@ -1,0 +1,18 @@
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: TrafficPolicyInstance
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-route53-traffic-policy-instance
+  name: blanketops-route53-traffic-policy-instance
+spec:
+  forProvider:
+    hostedZoneIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-route53-zone
+    name: blanketops.co.za
+    region: eu-north-1
+    trafficPolicyIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-route53-traffic-policy
+    trafficPolicyVersion: 1
+    ttl: 360

@@ -1,0 +1,20 @@
+apiVersion: cloudfront.aws.upbound.io/v1beta1
+kind: FieldLevelEncryptionProfile
+metadata:
+  labels:
+    testing.upbound.io/example-name: publickey
+  name: blanketops-cloudfront-field-level-encryption-profile
+spec:
+  forProvider:
+    comment: BlanketOps CloudFront Field Level Encryption Profile
+    encryptionEntities:
+    - items:
+      - fieldPatterns:
+        - items:
+          - DateOfBirth
+        providerId: default
+        publicKeyIdSelector:
+          matchLabels:
+            testing.upbound.io/example-name: publickey
+    name: random
+    region: eu-north-1

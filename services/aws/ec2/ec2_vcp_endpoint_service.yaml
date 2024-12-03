@@ -1,0 +1,23 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCEndpointService
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-endpoint-service
+  name: blanketops-ec2-vpc-endpoint-service
+spec:
+  forProvider:
+    acceptanceRequired: false
+    networkLoadBalancerArns:
+    - ${networkLoadBalancerArn}
+    region: eu-north-1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCEndpointService
+metadata:
+  name: blanketops-ec2-vpc-endpoint-service-for-network-loadbalancer
+spec:
+  forProvider:
+    acceptanceRequired: false
+    networkLoadBalancerArns:
+    - ${aws_lb.example.arn}
+    region: eu-north-1

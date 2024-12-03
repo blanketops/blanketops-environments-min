@@ -1,0 +1,13 @@
+apiVersion: backup.aws.upbound.io/v1beta1
+kind: Vault
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-backup-vault
+  name: blanketops-backup-vault
+spec:
+  forProvider:
+    kmsKeyArnSelector:
+      #need kms
+      matchLabels:
+        testing.upbound.io/example-name: vault
+    region: eu-north-1

@@ -1,0 +1,18 @@
+apiVersion: imagebuilder.aws.upbound.io/v1beta1
+kind: Image
+metadata:
+  annotations:
+    meta.upbound.io/example-id: imagebuilder/v1beta1/image
+  labels:
+    testing.upbound.io/example-name: blanketops-imagebuilder-image
+  name: blanketops-imagebuilder-image
+spec:
+  forProvider:
+    imageRecipeArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-imagebuilder-image-recipe
+    infrastructureConfigurationArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-imagebuilder-infrastructure-configuration
+    region: eu-north-1
+    #Seems building an image triggers a pipelinerun?

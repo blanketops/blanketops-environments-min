@@ -1,0 +1,12 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGatewayRouteTable
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-route-table
+  name: blanketops-ec2-transit-gateway-route-table
+spec:
+  forProvider:
+    region: eu-north-1
+    transitGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-transit-gateway

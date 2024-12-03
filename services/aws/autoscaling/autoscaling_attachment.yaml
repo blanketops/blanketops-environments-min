@@ -1,0 +1,17 @@
+apiVersion: autoscaling.aws.upbound.io/v1beta2
+kind: Attachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: autoscaling/v1beta2/attachment
+  labels:
+    testing.upbound.io/example-name: blanketops-autoscaling-attachment
+  name: blanketops-autoscaling-attachment
+spec:
+  forProvider:
+    autoscalingGroupNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-autoscaling-group
+    elbSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-elb-loadbalancer
+    region: eu-north-1

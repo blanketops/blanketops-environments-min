@@ -1,0 +1,15 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: EIPAssociation
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-eip-association
+  name: blanketops-ec2-eip-association
+spec:
+  forProvider:
+    allocationIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: web
+    region: eu-north-1

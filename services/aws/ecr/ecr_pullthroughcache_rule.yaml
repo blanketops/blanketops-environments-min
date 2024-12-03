@@ -1,0 +1,11 @@
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: PullThroughCacheRule
+metadata:
+  name: blanketops-ecr-pullthroughcache-rule
+spec:
+  forProvider:
+    ecrRepositoryPrefix: blanketops-ecr
+    region: eu-north-1
+    upstreamRegistryUrl: public.ecr.aws
+  providerConfigRef:
+    name: default

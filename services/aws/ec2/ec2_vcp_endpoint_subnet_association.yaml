@@ -1,0 +1,15 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCEndpointSubnetAssociation
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-endpoint-subnet-association
+  name: blanketops-ec2-vpc-endpoint-subnet-association
+spec:
+  forProvider:
+    region: eu-north-1
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: subnet1
+    vpcEndpointIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: ec2

@@ -1,0 +1,18 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCEndpointConnectionNotification
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-vpc-endpoint-connection-notification
+  name: blanketops-ec2-vpc-endpoint-connection-notification
+spec:
+  forProvider:
+    connectionEvents:
+    - Accept
+    - Reject
+    connectionNotificationArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: topic
+    region: eu-north-1
+    vpcEndpointServiceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: foo

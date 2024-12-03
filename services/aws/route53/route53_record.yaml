@@ -1,0 +1,14 @@
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: Record
+metadata:
+  name: blanketops-route53-record
+spec:
+  forProvider:
+    name: blanketops-route53-record
+    records:
+    - blanketops.co.za
+    region: eu-north-1
+    ttl: 5
+    type: CNAME
+    zoneIdRef:
+      name: blanketops-route53-zone

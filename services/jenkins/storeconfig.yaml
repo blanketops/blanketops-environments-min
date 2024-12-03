@@ -1,0 +1,19 @@
+apiVersion: jenkins.crossplane.io/v1alpha1
+kind: StoreConfig
+metadata:
+  name: vault
+spec:
+  defaultScope: crossplane-system
+  type: Vault
+  vault:
+    auth:
+      method: Token
+      token:
+        secretRef:
+          key: token
+          name: vault-token
+          namespace: crossplane-system
+        source: Secret
+    mountPath: secret/
+    server: http://vault.vault-system:8200
+    version: v2

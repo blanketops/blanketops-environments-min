@@ -1,0 +1,19 @@
+apiVersion: sqs.aws.upbound.io/v1beta1
+kind: QueueRedriveAllowPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sqs/v1beta1/queueredriveallowpolicy
+  labels:
+    testing.upbound.io/example-name: blanketops-sqs-queued-re-drive-allow-policy
+  name: blanketops-sqs-queued-re-drive-allow-policy
+spec:
+  forProvider:
+    queueUrlSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-sqs-queue
+    redriveAllowPolicy: |-
+      ${jsonencode({
+          redrivePermission = "byQueue",
+          sourceQueueArns   = ["arn:aws:sqs:eu-north-1:686255954747:srcqueue"]
+        })}
+    region: eu-north-1

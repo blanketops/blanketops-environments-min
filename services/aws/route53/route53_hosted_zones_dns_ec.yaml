@@ -1,0 +1,12 @@
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: HostedZoneDNSSEC
+metadata:
+  labels:
+    testing.upbound.io/example-name: route53
+  name: blanketops-route53-hosted-zone-dns-ec
+spec:
+  forProvider:
+    hostedZoneIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-route53-zone
+    region: eu-north-1

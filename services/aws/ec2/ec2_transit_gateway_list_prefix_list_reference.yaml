@@ -1,0 +1,18 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGatewayPrefixListReference
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-prefix-list-preference
+  name: blanketops-ec2-transit-gateway-prefix-list-preference
+spec:
+  forProvider:
+    prefixListIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
+    region: eu-north-1
+    transitGatewayAttachmentIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: attachment1
+    transitGatewayRouteTableIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

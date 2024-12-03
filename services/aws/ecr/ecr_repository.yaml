@@ -1,0 +1,68 @@
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: Repository
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ecr-backend-repository
+  name: blanketops-ecr-backend-repository
+spec:
+  forProvider:
+    imageTagMutability: MUTABLE
+    region: eu-north-1
+---
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: Repository
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ecr-frontend-repository
+  name: blanketops-ecr-frontend-repository
+spec:
+  forProvider:
+    imageTagMutability: MUTABLE
+    region: eu-north-1
+---
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: Repository
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ecr-mobile-repository
+  name: blanketops-ecr-mobile-repository
+spec:
+  forProvider:
+    imageTagMutability: MUTABLE
+    region: eu-north-1
+---
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: Repository
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ecr-web-server-repository
+  name: blanketops-ecr-web-server-repository
+spec:
+  forProvider:
+    imageTagMutability: MUTABLE
+    region: eu-north-1
+---
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: Repository
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ecr-single-repository
+  name: blanketops-ecr-single-repository
+spec:
+  forProvider:
+    imageTagMutability: MUTABLE
+    region: eu-north-1
+---
+apiVersion: ecr.aws.upbound.io/v1beta1
+kind: Repository
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ecr-microservice-repository
+  name: blanketops-ecr-microservice-repository
+spec:
+  forProvider:
+    imageTagMutability: MUTABLE
+    region: eu-north-1
+---
+
+

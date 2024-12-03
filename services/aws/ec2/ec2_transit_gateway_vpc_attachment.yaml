@@ -1,0 +1,71 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGatewayVPCAttachment
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-vpc-attachment
+  name: blanketops-ec2-transit-gateway-vpc-attachment
+spec:
+  forProvider:
+    region: eu-north-1
+    subnetIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: subnet1
+    transitGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-transit-gateway
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGatewayVPCAttachment
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-vpc-attachment-for-peer-subnet
+  name: blanketops-ec2-transit-gateway-vpc-attachment-for-peer-subnet
+spec:
+  forProvider:
+    region: eu-north-1
+    subnetIdRefs:
+    - name: sample-subnet1
+    transitGatewayId: tgw-07a4690db599a7263 # must plug in here existing id
+    vpcIdRef:
+      name: sample-vpc
+  providerConfigRef:
+    name: peer
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGatewayVPCAttachment
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-vpc-attachment-for-peer-subnet-no-provider
+  name: blanketops-ec2-transit-gateway-vpc-attachment-for-peer-subnet-no-provider
+spec:
+  forProvider:
+    region: eu-north-1
+    subnetIdRefs:
+    - name: sample-subnet1
+    transitGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-transit-gateway
+    vpcIdRef:
+      name: sample-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGatewayVPCAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/transitgatewayconnect
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-transit-gateway-vpc-attachment-for-transit-gateway-connect
+  name: blanketops-ec2-transit-gateway-vpc-attachment-for-transit-gateway-connect
+spec:
+  forProvider:
+    region: eu-north-1
+    subnetIdRefs:
+    - name: sample-subnet1
+    transitGatewayIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-ec2-transit-gateway
+    vpcIdRef:
+      name: sample-vpc

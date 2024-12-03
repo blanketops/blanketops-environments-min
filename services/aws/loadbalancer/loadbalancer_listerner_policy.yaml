@@ -1,0 +1,17 @@
+apiVersion: elb.aws.upbound.io/v1beta1
+kind: ListenerPolicy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: elb/v1beta1/listenerpolicy
+  labels:
+    testing.upbound.io/example-name: blanketops-listener-policies-443
+  name: blanketops-listener-policies-443
+spec:
+  forProvider:
+    loadBalancerNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops
+    loadBalancerPort: 443
+    policyNames:
+    - blanketops-ssl
+    region: eu-north-1

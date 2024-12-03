@@ -1,0 +1,15 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: Host
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/host
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-host
+  name: blanketops-ec2-host
+spec:
+  forProvider:
+    autoPlacement: on
+    availabilityZone: eu-north-1a
+    hostRecovery: on
+    instanceType: t2.xlarge
+    region: eu-north-1

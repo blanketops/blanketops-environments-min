@@ -1,0 +1,34 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blanketops-crossplane-aws-resource
+  namespace: argocd
+  labels:
+    name: blanketops
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/hook-delete-policy: HookFailed
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+
+  project: default
+  source:
+    repoURL: https://github.com/blanketops/blanketops-cloud-native-manifests.git
+    # repoURL: git@github.com:blanketops/blanketops-cloud-native-manifests.git
+    targetRevision: main
+    directory:
+      recurse: true
+    path: aws/ecr
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: crossplane-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+    - CreateNamespace=true
+  revisionHistoryLimit: 10

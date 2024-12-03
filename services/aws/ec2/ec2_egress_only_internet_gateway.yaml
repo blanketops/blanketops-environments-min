@@ -1,0 +1,14 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: EgressOnlyInternetGateway
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-egress-only-internet-gateway
+  name: blanketops-egress-only-internet-gateway
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Name: main
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example

@@ -1,0 +1,10 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: VPCIPv4CidrBlockAssociation
+metadata:
+  name: blanketops-ec2-vpc-ipv4-cidr-block-association
+spec:
+  forProvider:
+    cidrBlock: 172.2.0.0/16
+    region: eu-north-1
+    vpcIdRef:
+      name: blanketops-ec2-vpc

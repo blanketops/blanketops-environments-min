@@ -1,0 +1,12 @@
+apiVersion: sqs.aws.upbound.io/v1beta1
+kind: Queue
+metadata:
+  annotations:
+    meta.upbound.io/example-id: sqs/v1beta1/queueredrivepolicy
+  labels:
+    testing.upbound.io/example-name: blanketops-sqs-queue
+  name: blanketops-sqs-queue
+spec:
+  forProvider:
+    name: blanketops-sqs-queue
+    region: eu-north-1

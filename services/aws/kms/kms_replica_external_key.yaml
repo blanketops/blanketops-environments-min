@@ -1,0 +1,16 @@
+apiVersion: kms.aws.upbound.io/v1beta1
+kind: ReplicaExternalKey
+metadata:
+  name: blanketops-kms-replica-external-key
+spec:
+  forProvider:
+    deletionWindowInDays: 7
+    description: Multi-Region replica key
+    keyMaterialBase64SecretRef:
+      key: blanketops-kms-replica-external-key
+      name: blanketops-kms-replica-external-key
+      namespace: upbound-system
+    primaryKeyArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-kms-key
+    region: eu-north-1

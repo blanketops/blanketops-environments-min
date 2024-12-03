@@ -1,0 +1,15 @@
+apiVersion: organizations.aws.upbound.io/v1beta1
+kind: PolicyAttachment
+metadata:
+  annotations:
+    meta.upbound.io/example-id: organizations/v1beta1/policyattachment
+  labels:
+    testing.upbound.io/example-name: blanketopsorganization
+  name: blanketops-aws-organization-policy
+spec:
+  forProvider:
+    policyIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketopsorganization
+    region: eu-north-1
+    targetId: <account-id>

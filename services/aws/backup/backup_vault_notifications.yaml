@@ -1,0 +1,18 @@
+apiVersion: backup.aws.upbound.io/v1beta1
+kind: VaultNotifications
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-backup-vault-notifications
+  name: blanketops-backup-vault-notifications
+spec:
+  forProvider:
+    backupVaultEvents:
+    - BACKUP_JOB_STARTED
+    - RESTORE_JOB_COMPLETED
+    backupVaultNameSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-backup-vault
+    region: eu-north-1
+    snsTopicArnSelector:
+      matchLabels:
+        testing.upbound.io/example-name: blanketops-sns-topic

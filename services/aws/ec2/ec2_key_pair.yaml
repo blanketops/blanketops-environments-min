@@ -1,0 +1,8 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: KeyPair
+metadata:
+  name: blanketops-ec2-keypair
+spec:
+  forProvider:
+    publicKey: <public-key>
+    region: eu-north-1

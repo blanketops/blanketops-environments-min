@@ -1,0 +1,87 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta2/route
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-route-table-route
+  name: blanketops-ec2-route-table-route
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Name: blanketops-ec2-route-table
+    vpcIdRef:
+      name: route-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-route-table
+  name: blanketops-ec2-route-table
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Name: blanketops-ec2-route-table
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: vpc1
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-route-table
+  name: blanketops-ec2-route-table
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Name: blanketops-ec2-route-table
+    vpcIdRef:
+      name: route-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/mainroutetableassociation
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-route-table-for-main-route-table-association
+  name: blanketops-ec2-route-table-for-main-route-table-association
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Name: blanketops-ec2-route-table
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: route-vpc
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  name: blanketops-ec2-route-table
+spec:
+  forProvider:
+    region: eu-north-1
+    vpcIdRef:
+      name: rta
+---
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: RouteTable
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/vpngatewayroutepropagation
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-route-table
+  name: blanketops-ec2-route-table
+spec:
+  forProvider:
+    region: eu-north-1
+    tags:
+      Name: example
+    vpcIdRef:
+      name: route-vpc

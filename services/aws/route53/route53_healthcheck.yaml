@@ -1,0 +1,17 @@
+apiVersion: route53.aws.upbound.io/v1beta1
+kind: HealthCheck
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-route53-healtchcheck
+  name: blanketops-route53-healtchcheck
+spec:
+  forProvider:
+    failureThreshold: 5
+    fqdn: blanketops.co.za
+    port: 80
+    region: eu-north-1
+    requestInterval: 30
+    resourcePath: /
+    tags:
+      Name: crossplane
+    type: HTTP

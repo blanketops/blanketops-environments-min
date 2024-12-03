@@ -1,0 +1,15 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: InstanceState
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/instancestate
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-instance-state
+  name: blanketops-ec2-instance-state
+spec:
+  forProvider:
+    instanceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    region: eu-north-1
+    state: stopped

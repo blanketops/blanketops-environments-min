@@ -1,0 +1,25 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: DefaultSecurityGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: ec2/v1beta1/defaultsecuritygroup
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-default-security-group
+  name: blanketops-ec2-default-security-group
+spec:
+  forProvider:
+    egress:
+    - cidrBlocks:
+      - 0.0.0.0/0
+      fromPort: 0
+      protocol: "-1"
+      toPort: 0
+    ingress:
+    - fromPort: 0
+      protocol: "-1"
+      self: true
+      toPort: 0
+    region: eu-north-1
+    vpcIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: mainvpc

@@ -1,0 +1,13 @@
+apiVersion: jenkins.crossplane.io/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: provider-jenkins-config
+spec:
+  baseurl: http://3.89.89.181:8080/
+  credentials:
+    secretRef:
+      key: credentials
+      name: jenkins-provider-secret
+      namespace: default
+    source: Secret
+  username: caner

@@ -1,0 +1,10 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: PlacementGroup
+metadata:
+  labels:
+    testing.upbound.io/example-name: blanketops-ec2-placement-group
+  name: blanketops-ec2-placement-group
+spec:
+  forProvider:
+    region: eu-north-1
+    strategy: cluster

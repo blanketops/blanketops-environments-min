@@ -1,0 +1,14 @@
+apiVersion: ec2.aws.upbound.io/v1beta1
+kind: TransitGatewayMulticastGroupSource
+metadata:
+  name: blanketops-ec2-transit-gateway-multicast-group-source
+spec:
+  forProvider:
+    groupIpAddress: 224.0.0.1
+    networkInterfaceIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: test
+    region: eu-north-1
+    transitGatewayMulticastDomainIdSelector:
+      matchLabels:
+        testing.upbound.io/example-name: example
