@@ -4,15 +4,15 @@ install:
 	 bash install.sh
 
 .PHONY: cluster
-kind-cluster:
+cluster:
 	@echo "\n🔧 Creating Kubernetes cluster..."
 	kind create cluster -n blanketops --config kind/kind_config.yaml
 	kubectl cluster-info --context kind-blanketops
 	sleep 60
 	kubectl get pod -A
 
-.PHONY: destroy-cluster
-delete-cluster:
+.PHONY: destroy
+destroy:
 	@echo "\n♻️  Deleting Kubernetes cluster..."
 	kind delete clusters --all
 	docker system prune -a
