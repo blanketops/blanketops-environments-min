@@ -2,12 +2,26 @@
 
 
 function_install_crossplane(){
+   echo "---------------------------------------------------------"
    echo "Installing Crossplane Argocd Application"
    echo "---------------------------------------------------------"
    kubectl create namespace crossplane-system
    kubectl apply -f argocd/crossplane_application.yaml
    echo "---------------------------------------------------------"
    sleep 30
+   function_health_check_crossplane
+   clear
+}
+
+function_health_check_crossplane(){
+   echo "---------------------------------------------------------"
+   echo "HealthCheck Crossplane Installation"
+   echo "---------------------------------------------------------"
+   kubectl get pod --namespace crossplane-system
+   sleep 30
+   clear
+   kubectl api-resources  | grep crossplane
+   echo "---------------------------------------------------------"
    clear
 }
 
@@ -76,25 +90,13 @@ function_install_aws_provider_providerconfig_with_bucket(){
    clear
 }
 
-function_health_check_crossplane(){
-   echo "HealthCheck Crossplane Installation"
-   echo "---------------------------------------------------------"
-   kubectl get pod --namespace crossplane-system
-   sleep 30
-   clear
-   kubectl api-resources  | grep crossplane
-   echo "---------------------------------------------------------"
-   clear
-}
+
 
 function_uninstall_crossplane(){
-   #uninstall crossplane here
    echo "Uninstalling Crossplane Helm Chart"
    echo "---------------------------------------------------------"
    kubectl delete bucket --all
    kubectl delete providers --all
-
- 
    helm repo remove crossplane-stable
    echo "---------------------------------------------------------"
    echo "Disconnect Crossplane AWS ProviderConfig"
@@ -244,19 +246,23 @@ function_cleanup(){
 
 function_cleanup
 function_install_argocd
-function_health_check_crossplane
 function_install_crossplane
+
+
+
+
+
 # function_install_secrets_store
 # sleep 120
-function_install_aws_provider_providerconfig_with_bucket
+#function_install_aws_provider_providerconfig_with_bucket
 # sleep 120
 # function_install_jaeger
 
 
 # function_uninstall_terraform_components
-function_install_terraform_components
-sleep 120
-function_health_check_terraform_components
+#function_install_terraform_components
+#sleep 120
+#function_health_check_terraform_components
 # function_uninstall_argocd
 # function_install_argocd
 # function_install_tekton_pipelines
