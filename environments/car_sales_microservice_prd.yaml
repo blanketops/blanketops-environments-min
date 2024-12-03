@@ -21,11 +21,11 @@ spec:
     name: car-sales-web-microservice-deployment
     strategy: canary
     scheduleType: manual
-    infrastructure:
-      clusterName: blanketops-ecs-cluster
-      region: eu-north-1
-      capacityProvider: blanketops-ecs-capacity-provider
-      capacityProviders: blanketops-ecs-capacity-providers
+  infrastructure:
+    clusterName: blanketops-ecs-cluster
+    region: eu-north-1
+    capacityProvider: blanketops-ecs-capacity-provider
+    capacityProviders: blanketops-ecs-capacity-providers
   capacity:
     scalingOperationName: blanketops-microservices-capacity-scaling-operation
     scaling: blanketops-microservices-capacity-scaling
