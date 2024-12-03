@@ -23,12 +23,18 @@ install:
 	 bash install.sh
 	 clear
 
+.PHONY: uninstall
+uninstall:
+	@echo "\n♻️  Executing uninstall.sh..."
+	 bash uninstall.sh
+	 clear	 
+
 .PHONY: setup
 setup:
-	@echo "\n♻️  Executing install.sh..."
+	@echo "\n♻️  Executing setup.sh..."
 	 bash setup.sh
 	 clear
 
 .PHONY: all 
-all: teardown cluster install setup
+all: uninstall teardown cluster install setup
 

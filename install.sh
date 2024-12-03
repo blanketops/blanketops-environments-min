@@ -33,21 +33,10 @@ function_install_crossplane(){
    kubectl create namespace crossplane-system
    kubectl apply -f argocd/crossplane_application.yaml
    echo "---------------------------------------------------------"
-   sleep 180
-   function_health_check_crossplane
    clear
 }
 
-function_health_check_crossplane(){
-   echo "---------------------------------------------------------"
-   echo "HealthCheck Crossplane Installation"
-   echo "---------------------------------------------------------"
-   kubectl get pod --namespace crossplane-system
-   clear
-   kubectl api-resources  | grep crossplane
-   echo "---------------------------------------------------------"
-   clear
-}
+
 
 function_install_localstack(){
    echo "---------------------------------------------------------"
@@ -72,86 +61,6 @@ function_setup_localstack(){
    clear
 }
 
-function_uninstall_crossplane(){
-   echo "Uninstalling Crossplane Helm Chart"
-   echo "---------------------------------------------------------"
-   kubectl delete bucket --all
-   kubectl delete providers --all
-   helm repo remove crossplane-stable
-   echo "---------------------------------------------------------"
-   echo "Disconnect Crossplane AWS ProviderConfig"
-   echo "---------------------------------------------------------"
-   kubectl delete providerconfig.aws.upbound.io --all
-   echo "---------------------------------------------------------"
-   echo "Delete All Crossplane AWS S3 Buckets"
-   echo "---------------------------------------------------------"
-   kubectl delete buckets --all
-   kubectl delete namespace crossplane-system
-   echo "---------------------------------------------------------"
-   clear
-}
-
-function_uninstall_argocd(){
-   echo "Deleting Resources"
-   echo "---------------------------------------------------------"
-
-   kubectl delete ns argocd
-   kubectl delete application.argoproj.io --all --all-namespaces
-   echo "---------------------------------------------------------"
-   clear
-}
-
-function_install_terraform_components(){
-   echo "Installing Crossplane Terraform Provider"
-   echo "---------------------------------------------------------"
-   kubectl apply -f providers/terraform/terraform.yaml
-   sleep 15
-   echo "---------------------------------------------------------"
-
-   echo "Creating Crossplane Terraform Secrets"
-   echo "---------------------------------------------------------"
-   kubectl create namespace upbound-system
-   sleep 15
-   echo "---------------------------------------------------------"
-
-   echo "Creating Crossplane Terraform ProviderConfig"
-   echo "---------------------------------------------------------"
-   kubectl apply -f providerconfigs/terraform.yaml
-   sleep 15
-   echo "---------------------------------------------------------"
-   clear
-}
-
-function_health_check_terraform_components(){
-   echo "Describe Crossplane Terraform AWS Workspace"
-   echo "---------------------------------------------------------"
-   kubectl describe workspaces
-   sleep 15
-   echo "---------------------------------------------------------"
-
-}
-
-function_uninstall_terraform_components(){
-   echo "Uninstalling Crossplane Terraform Provider"
-   echo "---------------------------------------------------------"
-   kubectl delete providers provider-terraform
-   echo "---------------------------------------------------------"
-
-   echo "Deleting Crossplane Terraform Secrets"
-   echo "---------------------------------------------------------"
-   kubectl delete namespace upbound-system
-   echo "---------------------------------------------------------"
-
-   echo "Disconnect Crossplane Terraform ProviderConfig"
-   echo "---------------------------------------------------------"
-   kubectl delete providerconfig.tf.upbound.io --all
-   echo "---------------------------------------------------------"
-   echo "Delete Crossplane Terraform WorkSpaces"
-   echo "---------------------------------------------------------"
-   kubectl delete workspaces --all
-   echo "---------------------------------------------------------"
-   clear
-}
 
 function_install_tekton_pipelines(){
    echo "Initializing Pipeline Resources"
