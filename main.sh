@@ -1,26 +1,10 @@
 #!/bin/bash
-# BlanketOps CrossPlane Manifests
-# Neo Tlaletsi
-#
-
-#install_crossplane()
-#install_argocd()
-#install_localstack()
 
 
 function_install_crossplane(){
-   #setup and install crossplane here
-   # echo "Installing Crossplane Helm Chart"
-   # echo "---------------------------------------------------------"
-   # helm repo add crossplane-stable https://charts.crossplane.io/stable
-   # helm repo update
-   # helm install crossplane crossplane-stable/crossplane --namespace crossplane-system --create-namespace
-   # echo "---------------------------------------------------------"
-   # sleep 30
-   # clear
-
-   echo "Installing Crossplane Argocd Applciation"
+   echo "Installing Crossplane Argocd Application"
    echo "---------------------------------------------------------"
+   kubectl create namespace crossplane-system
    kubectl apply -f argocd/crossplane_application.yaml
    echo "---------------------------------------------------------"
    sleep 30
@@ -28,10 +12,10 @@ function_install_crossplane(){
 }
 
 function_install_localstack(){
-   echo "Installing LocalStack Helm Chart"
+   echo "Installing LocalStack Argocd Application"
    echo "---------------------------------------------------------"
-   helm repo add localstack-repo https://helm.localstack.cloud
-   helm upgrade --install localstack localstack-repo/localstack --namespace localstack --create-namespace
+   kubectl create namespace localstack
+   kubectl apply -f argocd/localstack_application.yaml
    echo "---------------------------------------------------------"
    sleep 30
    clear
@@ -47,36 +31,6 @@ function_setup_localstack(){
    clear
 }
 
-function_install_secrets_store(){
-   echo "Installing Secrets Store Helm Chart"
-   echo "---------------------------------------------------------"
-   helm repo add external-secrets https://charts.external-secrets.io
-   helm install external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --set installCRDs=false
-
-   sleep 30
-
-   kubectl apply -f services/secrets_store/
-   echo "---------------------------------------------------------"
-   clear
-}
-
-function_healthcheck_secrets_store(){
-
-   echo "HealthCheck Secrets Store Installation"
-   echo "---------------------------------------------------------"
-   kubectl get SecretStores,ClusterSecretStores,ExternalSecrets --all-namespaces
-   echo "---------------------------------------------------------"
-   clear
-}
-
-function_uninstall_secrets_store(){
-
-   echo "Uninstalling Secrets Store Helm Chart"
-   echo "---------------------------------------------------------"
-   helm delete external-secrets --namespace external-secrets
-   echo "---------------------------------------------------------"
-   clear
-}
 
 function_install_aws_provider_providerconfig_with_bucket(){
 
@@ -101,27 +55,33 @@ function_install_aws_provider_providerconfig_with_bucket(){
    echo "---------------------------------------------------------"
    sleep 30
 
-   # echo "Create the Example Bucket"
-   # echo "---------------------------------------------------------" 
-   # kubectl apply -f services/aws/s3/s3_bucket.yaml
-   # echo "---------------------------------------------------------"
-   # sleep 30
-   # clear
+   echo "Create the Example Bucket"
+   echo "---------------------------------------------------------" 
+   kubectl apply -f services/aws/s3/s3_bucket.yaml
+   echo "---------------------------------------------------------"
+   sleep 60
+   clear
 
-   # echo "Check if Bucket is available"
-   # echo "---------------------------------------------------------" 
-   # kubectl describe buckets
-   # echo "---------------------------------------------------------"
-   # sleep 30
+   echo "Check if Bucket is available"
+   echo "---------------------------------------------------------" 
+   kubectl describe buckets
+   echo "---------------------------------------------------------"
+   sleep 30
+
+   echo "Destroy the bucket"
+   echo "---------------------------------------------------------" 
+   kubectl delete buckets --all
+   echo "---------------------------------------------------------"
+   sleep 30
    clear
 }
 
 function_health_check_crossplane(){
-   #healthcheck crossplane here
    echo "HealthCheck Crossplane Installation"
    echo "---------------------------------------------------------"
    kubectl get pod --namespace crossplane-system
    sleep 30
+   clear
    kubectl api-resources  | grep crossplane
    echo "---------------------------------------------------------"
    clear
