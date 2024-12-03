@@ -17,241 +17,39 @@ spec:
       tier:
         name: backend
         programmingLanguageName: c#
-  deployment:
-    name: car-sales-web-microservice-deployment
-    strategy: canary
-    scheduleType: manual
-  infrastructure:
-    clusterName: blanketops-ecs-cluster
-    region: eu-north-1
-    capacityProvider: blanketops-ecs-capacity-provider
-    capacityProviders: blanketops-ecs-capacity-providers
-  capacity:
-    scalingOperationName: blanketops-microservices-capacity-scaling-operation
-    scaling: blanketops-microservices-capacity-scaling
-    scalinggroupname: blanketops-aws-autoscaling-group
-    clustername: blanketops-aws-ecs-cluster
-  containerRegistries:
-  - name: blanketops-ecr-microservice-repository
-    region: eu-north-1
-    imageTagMutability: MUTABLE
-  microservices:
-  - name: car-sales-web-microservice
-    image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-microservice-repository:main
-    labels:
-      app: app
-      tier: microservice
-    size: 1
-  release:
-    name: release 1
-    image:
-    number: 2
-    isReleased: true
-    dateReleased: 04/09/2024
-    deployedBranch: origin/main
-    rollback:
-      releaseName: release 1
-      isEnabled: false
-      releaseTag: v0.1.0
-  # apiVersion: batch.blanketops.co.za/v1
-  # kind: Environment
-  # metadata:
+  # deployment:
+  #   name: car-sales-web-microservice-deployment
+  #   strategy: canary
+  #   scheduleType: manual
+  # infrastructure:
+  #   clusterName: blanketops-ecs-cluster
+  #   region: eu-north-1
+  #   capacityProvider: blanketops-ecs-capacity-provider
+  #   capacityProviders: blanketops-ecs-capacity-providers
+  # capacity:
+  #   scalingOperationName: blanketops-microservices-capacity-scaling-operation
+  #   scaling: blanketops-microservices-capacity-scaling
+  #   scalinggroupname: blanketops-aws-autoscaling-group
+  #   clustername: blanketops-aws-ecs-cluster
+  # containerRegistries:
+  # - name: blanketops-ecr-microservice-repository
+  #   region: eu-north-1
+  #   imageTagMutability: MUTABLE
+  # microservices:
+  # - name: car-sales-web-microservice
+  #   image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-microservice-repository:main
   #   labels:
-  #     app.kubernetes.io/name: operator
-  #     app.kubernetes.io/managed-by: kustomize
-  #   name: car-sales-lamp-wamp-environment # this must work with cluster name(for ec2?),#and argo?, we are managing clusters and ago for environments as is 
-  # spec:
-  #   namespace: dev
-  #   type: lamp_wamp
-  #   deployment:
-  #     name: car-sales-web-deployment
-  #     type: bluegreen
-  #     scheduletype: automatic
-  #     #------------------------------
-  #   capacity:
-  #     name: blanketops-capacity
-  #     scaling: blanketops-capacity-scaling
-  #     scalinggroupname: blanketops-aws-autoscaling-group
-  #     clustername: blanketops-argocd-clusters
-  #     #------------------------------------
-  #   containerRegistries:
-  #   - name: blanketops-crossplane-ecr-backend-repository
-  #     uri: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-crossplane-ecr-backend-repository
-
-  #   - name: blanketops-crossplane-ecr-frontend-repository
-  #     uri: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-crossplane-ecr-frontend-repository
-
-  #   - name: blanketops-crossplane-ecr-web-server-repository
-  #     uri: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-crossplane-ecr-web-server-repository
-  #   #-------------------------------------
-  #   application:
-  #     name: car-sales-web-application
-  #     tier:
-  #       name: backend
-  #       programmingLanguageName: php
-  #     stack:
-  #       name: LAMP
-  #     #-------------------------------------  
-  #   backend:
-  #     #ECS Container
-  #     name: car-sales-web-backend
-  #     image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-crossplane-ecr-repository:car-sales-web-backend
-  #     containerPort: 9000
-  #     labels:
-  #       app: app
-  #       tier: backend
-  #     size: 1
-  #     #--------------------------------------
-  #   frontend:
-  #     #ECS Container
-  #     name: car-sales-web-frontend
-  #     image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-crossplane-ecr-repository:car-sales-web-frontend
-  #     containerPort: 8000
-  #     labels:
-  #       app: app
-  #       tier: frontend
-  #     size: 1
-  #     #-----------------------------------------
-  #   database:
-  #     #ECS Container
-  #     name: database
-  #     image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-crossplane-ecr-repository:car-sales-web-database
-  #     containerPort: 3306
-  #     labels:
-  #       app: app
-  #       tier: backend
-  #     size: 1
-  #     #---------------------------------------------
-  #   webserver:
-  #     #ECS Container
-  #     name: car-sales-web-server
-  #     image: ntlaletsi70:car-sales-web:develop
-  #     containerPort: 80
-  #     labels:
-  #       app: app
-  #       tier: backend
-  #     size: 1
-  #     #----------------------------------------------
-  #   release:
-  #     #S3 Bucket
-  #     name: release 1
-  #     image:
-  #     number: 2
-  #     isReleased: true
-  #     dateReleased: 04/09/2024
-  #     deployedBranch: origin/develop
-  #     #----------------------------------------------
-  # ---
-  # apiVersion: batch.blanketops.co.za/v1
-  # kind: Environment
-  # metadata:
-  #   labels:
-  #     app.kubernetes.io/name: operator
-  #     app.kubernetes.io/managed-by: kustomize
-  #   name: car-sales-mobile-environment # this must work with cluster name(for ec2?),#and argo?, we are managing clusters and ago for environments as is 
-  # spec:
-  #   namespace: dev
-  #   type: mobile
-  #   deployment:
-  #     name: car-sales-web-deployment
-  #     type: bluegreen
-  #     scheduletype: automatic
-  #     #------------------------------
-  #   capacity:
-  #     name: blanketops-capacity
-  #     scaling: blanketops-capacity-scaling
-  #     scalinggroupname: blanketops-aws-autoscaling-group
-  #     clustername: blanketops-argocd-clusters
-  #     #------------------------------------
-  #   containerRegistries:
-  #   - name: blanketops-crossplane-ecr-single-repository
-  #     uri: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-mobile-repository
-  #   #-------------------------------------
-  #   application:
-  #     name: car-sales-web-mobile-application
-  #     tier:
-  #       name: backend
-  #       programmingLanguageName: java
-  #     stack:
-  #       name: mobile
-  #     #-------------------------------------  
-  #   mobile:
-  #     #ECS Container,#TaskDefinition
-  #     name: car-sales-web-mobile
-  #     image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/crossplane-blanketops-ecr-mobile-repository:develop
-  #     labels:
-  #       app: app
-  #       tier: mobile
-  #     size: 1
-  #     #--------------------------------------
-  #   release:
-  #     #S3 Bucket
-  #     name: release 1
-  #     image:
-  #     number: 2
-  #     isReleased: true
-  #     dateReleased: 04/09/2024
-  #     deployedBranch: origin/develop
-  #     #----------------------------------------------
-  # ---
-
-
-  # ---
-  # apiVersion: batch.blanketops.co.za/v1
-  # kind: Environment
-  # metadata:
-  #   labels:
-  #     app.kubernetes.io/name: operator
-  #     app.kubernetes.io/managed-by: kustomize
-  #   name: car-sales-single-environment # this must work with cluster name(for ec2?),#and argo?, we are managing clusters and ago for environments as is 
-  # spec:
-  #   namespace: qa
-  #   type: single
-  #   deployment:
-  #     name: car-sales-web-single-deployment
-  #     type: canary
-  #     scheduletype: automatic
-  #     #------------------------------
-  #   capacity:
-  #     name: blanketops-capacity
-  #     scaling: blanketops-capacity-scaling
-  #     scalinggroupname: blanketops-aws-autoscaling-group
-  #     clustername: blanketops-argocd-clusters
-  #     #------------------------------------
-  #   containerRegistries:
-  #   - name: blanketops-ecr-single-repository
-  #     uri: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-single-repository
-  #   #-------------------------------------
-  #   application:
-  #     name: car-sales-web-single-application
-  #     tier:
-  #       name: backend
-  #       programmingLanguageName: javascript
-  #     stack:
-  #       name: microservice
-  #     #-------------------------------------  
-  #   microservice:
-  #     #ECS Container,#TaskDefinition
-  #     name: car-sales-web-single
-  #     image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-single-repository:main
-  #     labels:
-  #       app: app
-  #       tier: microservice
-  #     size: 1
-  #     #--------------------------------------
-  #   release:
-  #     #S3 Bucket
-  #     name: release 1
-  #     image:
-  #     number: 2
-  #     isReleased: true
-  #     dateReleased: 04/09/2024
-  #     deployedBranch: origin/main
-  #     rollback:
-  #       releaseName: release-1
-  #       isEnabled: true
-  #       releaseBranch: origin/main
-  #       #----------------------------------------------
-  # ---
-
-
+  #     app: app
+  #     tier: microservice
+  #   size: 1
+  # release:
+  #   name: release 1
+  #   image:
+  #   number: 2
+  #   isReleased: true
+  #   dateReleased: 04/09/2024
+  #   deployedBranch: origin/main
+  #   rollback:
+  #     releaseName: release 1
+  #     isEnabled: false
+  #     releaseTag: v0.1.0

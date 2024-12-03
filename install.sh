@@ -52,9 +52,6 @@ function_health_check_crossplane(){
    clear
 }
 
-function_setup_crossplane(){
-   function_install_aws_provider_providerconfig_with_bucket
-}
 
 function_install_localstack(){
    echo "---------------------------------------------------------"
@@ -74,51 +71,6 @@ function_setup_localstack(){
    export NODE_PORT=$(kubectl get --namespace "localstack" -o jsonpath="{.spec.ports[0].nodePort}" services localstack)
    export NODE_IP=$(kubectl get nodes --namespace "localstack" -o jsonpath="{.items[0].status.addresses[0].address}")
    echo http://$NODE_IP:$NODE_PORT
-   echo "---------------------------------------------------------"
-   sleep 15
-   clear
-}
-
-
-function_install_aws_provider_providerconfig_with_bucket(){
-
-   echo "Installing AWS Crossplane Secret"
-   echo "---------------------------------------------------------" 
-   kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=secrets/./aws-credentials.txt
-   echo "---------------------------------------------------------"
-   sleep 15
-
-   echo "Connect AWS Crossplane Base Providers"
-   echo "---------------------------------------------------------" 
-   kubectl apply -f providers/aws/aws_s3.yaml
-   kubectl apply -f providers/aws/aws_dynamodb.yaml
-   kubectl apply -f providers/aws/aws_ecr.yaml
-   kubectl apply -f providers/aws/aws_ecs.yaml
-   echo "---------------------------------------------------------"
-   sleep 15
-
-   echo "Connect AWS Crossplane ProviderConfig"
-   echo "---------------------------------------------------------" 
-   kubectl apply -f providerconfigs/aws.yaml
-   echo "---------------------------------------------------------"
-   sleep 15
-
-   echo "Create the Example Bucket"
-   echo "---------------------------------------------------------" 
-   kubectl apply -f services/aws/s3/s3_bucket.yaml
-   echo "---------------------------------------------------------"
-   sleep 15
-   clear
-
-   echo "Check if Bucket is available"
-   echo "---------------------------------------------------------" 
-   kubectl describe buckets
-   echo "---------------------------------------------------------"
-   sleep 15
-
-   echo "Destroy the bucket"
-   echo "---------------------------------------------------------" 
-   kubectl delete buckets --all
    echo "---------------------------------------------------------"
    sleep 15
    clear
@@ -240,5 +192,5 @@ function_install_tekton_triggers(){
 
 function_install_argocd
 function_install_crossplane
-function_setup_crossplane
+
 

@@ -3,6 +3,11 @@ install:
 	@echo "\n♻️  Executing install.sh..."
 	 bash install.sh
 
+.PHONY: setup
+setup:
+	@echo "\n♻️  Executing install.sh..."
+	 bash setup.sh
+
 .PHONY: cluster
 cluster:
 	@echo "\n🔧 Creating Kubernetes cluster..."
@@ -11,8 +16,8 @@ cluster:
 	sleep 60
 	kubectl get pod -A
 
-.PHONY: destroy
-destroy:
+.PHONY: teardown
+teardown:
 	@echo "\n♻️  Deleting Kubernetes cluster..."
 	kind delete clusters --all
 	docker system prune -a
