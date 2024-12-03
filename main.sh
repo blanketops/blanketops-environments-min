@@ -10,11 +10,18 @@
 
 function_install_crossplane(){
    #setup and install crossplane here
-   echo "Installing Crossplane Helm Chart"
+   # echo "Installing Crossplane Helm Chart"
+   # echo "---------------------------------------------------------"
+   # helm repo add crossplane-stable https://charts.crossplane.io/stable
+   # helm repo update
+   # helm install crossplane crossplane-stable/crossplane --namespace crossplane-system --create-namespace
+   # echo "---------------------------------------------------------"
+   # sleep 30
+   # clear
+
+   echo "Installing Crossplane Argocd Applciation"
    echo "---------------------------------------------------------"
-   helm repo add crossplane-stable https://charts.crossplane.io/stable
-   helm repo update
-   helm install crossplane crossplane-stable/crossplane --namespace crossplane-system --create-namespace
+   kubectl apply -f argocd/crossplane_application.yaml
    echo "---------------------------------------------------------"
    sleep 30
    clear
@@ -276,7 +283,8 @@ function_cleanup(){
 }
 
 function_cleanup
-# function_health_check_crossplane
+function_install_argocd
+function_health_check_crossplane
 function_install_crossplane
 # function_install_secrets_store
 # sleep 120
