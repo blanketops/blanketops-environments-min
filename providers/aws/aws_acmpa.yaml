@@ -1,6 +1,0 @@
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
-metadata:
-  name: provider-aws-acmpca
-spec:
-  package: xpkg.upbound.io/upbound/provider-aws-acmpca:v1.17.0

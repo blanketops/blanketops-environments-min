@@ -1,6 +1,0 @@
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
-metadata:
-  name: provider-aws-cloudformation
-spec:
-  package: xpkg.upbound.io/upbound/provider-aws-cloudformation:v1.16.0

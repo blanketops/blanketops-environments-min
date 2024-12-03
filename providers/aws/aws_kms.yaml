@@ -1,6 +1,0 @@
-apiVersion: pkg.crossplane.io/v1
-kind: Provider
-metadata:
-  name: provider-aws-kms
-spec:
-  package: xpkg.upbound.io/upbound/provider-aws-kms:v1.17.0
