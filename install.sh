@@ -167,8 +167,6 @@ function_install_terraform_components(){
    echo "Creating Crossplane Terraform Secrets"
    echo "---------------------------------------------------------"
    kubectl create namespace upbound-system
-   # kubectl create secret generic aws-creds -n upbound-system --from-file=creds=secrets/./aws-creds.ini
-   # kubectl create secret generic terraformrc -n upbound-system --from-file=creds=secrets/./.terraformrc
    sleep 15
    echo "---------------------------------------------------------"
 
@@ -177,12 +175,6 @@ function_install_terraform_components(){
    kubectl apply -f providerconfigs/terraform.yaml
    sleep 15
    echo "---------------------------------------------------------"
-
-   # echo "Adding WorkSpace"
-   # echo "---------------------------------------------------------"
-   # kubectl apply -f services/terraform/terraform_aws_workspace.yaml
-   # sleep 15
-   # echo "---------------------------------------------------------"
    clear
 }
 
@@ -245,56 +237,8 @@ function_install_tekton_triggers(){
    clear
 }
 
-function_cleanup(){
-   function_uninstall_crossplane 
-   function_uninstall_argocd
-   function_uninstall_secrets_store
-   function_uninstall_terraform_components
-}
 
-function_cleanup
 function_install_argocd
 function_install_crossplane
 function_setup_crossplane
 
-
-
-
-
-
-
-# function_install_secrets_store
-# sleep 15
-# function_install_jaeger
-
-
-# function_uninstall_terraform_components
-#function_install_terraform_components
-#sleep 15
-#function_health_check_terraform_components
-# function_uninstall_argocd
-# function_install_argocd
-# function_install_tekton_pipelines
-# function_install_tekton_dashboards
-# function_install_tekton_triggers
-# function_install_jaeger
-
-function_install_jaeger(){
-   echo "Initializing Jaegar Resources"
-   echo "---------------------------------------------------------"
-   kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.9.0/cert-manager.yaml
-   sleep 15
-   kubectl get pods -n cert-manager
-   sleep 5
-   helm repo add jaegertracing https://jaegertracing.github.io/helm-charts
-   kubectl create ns observability
-   helm install my-release jaegertracing/jaeger-operator -n observability
-   echo "---------------------------------------------------------"
-   sleep 15
-   kubectl create ns observability
-   sleep 15
-   kubectl create -f https://github.com/jaegertracing/jaeger-operator/releases/download/v1.36.0/jaeger-operator.yaml -n observability
-   sleep 15
-   kubectl get deployment jaeger-operator -n observability
-   clear
-}
