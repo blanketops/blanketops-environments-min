@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: localstack
-  namespace: localstack
+  namespace: argocd
   labels:
     name: localstack
   annotations:
