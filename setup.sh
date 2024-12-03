@@ -20,7 +20,7 @@ function_install_aws_provider_providerconfig_with_bucket(){
    kubectl apply -f providers/aws/aws_ecs.yaml
    echo "---------------------------------------------------------"
    
-
+   sleep 180
    echo "Connect AWS Crossplane ProviderConfig"
    echo "---------------------------------------------------------" 
    kubectl apply -f providerconfigs/aws.yaml
@@ -31,7 +31,7 @@ function_install_aws_provider_providerconfig_with_bucket(){
    echo "---------------------------------------------------------" 
    kubectl apply -f services/aws/s3/s3_bucket.yaml
    echo "---------------------------------------------------------"
-   
+   sleep 60
    clear
 
    echo "Check if Bucket is available"

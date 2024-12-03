@@ -20,22 +20,14 @@ spec:
         type: object
         properties:
           spec:
-            type: object
-            properties:
-              application:
+            application:
+              name:
+                type: string
+              stack:
                 name:
                   type: string
-                type: object
-                properties:
-                stack:
+                tier:
                   name:
                     type: string
-                  tier:
-                    type: object
-                    properties:
-                      name:
-                        type: string
-                      programmingLanguageName:
-                        type: string
-            required:
-            - name
+                  programmingLanguageName:
+                    type: string

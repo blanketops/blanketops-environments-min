@@ -12,8 +12,6 @@ function_install_argocd(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions...."
-   sleep 15
-   # sleep 15
    clear
 
    echo "Patching ArgoCD Service"
@@ -35,7 +33,7 @@ function_install_crossplane(){
    kubectl create namespace crossplane-system
    kubectl apply -f argocd/crossplane_application.yaml
    echo "---------------------------------------------------------"
-   sleep 15
+   sleep 180
    function_health_check_crossplane
    clear
 }
@@ -45,13 +43,11 @@ function_health_check_crossplane(){
    echo "HealthCheck Crossplane Installation"
    echo "---------------------------------------------------------"
    kubectl get pod --namespace crossplane-system
-   sleep 15
    clear
    kubectl api-resources  | grep crossplane
    echo "---------------------------------------------------------"
    clear
 }
-
 
 function_install_localstack(){
    echo "---------------------------------------------------------"
@@ -76,8 +72,6 @@ function_setup_localstack(){
    clear
 }
 
-
-
 function_uninstall_crossplane(){
    echo "Uninstalling Crossplane Helm Chart"
    echo "---------------------------------------------------------"
@@ -97,7 +91,6 @@ function_uninstall_crossplane(){
    clear
 }
 
-
 function_uninstall_argocd(){
    echo "Deleting Resources"
    echo "---------------------------------------------------------"
@@ -107,7 +100,6 @@ function_uninstall_argocd(){
    echo "---------------------------------------------------------"
    clear
 }
-
 
 function_install_terraform_components(){
    echo "Installing Crossplane Terraform Provider"
@@ -189,8 +181,9 @@ function_install_tekton_triggers(){
    clear
 }
 
-
 function_install_argocd
 function_install_crossplane
-
-
+function_install_terraform_components
+function_install_tekton_dashboards
+function_install_tekton_pipelines
+function_install_tekton_triggers
