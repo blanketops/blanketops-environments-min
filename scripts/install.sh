@@ -36,8 +36,6 @@ function_install_crossplane(){
    clear
 }
 
-
-
 function_install_localstack(){
    echo "---------------------------------------------------------"
    echo "Installing LocalStack Argocd Application"
@@ -60,7 +58,6 @@ function_setup_localstack(){
    sleep 15
    clear
 }
-
 
 function_install_tekton_pipelines(){
    echo "Initializing Pipeline Resources"
@@ -130,19 +127,25 @@ function_install_knative_eventing(){
    clear
 }
 
-function_install_kourier(){
+function_install_knative_github_sources(){
    echo "-------------------------------------"
-   echo "Initializing Kourier Resources"
+   echo "Initializing KNatibe Github Resources"
    echo "---------------------------------------------------------"
-   kubectl apply -f kourier/kourier.yaml
-   sleep 15
-   kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"127.0.0.1.nip.io":""}}'
+   kubectl apply -f github/github.yaml
    sleep 15
    echo "---------------------------------------------------------"
    clear
 }
-
-
+function_install_kourier(){
+   echo "-------------------------------------"
+   echo "Initializing Kourier Resources"
+   echo "---------------------------------------------------------"
+   kubectl create namespace knative-serving
+   kubectl apply -f kourier/kourier.yaml
+   sleep 15
+   echo "---------------------------------------------------------"
+   clear
+}
 
 # function_install_argocd
 # function_install_crossplane
@@ -150,7 +153,8 @@ function_install_kourier(){
 # function_install_tekton_dashboards
 # function_install_tekton_pipelines
 # function_install_tekton_triggers
-#function_install_the_knative_operator
+function_install_the_knative_operator
 function_install_kourier
-# function_install_knative_serving
-# function_install_knative_eventing
+function_install_knative_serving
+function_install_knative_eventing
+function_install_knative_github_sources

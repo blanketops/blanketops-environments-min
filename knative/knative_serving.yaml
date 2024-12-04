@@ -2,16 +2,26 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: knative-serving
-spec:
-  ingress:
-    kourier:
-      enabled: true
-  config:
-    network:
-      ingress-class: "kourier.ingress.networking.knative.dev"
 ---
 apiVersion: operator.knative.dev/v1beta1
 kind: KnativeServing
 metadata:
   name: knative-serving
   namespace: knative-serving
+spec:
+  ingress:
+    kourier:
+      enabled: true
+  config:
+    # domain:
+    #   example.org: |
+    #     selector:
+    #       app: prod
+    #   example.com: ""
+    # autoscaler:
+    #   stable-window: "60s"
+    network:
+      ingress-class: "kourier.ingress.networking.knative.dev"
+    # registry:
+    #   default: docker.io/knative-images/${NAME}:latest
+    version: "1.5"

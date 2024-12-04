@@ -44,9 +44,24 @@ function_health_check_knative_operator(){
    echo "HealthCheck KNative Resources Installation"
    echo "---------------------------------------------------------"
    kubectl config set-context --current --namespace=default 
-   kubectl get deployment knative-operator
-   kubectl logs -f deploy/knative-operator
+   kubectl get all -n knative-operator
+   sleep 5
+   clear
+   kubectl get all -n  knative-serving
+   #kubectl apply -f https://github.com/knative/serving/releases/download/knative-v1.16.0/serving-default-domain.yaml
+   kubectl get KnativeServing knative-serving -n knative-serving
+   sleep 3
+   clear
+   kubectl patch configmap/config-domain --namespace knative-serving --type merge --patch '{"data":{"example.com":""}}'
+   sleep 3
+   kubectl get ksvc
+   sleep 3
+   kubectl --namespace knative-serving get service kourier
+   #kubectl logs -f deploy/knative-operator -n knative-operator
+   kubectl get KnativeEventing knative-eventing -n knative-eventing
+
    echo "---------------------------------------------------------"
+   sleep 10
    clear
 }
 

@@ -9,7 +9,46 @@ metadata:
   name: knative-eventing
   namespace: knative-eventing
 spec:
-  version: "1.7"
+  config: #   default-ch-webhook:
+
+  #     default-ch-config: |
+  #       clusterDefault:
+  #         apiVersion: messaging.knative.dev/v1beta1
+  #         kind: KafkaChannel
+  #         spec:
+  #           numPartitions: 10
+  #           replicationFactor: 1
+  #       namespaceDefaults:
+  #         my-namespace:
+  #           apiVersion: messaging.knative.dev/v1
+  #           kind: InMemoryChannel
+  #           spec:
+  #             delivery:
+  #               backoffDelay: PT0.5S
+  #               backoffPolicy: exponential
+  #               retry: 5
+  #   config-br-default-channel:
+  #     channel-template-spec: |
+  #       apiVersion: messaging.knative.dev/v1beta1
+  #       kind: KafkaChannel
+  #       spec:
+  #         numPartitions: 6
+  #         replicationFactor: 1 
+  # registry:
+  #   default: docker.io/knative-images/${NAME}:latest
+  #   override:
+  #     broker-controller/eventing-controller: docker.io/knative-images-repo1/broker-eventing-controller:latest
   source:
     github:
       enabled: true
+  version: "1.7"
+  # workloads:
+  # - name: eventing-controller
+  #   resources:
+  #   - container: eventing-controller
+  #     requests:
+  #       cpu: 300m
+  #       memory: 100M
+  #     limits:
+  #       cpu: 1000m
+  #       memory: 250M
