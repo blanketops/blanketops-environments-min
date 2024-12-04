@@ -90,9 +90,34 @@ function_install_tekton_triggers(){
    clear
 }
 
-function_install_argocd
-function_install_crossplane
-function_install_terraform_components
-function_install_tekton_dashboards
-function_install_tekton_pipelines
-function_install_tekton_triggers
+function_install_the_knative_operator(){
+
+   echo "-------------------------------------"
+   echo "Verify signed images"
+   echo "----------------------------------------"
+   curl -sSL https://github.com/knative/serving/releases/download/knative-v1.16.0/serving-core.yaml \
+  | grep 'gcr.io/' | awk '{print $2}' | sort | uniq \
+  | xargs -n 1 \
+    cosign verify -o text \
+      --certificate-identity=signer@knative-releases.iam.gserviceaccount.com \
+      --certificate-oidc-issuer=https://accounts.google.com
+
+   sleep 5
+   echo "Initializing KNative Operator Resources"
+   echo "---------------------------------------------------------"
+   kubectl apply -f https://github.com/knative/operator/releases/download/knative-v1.16.0/operator.yaml
+   kubectl config set-context --current --namespace=default
+   sleep 15
+   kubectl get deployment knative-operator
+   echo "---------------------------------------------------------"
+ 
+   clear
+}
+
+# function_install_argocd
+# function_install_crossplane
+# function_install_terraform_components
+# function_install_tekton_dashboards
+# function_install_tekton_pipelines
+# function_install_tekton_triggers
+function function_install_the_knative_operator

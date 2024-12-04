@@ -20,19 +20,19 @@ cluster:
 .PHONY: install
 install:
 	@echo "\n♻️  Executing install.sh..."
-	 bash install.sh
+	 bash scripts/install.sh
 	 clear
 
 .PHONY: uninstall
 uninstall:
 	@echo "\n♻️  Executing uninstall.sh..."
-	 bash uninstall.sh
+	 bash scripts/uninstall.sh
 	 clear	 
 
 .PHONY: setup
 setup:
 	@echo "\n♻️  Executing setup.sh..."
-	 bash setup.sh
+	 bash scripts/setup.sh
 	 clear
 
 .PHONY: all 
