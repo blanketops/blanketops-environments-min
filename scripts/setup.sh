@@ -39,6 +39,18 @@ function_health_check_crossplane(){
    clear
 }
 
+function_health_check_knative_operator(){
+   echo "---------------------------------------------------------"
+   echo "HealthCheck KNative Resources Installation"
+   echo "---------------------------------------------------------"
+   kubectl config set-context --current --namespace=default 
+   kubectl get deployment knative-operator
+   kubectl logs -f deploy/knative-operator
+   echo "---------------------------------------------------------"
+   clear
+}
+
+
 function_install_aws_provider_providerconfig_with_bucket(){
 
    echo "Installing AWS Crossplane Secret"
@@ -80,7 +92,8 @@ function_install_aws_provider_providerconfig_with_bucket(){
    clear
 }
 
-sleep 180
-function_setup_crossplane
-function_install_terraform_components
+#sleep 180
+#function_setup_crossplane
+#function_install_terraform_components
+function_health_check_knative_operator
 # function_health_check_terraform_components

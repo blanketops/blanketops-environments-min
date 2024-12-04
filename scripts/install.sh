@@ -106,13 +106,43 @@ function_install_the_knative_operator(){
    echo "Initializing KNative Operator Resources"
    echo "---------------------------------------------------------"
    kubectl apply -f https://github.com/knative/operator/releases/download/knative-v1.16.0/operator.yaml
-   kubectl config set-context --current --namespace=default
-   sleep 15
-   kubectl get deployment knative-operator
    echo "---------------------------------------------------------"
- 
    clear
 }
+
+function_install_knative_serving(){
+   echo "-------------------------------------"
+   echo "Initializing KNative Serving Resources"
+   echo "---------------------------------------------------------"
+   kubectl apply -f knative/knative_serving.yaml
+   sleep 15
+   echo "---------------------------------------------------------"
+   clear
+}
+
+function_install_knative_eventing(){
+   echo "-------------------------------------"
+   echo "Initializing KNative Eventing Resources"
+   echo "---------------------------------------------------------"
+   kubectl apply -f knative/knative_eventing.yaml
+   sleep 15
+   echo "---------------------------------------------------------"
+   clear
+}
+
+function_install_kourier(){
+   echo "-------------------------------------"
+   echo "Initializing Kourier Resources"
+   echo "---------------------------------------------------------"
+   kubectl apply -f kourier/kourier.yaml
+   sleep 15
+   kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"127.0.0.1.nip.io":""}}'
+   sleep 15
+   echo "---------------------------------------------------------"
+   clear
+}
+
+
 
 # function_install_argocd
 # function_install_crossplane
@@ -120,4 +150,7 @@ function_install_the_knative_operator(){
 # function_install_tekton_dashboards
 # function_install_tekton_pipelines
 # function_install_tekton_triggers
-function function_install_the_knative_operator
+#function_install_the_knative_operator
+function_install_kourier
+# function_install_knative_serving
+# function_install_knative_eventing
