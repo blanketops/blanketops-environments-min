@@ -1,0 +1,4 @@
+site_name: BlanketOps Environments
+site_url: https://blanketops.co.za/site
+theme:
+  name: material
