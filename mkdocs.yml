@@ -1,16 +1,41 @@
+extra:
+  version:
+    provider: mike
 site_name: BlanketOps Environments
 site_url: https://blanketops.co.za/site
+# plugins:
+# - group:
+#     plugins:
+#     - optimize
+#     - minify
+#     - mike:
+#         # These fields are all optional; the defaults are as below...
+#         alias_type: symlink
+#         redirect_template: null
+#         deploy_prefix: ''
+#         canonical_version: null
+#         version_selector: true
+#         css_dir: css
+#         javascript_dir: js
 theme:
+  features:
+  - navigation.footer
   name: material
+  custom_dir: overrides
+  # font:
+  #   code: Roboto
   palette:
   # Palette toggle for light mode
+
   - scheme: default
+    primary: teal
     toggle:
       icon: material/brightness-7
       name: Switch to dark mode
 
   # Palette toggle for dark mode
   - scheme: slate
+    primary: teal
     toggle:
       icon: material/brightness-4
       name: Switch to light mode
