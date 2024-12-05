@@ -1,16 +1,16 @@
 apiVersion: repositories.argocd.crossplane.io/v1alpha1
 kind: Repository
 metadata:
-  name: example-scoped-project.git
+  name: blanketops-environments-repository
 spec:
   forProvider:
     passwordRef:
       key: token
-      name: example-project.git
+      name: blanketops-environments.git
       namespace: crossplane-system
-    project: example-project
-    repo: git@github.com:blanketops/blanketops-cloud-native-manifests.git
+    project: blanketops-environments-project
+    repo: git@github.com:blanketops/blanketops-environments-min.git
     type: git
-    username: example-user
+    username: blanketops-environments-admin-user
   providerConfigRef:
     name: argocd-provider
