@@ -25,7 +25,7 @@
 * `Make`    : https://gnu.org/software/make/
 * `Kubectl` : https://kubernetes.io/docs/reference/kubectl/
 * `Kind`    : https://kind.sigs.k8s.io/
-* `BlanketOps` : BlanketOps offerings
+* `BlanketOps` : https://blanketops/co.za/
 
 ## Commands
 

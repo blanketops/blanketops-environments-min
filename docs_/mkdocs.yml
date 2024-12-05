@@ -4,6 +4,14 @@ extra:
     link: https://fosstodon.org/@squidfunk
   version:
     provider: mike
+
+nav:
+- 'index.md'
+- 'introduction.md'
+- 'installation.md'
+- 'examples_and_usage.md'
+- 'about.md'
+
 site_name: BlanketOps Environments
 site_url: https://blanketops.co.za/docs
 # plugins:
