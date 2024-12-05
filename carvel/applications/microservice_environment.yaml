@@ -1,0 +1,17 @@
+apiVersion: kappctrl.k14s.io/v1alpha1
+kind: App
+metadata:
+  name: microservice-environment
+  namespace: dev
+spec:
+  serviceAccountName: microservice-service-account
+  fetch:
+  - git:
+      url: git@github.com:blanketops/blanketops-cloud-native-manifests.git
+      ref: origin/develop
+      subPath: compositions/microservice
+      # must see more to 
+  template:
+  - ytt: {}
+  deploy:
+  - kapp: {}
