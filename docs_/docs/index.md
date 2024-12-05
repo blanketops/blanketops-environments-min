@@ -9,13 +9,22 @@
 
 * Blanket Ops Environments is Internal developer platform for organizations and startups to quickly setup resources in the cloud following a DevOps Model by leveraging our kubernetes custom api.
 
-* A platform agnostic system that communicates with cloud providers you register for(support only for AWS in this release), to create,update,view and delete resources, as compositions or exacts of cloud services. Container Registries, Releases, custom Environments,Pipelines,Processes and Deployments from years of research following industry best practices.
+* A platform agnostic system that communicates with cloud providers you register for(support only for AWS in this release), to create,update,view and delete resources, as compositions or exacts of cloud services. 
+
+* Container Registries, Releases, custom Environments,Pipelines,Processes and Deployments from years of research following industry best practices.
 
 ## Prerequisites
 
 * `Make`    : Makefile execution
 * `Kubectl` : Interact with cluster of choice
-* `Helm`    : Manage Packaged Resources
+* `Kind`    : Install for a faster demonstration and trying out on the fly.
+* `BlanketOps` : BlanketOps offerings
+
+## Resources
+
+* `Make`    : https://gnu.org/software/make/
+* `Kubectl` : https://kubernetes.io/docs/reference/kubectl/
+* `Kind`    : https://kind.sigs.k8s.io/
 * `BlanketOps` : BlanketOps offerings
 
 ## Commands
