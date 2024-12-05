@@ -4,7 +4,9 @@ metadata:
   name: githubsourcesample
 spec:
   eventTypes:
+  #- create
   - pull_request
+  #- push
   ownerAndRepository: blanketops/blanketops-nginx-example.git
   accessToken:
     secretKeyRef:

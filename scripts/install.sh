@@ -90,16 +90,9 @@ function_install_tekton_triggers(){
 function_install_the_knative_operator(){
 
    echo "-------------------------------------"
-   echo "Verify signed images"
-   echo "----------------------------------------"
-   curl -sSL https://github.com/knative/serving/releases/download/knative-v1.16.0/serving-core.yaml \
-  | grep 'gcr.io/' | awk '{print $2}' | sort | uniq \
-  | xargs -n 1 \
-    cosign verify -o text \
-      --certificate-identity=signer@knative-releases.iam.gserviceaccount.com \
-      --certificate-oidc-issuer=https://accounts.google.com
 
    sleep 5
+
    echo "Initializing KNative Operator Resources"
    echo "---------------------------------------------------------"
    kubectl apply -f https://github.com/knative/operator/releases/download/knative-v1.16.0/operator.yaml
@@ -108,20 +101,40 @@ function_install_the_knative_operator(){
 }
 
 function_install_knative_serving(){
+   echo "Verify signed images"
+   echo "----------------------------------------"
+   curl -sSL https://github.com/knative/serving/releases/download/knative-v1.16.0/serving-core.yaml \
+  | grep 'gcr.io/' | awk '{print $2}' | sort | uniq \
+  | xargs -n 1 \
+    cosign verify -o text \
+      --certificate-identity=signer@knative-releases.iam.gserviceaccount.com \
+      --certificate-oidc-issuer=https://accounts.google.com
    echo "-------------------------------------"
    echo "Initializing KNative Serving Resources"
    echo "---------------------------------------------------------"
-   kubectl apply -f knative/knative_serving.yaml
+   #kubectl apply -f knative/knative_serving.yaml
+   kubectl apply -f https://github.com/knative/serving/releases/latest/download/serving-crds.yaml
+   kubectl apply -f https://github.com/knative/serving/releases/latest/download/serving-core.yaml
    sleep 15
    echo "---------------------------------------------------------"
    clear
 }
 
 function_install_knative_eventing(){
+   echo "Verify signed images"
+   echo "----------------------------------------"
+   curl -sSL https://github.com/knative/serving/releases/download/knative-v1.16.0/serving-core.yaml \
+  | grep 'gcr.io/' | awk '{print $2}' | sort | uniq \
+  | xargs -n 1 \
+    cosign verify -o text \
+      --certificate-identity=signer@knative-releases.iam.gserviceaccount.com \
+      --certificate-oidc-issuer=https://accounts.google.com
+   
    echo "-------------------------------------"
    echo "Initializing KNative Eventing Resources"
    echo "---------------------------------------------------------"
-   kubectl apply -f knative/knative_eventing.yaml
+   #kubectl apply -f knative/knative_eventing.yaml
+   kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.16.3/eventing-crds.yaml
    sleep 15
    echo "---------------------------------------------------------"
    clear
@@ -141,7 +154,8 @@ function_install_kourier(){
    echo "Initializing Kourier Resources"
    echo "---------------------------------------------------------"
    kubectl create namespace knative-serving
-   kubectl apply -f kourier/kourier.yaml
+   #kubectl apply -f kourier/kourier.yaml
+   kubectl apply -f https://github.com/knative/net-kourier/releases/latest/download/kourier.yaml
    sleep 15
    echo "---------------------------------------------------------"
    clear
