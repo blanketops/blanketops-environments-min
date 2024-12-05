@@ -5,7 +5,6 @@ function_setup_crossplane(){
    function_install_aws_provider_providerconfig_with_bucket
 }
 
-
 function_install_terraform_components(){
    echo "Installing Crossplane Terraform Provider"
    echo "---------------------------------------------------------"
@@ -63,12 +62,22 @@ function_health_check_knative_operator(){
    sleep 10
    kubectl patch configmap/config-network -n knative-serving --type merge -p '{"data":{"ingress.class":"kourier.ingress.networking.knative.dev"}}'
    sleep 10
-   kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"127.0.0.1.nip.io":""}}'
+   kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"8b1a-197-99-70-53.ngrok-free.app":""}}'
 
-   kubectl apply -f secrets/github_secret.yaml
-   kubectl apply -f github/github_service.yaml
-   kubectl apply -f github/github_source.yaml
+   sleep 60
+   kubectl -n knative-sources get pods --selector control-plane=github-controller-manager
 
+   sleep 10
+   kubectl --namespace default apply --filename github/github_service.yaml
+   #kubectl apply -f github/github_service.yaml
+
+   sleep 10
+   kubectl --namespace default apply --filename secrets/github_secret.yaml
+   #kubectl apply -f secrets/github_secret.yaml
+
+   sleep 10
+   kubectl --namespace default apply --filename github/github_source.yaml
+   #kubectl apply -f github/github_source.yaml
 
    echo "---------------------------------------------------------"
    sleep 10

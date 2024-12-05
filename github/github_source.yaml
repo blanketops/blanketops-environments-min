@@ -7,7 +7,7 @@ spec:
   #- create
   - pull_request
   #- push
-  ownerAndRepository: blanketops/blanketops-nginx-example.git
+  ownerAndRepository: blanketops/blanketops-nginx-example
   accessToken:
     secretKeyRef:
       name: githubsecret
