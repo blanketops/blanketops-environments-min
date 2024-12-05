@@ -31,10 +31,8 @@ A platform agnostic system that communicates with cloud providers you register f
 ## CLI Commands
 
 * `blanketops auth`   - Authentication management to cli.
-* `blanketops install`  - Initialize the control-plane.
 * `blanketops environments` -  Interact with environments.
-* `blanketops workstations` -  Interact with workstations.
-* `blanketops uninstall` -  Uninstall the control-plane.
+* `blanketops --h  ` -  View more information about commands, subcommands and flags.
 
 ## CLI SubCommands
 
