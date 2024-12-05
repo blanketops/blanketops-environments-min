@@ -5,6 +5,7 @@ extra:
   version:
     provider: mike
 
+repo_url: https://github.com/blanketops/blanketops-environments-min
 nav:
 - 'index.md'
 - 'introduction.md'

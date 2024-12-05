@@ -11,7 +11,7 @@
 
 * A platform agnostic system that communicates with cloud providers you register for(support only for AWS in this release), to create,update,view and delete resources, as compositions or exacts of cloud services. 
 
-* Container Registries, Releases, custom Environments,Pipelines,Processes and Deployments from years of research following industry best practices.
+* Container Registries, Releases,Pipelines,Processes and Deployments from years of research following industry best practices.
 
 ## Prerequisites
 
@@ -22,10 +22,10 @@
 
 ## Resources
 
-* `Make`    : https://gnu.org/software/make/
-* `Kubectl` : https://kubernetes.io/docs/reference/kubectl/
-* `Kind`    : https://kind.sigs.k8s.io/
-* `BlanketOps` : https://blanketops/co.za/
+* `Make`    : [Make](https://gnu.org/software/make/)
+* `Kubectl` : [Kubectl](https://kubernetes.io/docs/reference/kubectl/)
+* `Kind`    : [Kind](https://kind.sigs.k8s.io/)
+* `BlanketOps` : [BlanketOps](https://blanketops/co.za/)
 
 ## Commands
 
