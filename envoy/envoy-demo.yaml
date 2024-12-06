@@ -24,35 +24,15 @@ static_resources:
             name: local_route
             virtual_hosts:
             - name: local_service
-              domains: [ "*" ]
+              domains: ["*"]
               routes:
               - match:
                   prefix: "/"
                 route:
                   host_rewrite_literal: www.envoyproxy.io
                   cluster: service_envoyproxy_io
-    - name: envoy.filters.network.ext_authz
-      typed_config:
-        "@type": type.googleapis.com/envoy.config.filter.http.ext_authz.v2.ExtAuthz
-        stat_prefix: ext_authz
-        grpc_service:
-          envoy_grpc:
-            cluster_name: ext-authz
-        include_peer_certificate: true
 
   clusters:
-  - name: ext-authz
-    type: static
-    http2_protocol_options: {}
-    load_assignment:
-    cluster_name: ext-authz
-    endpoints:
-    - lb_endpoints:
-      - endpoint:
-          address:
-            socket_address:
-              address: 127.0.0.1
-              port_value: 10003
   - name: service_envoyproxy_io
     type: LOGICAL_DNS
     # Comment out the following line to test on v6 networks
