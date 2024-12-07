@@ -1,0 +1,54 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: foo-app
+  namespace: metallb-system
+  labels:
+    app: http-echo
+spec:
+  containers:
+  - name: foo-app
+    image: hashicorp/http-echo:0.2.3
+    args:
+    - "-text=foo"
+    resources:
+      requests:
+        cpu: 250m
+        memory: 300Mi
+      limits:
+        cpu: 500m
+        memory: 500Mi
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: bar-app
+  namespace: metallb-system
+  labels:
+    app: http-echo
+spec:
+  containers:
+  - name: bar-app
+    image: hashicorp/http-echo:0.2.3
+    args:
+    - "-text=bar"
+    resources:
+      requests:
+        cpu: 250m
+        memory: 300Mi
+      limits:
+        cpu: 500m
+        memory: 500Mi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: foo-service
+  namespace: metallb-system
+spec:
+  type: LoadBalancer
+  selector:
+    app: http-echo
+  ports:
+  # Default port used by the image
+  - port: 5678
