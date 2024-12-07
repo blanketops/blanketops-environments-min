@@ -161,12 +161,12 @@ function_install_kourier(){
    clear
 }
 
-# function_install_argocd
-# function_install_crossplane
-# function_install_terraform_components
-# function_install_tekton_dashboards
-# function_install_tekton_pipelines
-# function_install_tekton_triggers
+function_install_argocd
+function_install_crossplane
+function_install_terraform_components
+function_install_tekton_dashboards
+function_install_tekton_pipelines
+function_install_tekton_triggers
 function_install_the_knative_operator
 function_install_kourier
 function_install_knative_serving

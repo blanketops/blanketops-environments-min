@@ -13,4 +13,4 @@ spec:
     type: git
     username: blanketops-environments-admin-user
   providerConfigRef:
-    name: argocd-provider
+    name: blanketops-argocd-config
