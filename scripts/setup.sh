@@ -59,31 +59,47 @@ function_health_check_knative_operator(){
    # #kubectl logs -f deploy/knative-operator -n knative-operator
    # kubectl get KnativeEventing knative-eventing -n knative-eventing
 
-   sleep 10
-   kubectl patch configmap/config-network -n knative-serving --type merge -p '{"data":{"ingress.class":"kourier.ingress.networking.knative.dev"}}'
-   sleep 10
-   kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"8b1a-197-99-70-53.ngrok-free.app":""}}'
+  
 
    sleep 60
    kubectl -n knative-sources get pods --selector control-plane=github-controller-manager
 
    sleep 10
    kubectl --namespace default apply --filename github/github_service.yaml
-   #kubectl apply -f github/github_service.yaml
 
    sleep 10
    kubectl --namespace default apply --filename secrets/github_secret.yaml
-   #kubectl apply -f secrets/github_secret.yaml
 
    sleep 10
    kubectl --namespace default apply --filename github/github_source.yaml
-   #kubectl apply -f github/github_source.yaml
 
    echo "---------------------------------------------------------"
    sleep 10
    clear
 }
 
+
+
+function_setup_kourier(){
+   echo "---------------------------------------------------------"
+   echo "SetUp Kourier and Components"
+   echo "---------------------------------------------------------"
+   sleep 10
+   kubectl patch configmap/config-network -n knative-serving --type merge -p '{"data":{"ingress.class":"kourier.ingress.networking.knative.dev"}}'
+   sleep 10
+   kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
+   sleep 15
+   kubectl -n "knative-serving" patch configmap/config-kourier --type merge -p '{"data":{"cipher-suites":"ECDHE-ECDSA-AES128-GCM-SHA256,ECDHE-ECDSA-CHACHA20-POLY1305"}}'
+   kubectl patch configmap/config-kourier -n knative-serving --type merge -p '{"data":{"enable-proxy-protocol":"true"}}'
+   kubectl get configmap config-kourier --namespace knative-serving --output yaml
+   sleep 10
+   clear
+   kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"blanketops.io":""}}'
+   echo "---------------------------------------------------------"
+   sleep 10
+   clear
+
+}
 
 function_install_aws_provider_providerconfig_with_bucket(){
 
@@ -126,8 +142,9 @@ function_install_aws_provider_providerconfig_with_bucket(){
    clear
 }
 
-sleep 600
-function_setup_crossplane
-function_install_terraform_components
-function_health_check_knative_operator
-function_health_check_terraform_components
+# sleep 600
+function_setup_kourier
+# function_setup_crossplane
+# function_install_terraform_components
+#function_health_check_knative_operator
+# function_health_check_terraform_components

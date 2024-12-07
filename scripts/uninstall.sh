@@ -4,7 +4,7 @@ function_uninstall(){
    echo "---------------------------------------------------------"
    echo "Deleting Resources"
    echo "---------------------------------------------------------"
-   kubectl delete namespace --all
+   kubectl delete namespaces --all --force
    echo "---------------------------------------------------------"
    clear
 }

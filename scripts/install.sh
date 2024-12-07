@@ -88,11 +88,8 @@ function_install_tekton_triggers(){
 }
 
 function_install_the_knative_operator(){
-
    echo "-------------------------------------"
-
    sleep 5
-
    echo "Initializing KNative Operator Resources"
    echo "---------------------------------------------------------"
    kubectl apply -f https://github.com/knative/operator/releases/download/knative-v1.16.0/operator.yaml
@@ -112,7 +109,6 @@ function_install_knative_serving(){
    echo "-------------------------------------"
    echo "Initializing KNative Serving Resources"
    echo "---------------------------------------------------------"
-   #kubectl apply -f knative/knative_serving.yaml
    kubectl apply -f https://github.com/knative/serving/releases/latest/download/serving-crds.yaml
    kubectl apply -f https://github.com/knative/serving/releases/latest/download/serving-core.yaml
    sleep 15
@@ -133,7 +129,6 @@ function_install_knative_eventing(){
    echo "-------------------------------------"
    echo "Initializing KNative Eventing Resources"
    echo "---------------------------------------------------------"
-   #kubectl apply -f knative/knative_eventing.yaml
    kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.16.3/eventing-crds.yaml
    sleep 15
    echo "---------------------------------------------------------"
@@ -149,26 +144,33 @@ function_install_knative_github_sources(){
    echo "---------------------------------------------------------"
    clear
 }
+
 function_install_kourier(){
    echo "-------------------------------------"
    echo "Initializing Kourier Resources"
    echo "---------------------------------------------------------"
    kubectl create namespace knative-serving
-   #kubectl apply -f kourier/kourier.yaml
+   kubectl apply -f https://github.com/knative/serving/releases/latest/download/serving-crds.yaml
+   kubectl apply -f https://github.com/knative/serving/releases/latest/download/serving-core.yaml
    kubectl apply -f https://github.com/knative/net-kourier/releases/latest/download/kourier.yaml
+
+   kubectl delete deployment --all --namespace kourier-system
+   kubectl delete service -n kourier-system kourier
    sleep 15
+   kubectl apply -f kourier/deployment.yaml -n kourier-system
+   kubectl apply -f kourier/loadbalancer.yaml -n kourier-system
    echo "---------------------------------------------------------"
    clear
 }
 
-function_install_argocd
-function_install_crossplane
-function_install_terraform_components
-function_install_tekton_dashboards
-function_install_tekton_pipelines
-function_install_tekton_triggers
-function_install_the_knative_operator
+# function_install_argocd
+# function_install_crossplane
+# function_install_terraform_components
+# function_install_tekton_dashboards
+# function_install_tekton_pipelines
+# function_install_tekton_triggers
+#function_install_the_knative_operator
 function_install_kourier
-function_install_knative_serving
-function_install_knative_eventing
-function_install_knative_github_sources
+# function_install_knative_serving
+# function_install_knative_eventing
+# function_install_knative_github_sources
