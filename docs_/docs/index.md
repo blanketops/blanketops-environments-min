@@ -13,6 +13,8 @@
 
 * Container Registries, Releases,Pipelines,Processes and Deployments from years of research following industry best practices.
 
+* Management of workloads has never become easier, robust and resilient, perform different types of deployment strategies, your group of microservices as a single instance provision to infrastructure of your type, leverage serveless, Environments are your briefcase of decoupled software components ready to be shipped to production in a couple of checks and clicks.
+
 ## Prerequisites
 
 * `Make`    : Makefile execution.
