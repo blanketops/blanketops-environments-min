@@ -79,6 +79,27 @@ function_health_check_knative_operator(){
 }
 
 
+function_setup_metallb(){
+  echo "-------------------------------------"
+  echo "SetUp Metallb Resources"
+  echo "---------------------------------------------------------"
+  pwd
+  kubectl apply -f metallb/address_pool.yaml
+  kubectl apply -f metallb/l2_advertisement.yaml
+  kubectl apply -f metallb/lb_test.yaml
+  sleep 30
+
+#   export LB_IP=$(kubectl get svc/foo-service -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
+#   echo $LB_IP
+#   # should output foo and bar on separate lines 
+#   for _ in {1..10}; do
+#     curl ${LB_IP}:5678
+#     sleep 5
+#   done
+  echo "---------------------------------------------------------"
+  clear
+}
+
 
 function_setup_kourier(){
    echo "---------------------------------------------------------"
@@ -94,7 +115,7 @@ function_setup_kourier(){
    kubectl get configmap config-kourier --namespace knative-serving --output yaml
    sleep 10
    clear
-   kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"blanketops.io":""}}'
+   kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"ec2-13-61-123-118.eu-north-1.compute.amazonaws.com":""}}'
    echo "---------------------------------------------------------"
    sleep 10
    clear
@@ -143,7 +164,9 @@ function_install_aws_provider_providerconfig_with_bucket(){
 }
 
 # sleep 600
-function_setup_kourier
+function_setup_metallb
+# sleep 10
+# function_setup_kourier
 # function_setup_crossplane
 # function_install_terraform_components
 #function_health_check_knative_operator
