@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function_setup_crossplane(){
-   sleep 120
+   #sleep 120
    function_install_aws_provider_providerconfig_with_bucket
 }
 
@@ -136,7 +136,7 @@ function_install_aws_provider_providerconfig_with_bucket(){
    clear
 }
 
-sleep 600
+#sleep 600
 function_setup_crossplane
 function_install_terraform_components
 #function_health_check_knative_operator

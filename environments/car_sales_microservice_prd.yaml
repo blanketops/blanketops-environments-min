@@ -2,7 +2,7 @@
 apiVersion: batch.blanketops.co.za/v1alpha1
 kind: Environment
 metadata:
-  name: car-sales-web-microservice-application
+  name: car-sales-web-microservice-environment
 spec:
   location: "EU"
   # namespace: prd

@@ -38,43 +38,43 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
-      # - name: containerRegistries
-      #   base:
-      #     apiVersion: ecr.aws.upbound.io/v1beta1
-      #     kind: Repository
-      #     metadata:
-      #       name: blanketops-ecr-microservice-repository
-      #     spec:
-      #       forProvider:
-      #         imageTagMutability: MUTABLE
-      #         region: eu-north-1
-      #   patches:
-      #   - type: FromCompositeFieldPath
-      #     fromFieldPath: "spec.location"
-      #     toFieldPath: "spec.forProvider.region"
-      #     transforms:
-      #     - type: map
-      #       map:
-      #         EU: "eu-north-1"
-      #         US: "us-east-2"
-      # - name: infrastructure
-      #   base:
-      #     apiVersion: ecs.aws.upbound.io/v1beta1
-      #     kind: Cluster
-      #     metadata:
-      #       name: blanketops-ecs-cluster
-      #     spec:
-      #       forProvider:
-      #         region: eu-north-1
-      #   patches:
-      #   - type: FromCompositeFieldPath
-      #     fromFieldPath: "spec.location"
-      #     toFieldPath: "spec.forProvider.region"
-      #     transforms:
-      #     - type: map
-      #       map:
-      #         EU: "eu-north-1"
-      #         US: "us-east-2"
+      - name: containerRegistries
+        base:
+          apiVersion: ecr.aws.upbound.io/v1beta1
+          kind: Repository
+          metadata:
+            name: blanketops-ecr-microservice-repository
+          spec:
+            forProvider:
+              imageTagMutability: MUTABLE
+              region: eu-north-1
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
+      - name: infrastructure
+        base:
+          apiVersion: ecs.aws.upbound.io/v1beta1
+          kind: Cluster
+          metadata:
+            name: blanketops-ecs-cluster
+          spec:
+            forProvider:
+              region: eu-north-1
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
       # - name: capacityProvider
       #   base:
       #     apiVersion: ecs.aws.upbound.io/v1beta1
