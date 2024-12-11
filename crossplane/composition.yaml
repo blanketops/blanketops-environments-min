@@ -75,38 +75,38 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
-      # - name: capacityProvider
-      #   base:
-      #     apiVersion: ecs.aws.upbound.io/v1beta1
-      #     kind: CapacityProvider
-      #     metadata:
-      #       annotations:
-      #       meta.upbound.io/example-id: ecs/v1beta1/capacityprovider
-      #     labels:
-      #       testing.upbound.io/example-name: blanketops-ecs-capacity-provider
-      #     name: blanketops-ecs-capacity-provider
-      #     spec:
-      #       forProvider:
-      #         autoScalingGroupProvider:
-      #         - autoScalingGroupArnSelector:
-      #             matchLabels:
-      #               testing.upbound.io/example-name: blanketops-autoscaling-group
-      #           managedScaling:
-      #           - maximumScalingStepSize: 1000
-      #             minimumScalingStepSize: 1
-      #             status: ENABLED
-      #             targetCapacity: 10
-      #           managedTerminationProtection: DISABLED
-      #         region: eu-north-1
-      #   patches:
-      #   - type: FromCompositeFieldPath
-      #     fromFieldPath: "spec.location"
-      #     toFieldPath: "spec.forProvider.region"
-      #     transforms:
-      #     - type: map
-      #       map:
-      #         EU: "eu-north-1"
-      #         US: "us-east-2"
+      - name: capacityProvider
+        base:
+          apiVersion: ecs.aws.upbound.io/v1beta1
+          kind: CapacityProvider
+          metadata:
+            annotations:
+            meta.upbound.io/example-id: ecs/v1beta1/capacityprovider
+          labels:
+            testing.upbound.io/example-name: blanketops-ecs-capacity-provider
+          name: blanketops-ecs-capacity-provider
+          spec:
+            forProvider:
+              autoScalingGroupProvider:
+              - autoScalingGroupArnSelector:
+                  matchLabels:
+                    testing.upbound.io/example-name: blanketops-autoscaling-group
+                managedScaling:
+                - maximumScalingStepSize: 1000
+                  minimumScalingStepSize: 1
+                  status: ENABLED
+                  targetCapacity: 10
+                managedTerminationProtection: DISABLED
+              region: eu-north-1
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
       # - name: clusterCapacityProviders
       #   base:
       #     apiVersion: ecs.aws.upbound.io/v1beta1
