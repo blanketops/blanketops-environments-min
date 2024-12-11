@@ -18,7 +18,7 @@ spec:
       recurse: true
     repoURL: https://github.com/blanketops/blanketops-environments-min.git
     targetRevision: "develop"
-    path: argocd/environments
+    path: environments
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
