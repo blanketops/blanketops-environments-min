@@ -13,12 +13,21 @@ metadata:
   - resources-finalizer.argocd.argoproj.io
 spec:
   project: default
-  source:
+  sources:
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git
+    path: crossplane
+    targetRevision: develop
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git
+    path: environment
+    targetRevision: develop
     directory:
       recurse: true
-    repoURL: https://github.com/blanketops/blanketops-environments-min.git
-    targetRevision: "develop"
-    path: environments
+  # source:
+  #   directory:
+  #     recurse: true
+  #   repoURL: https://github.com/blanketops/blanketops-environments-min.git
+  #   targetRevision: "develop"
+  #   path: environments
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
