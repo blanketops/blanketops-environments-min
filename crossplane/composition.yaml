@@ -79,11 +79,6 @@ spec:
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: CapacityProvider
-          metadata:
-            annotations:
-            meta.upbound.io/example-id: ecs/v1beta1/capacityprovider
-          labels:
-            testing.upbound.io/example-name: blanketops-ecs-capacity-provider
           name: blanketops-ecs-capacity-provider
           spec:
             forProvider:
@@ -107,35 +102,32 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
-      # - name: clusterCapacityProviders
-      #   base:
-      #     apiVersion: ecs.aws.upbound.io/v1beta1
-      #     kind: ClusterCapacityProviders
-      #     metadata:
-      #       labels:
-      #       testing.upbound.io/example-name: blanketops-ecs-cluster-capacity-providers
-      #     name: blanketops-ecs-cluster-capacity-providers
-      #     spec:
-      #       forProvider:
-      #         capacityProviders:
-      #         - EC2
-      #         clusterNameSelector:
-      #           matchLabels:
-      #             testing.upbound.io/example-name: blanketops-ecs-cluster
-      #         defaultCapacityProviderStrategy:
-      #         - base: 1
-      #           capacityProvider: EC2
-      #           weight: 100
-      #         region: eu-north-1
-      #   patches:
-      #   - type: FromCompositeFieldPath
-      #     fromFieldPath: "spec.location"
-      #     toFieldPath: "spec.forProvider.region"
-      #     transforms:
-      #     - type: map
-      #       map:
-      #         EU: "eu-north-1"
-      #         US: "us-east-2"
+      - name: clusterCapacityProviders
+        base:
+          apiVersion: ecs.aws.upbound.io/v1beta1
+          kind: ClusterCapacityProviders
+          name: blanketops-ecs-cluster-capacity-providers
+          spec:
+            forProvider:
+              capacityProviders:
+              - EC2
+              clusterNameSelector:
+                matchLabels:
+                  testing.upbound.io/example-name: blanketops-ecs-cluster
+              defaultCapacityProviderStrategy:
+              - base: 1
+                capacityProvider: EC2
+                weight: 100
+              region: eu-north-1
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
   compositeTypeRef:
     apiVersion: batch.blanketops.co.za/v1alpha1
     kind: Environment
