@@ -1,0 +1,16 @@
+apiVersion: applications.argocd.crossplane.io/v1alpha1
+kind: Application
+metadata:
+  name: blanketops-car-sales-microservice-environment-composition-application
+spec:
+  forProvider:
+    destination:
+      namespace: default
+      server: https://kubernetes.default.svc
+    project: default
+    source:
+      path: argocd/
+      repoURL: https://github.com/blanketops/blanketops-environments-min.git
+      targetRevision: develop
+  # providerConfigRef:
+  #   name: blanketops-argocd-config

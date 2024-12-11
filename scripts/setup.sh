@@ -12,11 +12,11 @@ function_install_terraform_components(){
    sleep 15
    echo "---------------------------------------------------------"
 
-   echo "Creating Crossplane Terraform Secrets"
-   echo "---------------------------------------------------------"
-   kubectl create namespace upbound-system
-   sleep 15
-   echo "---------------------------------------------------------"
+   # echo "Creating Crossplane Terraform Secrets"
+   # echo "---------------------------------------------------------"
+   # kubectl create namespace upbound-system
+   # sleep 15
+   # echo "---------------------------------------------------------"
 
    echo "Creating Crossplane Terraform ProviderConfig"
    echo "---------------------------------------------------------"
@@ -38,29 +38,10 @@ function_health_check_crossplane(){
    clear
 }
 
-function_health_check_knative_operator(){
+function_setup_knative_github_sources(){
    echo "---------------------------------------------------------"
-   echo "HealthCheck KNative Resources Installation"
-   echo "---------------------------------------------------------"
-   # kubectl config set-context --current --namespace=default 
-   # kubectl get all -n knative-operator
-   # sleep 5
-   # clear
-   # kubectl get all -n  knative-serving
-   # #kubectl apply -f https://github.com/knative/serving/releases/download/knative-v1.16.0/serving-default-domain.yaml
-   # kubectl get KnativeServing knative-serving -n knative-serving
-   # sleep 3
-   # clear
-   # kubectl patch configmap/config-domain --namespace knative-serving --type merge --patch '{"data":{"example.com":""}}'
-   # sleep 3
-   # kubectl get ksvc
-   # sleep 3
-   # kubectl --namespace knative-serving get service kourier
-   # #kubectl logs -f deploy/knative-operator -n knative-operator
-   # kubectl get KnativeEventing knative-eventing -n knative-eventing
-
-  
-
+   echo "HealthCheck KNative Github Resources Installation"
+   echo "---------------------------------------------------------" 
    sleep 60
    kubectl -n knative-sources get pods --selector control-plane=github-controller-manager
 
@@ -88,14 +69,6 @@ function_setup_metallb(){
   kubectl apply -f metallb/l2_advertisement.yaml
   kubectl apply -f metallb/lb_test.yaml
   sleep 30
-
-#   export LB_IP=$(kubectl get svc/foo-service -o=jsonpath='{.status.loadBalancer.ingress[0].ip}')
-#   echo $LB_IP
-#   # should output foo and bar on separate lines 
-#   for _ in {1..10}; do
-#     curl ${LB_IP}:5678
-#     sleep 5
-#   done
   echo "---------------------------------------------------------"
   clear
 }
@@ -163,11 +136,12 @@ function_install_aws_provider_providerconfig_with_bucket(){
    clear
 }
 
-# sleep 600
-function_setup_metallb
-# sleep 10
-# function_setup_kourier
-# function_setup_crossplane
-# function_install_terraform_components
+sleep 600
+function_setup_crossplane
+function_install_terraform_components
 #function_health_check_knative_operator
 # function_health_check_terraform_components
+# function_setup_metallb
+# sleep 10
+# function_setup_kourier
+# function_setup_knative_github_sources
