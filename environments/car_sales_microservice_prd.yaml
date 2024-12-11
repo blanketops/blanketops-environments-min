@@ -2,21 +2,18 @@
 apiVersion: batch.blanketops.co.za/v1alpha1
 kind: Environment
 metadata:
-  labels:
-    app.kubernetes.io/name: operator
-    app.kubernetes.io/managed-by: kustomize
-  name: car-sales-microservice-environment
-  namespace: prd
+  name: car-sales-web-microservice-application
 spec:
-  namespace: prd
-  type: microservices
-  application:
-    name: car-sales-web-microservice-application
-    stack:
-      name: microservices
-      tier:
-        name: backend
-        programmingLanguageName: c#
+  location: "EU"
+  # namespace: prd
+  # type: microservices
+  # application:
+  #   name: car-sales-web-microservice-application
+  #   stack:
+  #     name: microservices
+  #     tier:
+  #       name: backend
+  #       programmingLanguageName: c#
   # deployment:
   #   name: car-sales-web-microservice-deployment
   #   strategy: canary

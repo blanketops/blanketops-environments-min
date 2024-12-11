@@ -20,14 +20,12 @@ spec:
         type: object
         properties:
           spec:
-            application:
-              name:
+            type: object
+            properties:
+              location:
                 type: string
-              stack:
-                name:
-                  type: string
-                tier:
-                  name:
-                    type: string
-                  programmingLanguageName:
-                    type: string
+                oneOf:
+                - pattern: '^EU$'
+                - pattern: '^US$'
+            required:
+            - location
