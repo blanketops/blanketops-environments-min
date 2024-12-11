@@ -17,6 +17,8 @@ spec:
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git
     path: crossplane
     targetRevision: develop
+    directory:
+      recurse: true
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git
     path: environments
     targetRevision: develop
