@@ -1,10 +1,10 @@
 apiVersion: projects.argocd.crossplane.io/v1alpha1
 kind: Project
 metadata:
-  name: blanketops-argocd-project
+  name: blanketops-environments--min-argocd-project
 spec:
   forProvider:
     projectLabels:
       argocd.crossplane.io/global-project: "true"
   providerConfigRef:
-    name: blanketops-argocd
+    name: default

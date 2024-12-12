@@ -6,11 +6,11 @@ spec:
   forProvider:
     passwordRef:
       key: token
-      name: example-project.git
+      name: blanketops-environments-min.git
       namespace: crossplane-system
-    project: example-project
-    repo: git@github.com:blanketops/blanketops-cloud-native-manifests.git
+    project: blanketops-environments-min
+    repo: git@github.com:blanketops/blanketops-environments-min.git
     type: git
-    username: example-user
+    username: ntlaletsi70
   providerConfigRef:
-    name: argocd-provider
+    name: default

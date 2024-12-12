@@ -1,13 +1,13 @@
 apiVersion: cluster.argocd.crossplane.io/v1alpha1
 kind: Cluster
 metadata:
-  name: blanketops-argocd-cluster
+  name: blanketops-environments-min-argocd-cluster
 spec:
   forProvider:
     config:
       tlsClientConfig:
         insecure: true
-    name: blanketops-argocd-cluster
+    name: blanketops-environments-argocd-cluster
     server: https://kubernetes.default.svc
   providerConfigRef:
-    name: argocd-providers
+    name: default
