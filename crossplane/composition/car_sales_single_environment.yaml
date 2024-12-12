@@ -69,7 +69,7 @@ spec:
                     "essential":true
                   }
                 ]
-              family: car-sales-ecs-cluster-service
+              family: car-sales-ecs-cluster-microservice-service
               region: eu-north-1
         patches:
         - type: FromCompositeFieldPath
