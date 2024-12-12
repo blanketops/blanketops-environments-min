@@ -13,7 +13,7 @@ spec:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
       resources:
-      - name: containerRegistries
+      - name: car-sales-ecr-single-repository #containerRegistries
         base:
           apiVersion: ecr.aws.upbound.io/v1beta1
           kind: Repository
@@ -32,12 +32,12 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
-      - name: infrastructure
+      - name: car-sales-ecs-single-cluster #infrastructure
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: Cluster
           metadata:
-            name: car-sales-ecs-cluster
+            name: car-sales-ecs-single-cluster
           spec:
             forProvider:
               region: eu-north-1
@@ -51,7 +51,7 @@ spec:
               EU: "eu-north-1"
               US: "us-east-2"
 
-      - name: microservice
+      - name: single #Environment Type, spec
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: TaskDefinition
@@ -81,15 +81,15 @@ spec:
               EU: "eu-north-1"
               US: "us-east-2"
 
-      - name: microservice-service
+      - name: microservice-service #deployment
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: Service
           metadata:
-            name: car-sales-ecs-cluster-service
+            name: car-sales-ecs-cluster-microservice-service
           spec:
             forProvider:
-              cluster: car-sales-ecs-cluster
+              cluster: car-sales-ecs-single-cluster
               launchType: EC2
               propagateTags: TASK_DEFINITION
               region: us-west-1

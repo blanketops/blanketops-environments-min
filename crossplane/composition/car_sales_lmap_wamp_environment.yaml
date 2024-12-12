@@ -10,12 +10,12 @@ spec:
     functionRef:
       name: function-patch-and-transform
     input:
-    - name: containerRegistries
+    - name: car-sales-ecr-backend-repository #containerRegistries
       base:
         apiVersion: ecr.aws.upbound.io/v1beta1
         kind: Repository
         metadata:
-          name: car-sales-ecr-lamp-wamp-repository
+          name: car-sales-ecr-backend-repository
         spec:
           forProvider:
             imageTagMutability: MUTABLE
@@ -29,12 +29,73 @@ spec:
           map:
             EU: "eu-north-1"
             US: "us-east-2"
+
+    - name: car-sales-ecr-frontend-repository #containerRegistries
+      base:
+        apiVersion: ecr.aws.upbound.io/v1beta1
+        kind: Repository
+        metadata:
+          name: car-sales-ecr-frontend-repository
+        spec:
+          forProvider:
+            imageTagMutability: MUTABLE
+            region: eu-north-1
+      patches:
+      - type: FromCompositeFieldPath
+        fromFieldPath: "spec.location"
+        toFieldPath: "spec.forProvider.region"
+        transforms:
+        - type: map
+          map:
+            EU: "eu-north-1"
+            US: "us-east-2"
+
+    - name: car-sales-ecr-database-repository #containerRegistries
+      base:
+        apiVersion: ecr.aws.upbound.io/v1beta1
+        kind: Repository
+        metadata:
+          name: car-sales-ecr-database-repository
+        spec:
+          forProvider:
+            imageTagMutability: MUTABLE
+            region: eu-north-1
+      patches:
+      - type: FromCompositeFieldPath
+        fromFieldPath: "spec.location"
+        toFieldPath: "spec.forProvider.region"
+        transforms:
+        - type: map
+          map:
+            EU: "eu-north-1"
+            US: "us-east-2"
+
+    - name: car-sales-ecr-webserver-repository #containerRegistries
+      base:
+        apiVersion: ecr.aws.upbound.io/v1beta1
+        kind: Repository
+        metadata:
+          name: car-sales-ecr-webserver-repository
+        spec:
+          forProvider:
+            imageTagMutability: MUTABLE
+            region: eu-north-1
+      patches:
+      - type: FromCompositeFieldPath
+        fromFieldPath: "spec.location"
+        toFieldPath: "spec.forProvider.region"
+        transforms:
+        - type: map
+          map:
+            EU: "eu-north-1"
+            US: "us-east-2"
+
     - name: infrastructure
       base:
         apiVersion: ecs.aws.upbound.io/v1beta1
         kind: Cluster
         metadata:
-          name: car-sales-ecs-cluster
+          name: car-sales-ecs-lmap-wamp-cluster
         spec:
           forProvider:
             region: eu-north-1
@@ -48,25 +109,115 @@ spec:
             EU: "eu-north-1"
             US: "us-east-2"
 
-    - name: microservice
+    - name: backend
       base:
         apiVersion: ecs.aws.upbound.io/v1beta1
         kind: TaskDefinition
         metadata:
-          name: car-sales-ecs-taskdefinition-microservice
+          name: car-sales-ecs-taskdefinition-backend
         spec:
           forProvider:
             containerDefinitions: |-
               [
                 {
-                  "name": "microservice",
+                  "name": "backend",
                   "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:develop",
                   "cpu": 12,
                   "memory": 512,
                   "essential":true
                 }
               ]
-            family: car-sales-ecs-cluster-service
+            family: car-sales-ecs-lmap-wamp-cluster-service
+            region: eu-north-1
+      patches:
+      - type: FromCompositeFieldPath
+        fromFieldPath: "spec.location"
+        toFieldPath: "spec.forProvider.region"
+        transforms:
+        - type: map
+          map:
+            EU: "eu-north-1"
+            US: "us-east-2"
+
+    - name: frontend
+      base:
+        apiVersion: ecs.aws.upbound.io/v1beta1
+        kind: TaskDefinition
+        metadata:
+          name: car-sales-ecs-taskdefinition-frontend
+        spec:
+          forProvider:
+            containerDefinitions: |-
+              [
+                {
+                  "name": "frontend",
+                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:develop",
+                  "cpu": 12,
+                  "memory": 512,
+                  "essential":true
+                }
+              ]
+            family: car-sales-ecs-lmap-wamp-cluster-service
+            region: eu-north-1
+      patches:
+      - type: FromCompositeFieldPath
+        fromFieldPath: "spec.location"
+        toFieldPath: "spec.forProvider.region"
+        transforms:
+        - type: map
+          map:
+            EU: "eu-north-1"
+            US: "us-east-2"
+
+    - name: database
+      base:
+        apiVersion: ecs.aws.upbound.io/v1beta1
+        kind: TaskDefinition
+        metadata:
+          name: car-sales-ecs-taskdefinition-database
+        spec:
+          forProvider:
+            containerDefinitions: |-
+              [
+                {
+                  "name": "database",
+                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:develop",
+                  "cpu": 12,
+                  "memory": 512,
+                  "essential":true
+                }
+              ]
+            family: car-sales-ecs-lmap-wamp-cluster-service
+            region: eu-north-1
+      patches:
+      - type: FromCompositeFieldPath
+        fromFieldPath: "spec.location"
+        toFieldPath: "spec.forProvider.region"
+        transforms:
+        - type: map
+          map:
+            EU: "eu-north-1"
+            US: "us-east-2"
+
+    - name: webserver
+      base:
+        apiVersion: ecs.aws.upbound.io/v1beta1
+        kind: TaskDefinition
+        metadata:
+          name: car-sales-ecs-taskdefinition-webserver
+        spec:
+          forProvider:
+            containerDefinitions: |-
+              [
+                {
+                  "name": "webserver",
+                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:develop",
+                  "cpu": 12,
+                  "memory": 512,
+                  "essential":true
+                }
+              ]
+            family: car-sales-ecs-lmap-wamp-cluster-service
             region: eu-north-1
       patches:
       - type: FromCompositeFieldPath
@@ -83,7 +234,7 @@ spec:
         apiVersion: ecs.aws.upbound.io/v1beta1
         kind: Service
         metadata:
-          name: car-sales-ecs-cluster-service
+          name: car-sales-ecs-lmap-wamp-cluster-service
         spec:
           forProvider:
             cluster: car-sales-ecs-cluster
