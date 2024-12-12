@@ -25,6 +25,9 @@ function_connect_to_crossplane_providers(){
    kubectl apply -f providers/aws/aws_dynamodb.yaml
    kubectl apply -f providers/aws/aws_ecr.yaml
    kubectl apply -f providers/aws/aws_ecs.yaml
+   kubectl apply -f providers/helm/helm.yaml
+   kubectl apply -f providers/argocd/argocd.yaml
+
    echo "---------------------------------------------------------"
 
 }
@@ -119,7 +122,7 @@ function_setup_localstack(){
 
 function_initialize_required_secrets
 function_connect_to_crossplane_providers
-sleep 360
+sleep 600
 function_connect_to_crossplane_providerconfigs
 function_setup_localstack
 function_health_check_crossplane
