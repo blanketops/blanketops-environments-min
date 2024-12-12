@@ -1,7 +1,7 @@
 apiVersion: repositories.argocd.crossplane.io/v1alpha1
 kind: Repository
 metadata:
-  name: blanketops-environments-repository
+  name: blanketops-environments-min-repository
 spec:
   forProvider:
     passwordRef:

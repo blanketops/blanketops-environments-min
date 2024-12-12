@@ -62,14 +62,14 @@ spec:
               containerDefinitions: |-
                 [
                   {
-                    "name": "microservice",
+                    "name": "single",
                     "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-single-repository:develop",
                     "cpu": 12,
                     "memory": 512,
                     "essential":true
                   }
                 ]
-              family: car-sales-ecs-cluster-microservice-service
+              family: car-sales-ecs-taskdefinition-single
               region: eu-north-1
         patches:
         - type: FromCompositeFieldPath
@@ -81,18 +81,18 @@ spec:
               EU: "eu-north-1"
               US: "us-east-2"
 
-      - name: microservice-service #deployment
+      - name: single-service #deployment
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: Service
           metadata:
-            name: car-sales-ecs-cluster-microservice-service
+            name: car-sales-ecs-cluster-single-service
           spec:
             forProvider:
               cluster: car-sales-ecs-single-cluster
               launchType: EC2
               propagateTags: TASK_DEFINITION
-              region: us-west-1
+              region: eu-north-1
               taskDefinitionSelector:
                 matchLabels:
                   testing.upbound.io/example-name: car-sales-ecs-taskdefinition-single

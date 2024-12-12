@@ -1,29 +1,43 @@
 #!/bin/bash
 
-function_setup_crossplane(){
-   #sleep 120
-   function_install_aws_provider_providerconfig_with_bucket
+
+
+function_initialize_required_secrets(){
+   echo "---------------------------------------------------------"
+   echo "Installing AWS Crossplane Secret"
+   echo "---------------------------------------------------------" 
+   kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=secrets/./aws-credentials.txt
+   echo "---------------------------------------------------------"
+
+   echo "Installing LocalStack Secret"
+   echo "---------------------------------------------------------" 
+   kubectl apply -f secrets/localstack_aws_secret.yaml
+   echo "---------------------------------------------------------"
 }
 
-function_install_terraform_components(){
-   echo "Installing Crossplane Terraform Provider"
+
+function_connect_to_crossplane_providers(){
+   echo "---------------------------------------------------------" 
+   echo "Connect Crossplane Base Providers"
    echo "---------------------------------------------------------"
    kubectl apply -f providers/terraform/terraform.yaml
-   sleep 15
+   kubectl apply -f providers/aws/aws_s3.yaml
+   kubectl apply -f providers/aws/aws_dynamodb.yaml
+   kubectl apply -f providers/aws/aws_ecr.yaml
+   kubectl apply -f providers/aws/aws_ecs.yaml
    echo "---------------------------------------------------------"
 
-   # echo "Creating Crossplane Terraform Secrets"
-   # echo "---------------------------------------------------------"
-   # kubectl create namespace upbound-system
-   # sleep 15
-   # echo "---------------------------------------------------------"
+}
 
-   echo "Creating Crossplane Terraform ProviderConfig"
+function_connect_to_crossplane_providerconfigs(){
+   echo "---------------------------------------------------------" 
+   echo "Connect Base ProviderConfigs"
    echo "---------------------------------------------------------"
    kubectl apply -f providerconfigs/terraform.yaml
-   sleep 15
+   kubectl apply -f providerconfigs/localstack.yaml
+   # kubectl apply -f providerconfigs/aws.yaml
+   # kubectl apply -f providerconfigs/argocd.yaml
    echo "---------------------------------------------------------"
-   clear
 }
 
 
@@ -44,16 +58,12 @@ function_setup_knative_github_sources(){
    echo "---------------------------------------------------------" 
    sleep 60
    kubectl -n knative-sources get pods --selector control-plane=github-controller-manager
-
    sleep 10
    kubectl --namespace default apply --filename github/github_service.yaml
-
    sleep 10
    kubectl --namespace default apply --filename secrets/github_secret.yaml
-
    sleep 10
    kubectl --namespace default apply --filename github/github_source.yaml
-
    echo "---------------------------------------------------------"
    sleep 10
    clear
@@ -95,53 +105,21 @@ function_setup_kourier(){
 
 }
 
-function_install_aws_provider_providerconfig_with_bucket(){
-
-   echo "Installing AWS Crossplane Secret"
-   echo "---------------------------------------------------------" 
-   kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=secrets/./aws-credentials.txt
+function_setup_localstack(){
    echo "---------------------------------------------------------"
-
-   echo "Connect AWS Crossplane Base Providers"
-   echo "---------------------------------------------------------" 
-   kubectl apply -f providers/aws/aws_s3.yaml
-   kubectl apply -f providers/aws/aws_dynamodb.yaml
-   kubectl apply -f providers/aws/aws_ecr.yaml
-   kubectl apply -f providers/aws/aws_ecs.yaml
+   echo "Setting up LocalStack"
    echo "---------------------------------------------------------"
-   
-   sleep 180
-   echo "Connect AWS Crossplane ProviderConfig"
-   echo "---------------------------------------------------------" 
-   kubectl apply -f providerconfigs/aws.yaml
+   export NODE_PORT=$(kubectl get --namespace "localstack" -o jsonpath="{.spec.ports[0].nodePort}" services localstack)
+   export NODE_IP=$(kubectl get nodes --namespace "localstack" -o jsonpath="{.items[0].status.addresses[0].address}")
+   echo http://$NODE_IP:$NODE_PORT
    echo "---------------------------------------------------------"
-   
-   echo "Create the Example Bucket"
-   echo "---------------------------------------------------------" 
-   kubectl apply -f services/aws/s3/s3_bucket.yaml
-   echo "---------------------------------------------------------"
-   sleep 60
-   clear
-
-   echo "Check if Bucket is available"
-   echo "---------------------------------------------------------" 
-   kubectl describe buckets
-   echo "---------------------------------------------------------"
-   
-   echo "Teardown the bucket"
-   echo "---------------------------------------------------------" 
-   kubectl delete buckets --all
-   echo "---------------------------------------------------------"
-   
    clear
 }
 
-#sleep 600
-function_setup_crossplane
-function_install_terraform_components
-#function_health_check_knative_operator
-# function_health_check_terraform_components
-# function_setup_metallb
-# sleep 10
-# function_setup_kourier
-# function_setup_knative_github_sources
+
+function_initialize_required_secrets
+function_connect_to_crossplane_providers
+sleep 360
+function_connect_to_crossplane_providerconfigs
+function_setup_localstack
+function_health_check_crossplane

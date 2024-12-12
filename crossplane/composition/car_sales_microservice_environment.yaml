@@ -2,7 +2,7 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: car-sales-microservice-environment
+  name: car-sales-web-microservice-composition
 spec:
   mode: Pipeline
   pipeline:
@@ -32,7 +32,7 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
-      - name: car-sales-ecs-microservice-cluster
+      - name: car-sales-ecs-microservice-cluster #infrastructure
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: Cluster
@@ -50,7 +50,6 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
-
       - name: microservice #Environment Type, spec
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
@@ -69,7 +68,7 @@ spec:
                     "essential":true
                   }
                 ]
-              family: car-sales-ecs-microservice-service
+              family: car-sales-ecs-taskdefinition-microservice
               region: eu-north-1
         patches:
         - type: FromCompositeFieldPath
@@ -81,7 +80,7 @@ spec:
               EU: "eu-north-1"
               US: "us-east-2"
 
-      - name: car-sales-ecs-microservice-service
+      - name: car-sales-ecs-microservice-service # deployment
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: Service
@@ -92,7 +91,7 @@ spec:
               cluster: car-sales-ecs-microservice-cluster
               launchType: EC2
               propagateTags: TASK_DEFINITION
-              region: us-west-1
+              region: eu-north-1
               taskDefinitionSelector:
                 matchLabels:
                   testing.upbound.io/example-name: car-sales-ecs-taskdefinition-microservice

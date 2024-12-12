@@ -240,7 +240,7 @@ spec:
             cluster: car-sales-ecs-cluster
             launchType: EC2
             propagateTags: TASK_DEFINITION
-            region: us-west-1
+            region: eu-north-1
             taskDefinitionSelector:
               matchLabels:
                 testing.upbound.io/example-name: car-sales-ecs-taskdefinition-microservice
