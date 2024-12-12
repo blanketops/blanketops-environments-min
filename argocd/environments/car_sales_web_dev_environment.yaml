@@ -15,7 +15,17 @@ spec:
   project: default
   sources:
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git
-    path: crossplane
+    path: crossplane/resourcedefs
+    targetRevision: develop
+    directory:
+      recurse: true
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git
+    path: crossplane/functions
+    targetRevision: develop
+    directory:
+      recurse: true
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git
+    path: crossplane/compositions
     targetRevision: develop
     directory:
       recurse: true
@@ -24,12 +34,6 @@ spec:
     targetRevision: develop
     directory:
       recurse: true
-  # source:
-  #   directory:
-  #     recurse: true
-  #   repoURL: https://github.com/blanketops/blanketops-environments-min.git
-  #   targetRevision: "develop"
-  #   path: environments
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
