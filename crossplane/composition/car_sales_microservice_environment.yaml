@@ -13,7 +13,7 @@ spec:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
       resources:
-      - name: containerRegistries
+      - name: car-sales-ecr-microservice-repository #containerRegistries
         base:
           apiVersion: ecr.aws.upbound.io/v1beta1
           kind: Repository
@@ -32,12 +32,12 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
-      - name: infrastructure
+      - name: car-sales-ecs-microservice-cluster
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: Cluster
           metadata:
-            name: car-sales-ecs-cluster
+            name: car-sales-ecs-microservice-cluster
           spec:
             forProvider:
               region: eu-north-1
@@ -51,7 +51,7 @@ spec:
               EU: "eu-north-1"
               US: "us-east-2"
 
-      - name: microservice
+      - name: microservice #Environment Type, spec
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: TaskDefinition
@@ -69,7 +69,7 @@ spec:
                     "essential":true
                   }
                 ]
-              family: car-sales-ecs-cluster-service
+              family: car-sales-ecs-microservice-service
               region: eu-north-1
         patches:
         - type: FromCompositeFieldPath
@@ -81,15 +81,15 @@ spec:
               EU: "eu-north-1"
               US: "us-east-2"
 
-      - name: microservice-service
+      - name: car-sales-ecs-microservice-service
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: Service
           metadata:
-            name: car-sales-ecs-cluster-service
+            name: car-sales-ecs-microservice-service
           spec:
             forProvider:
-              cluster: car-sales-ecs-cluster
+              cluster: car-sales-ecs-microservice-cluster
               launchType: EC2
               propagateTags: TASK_DEFINITION
               region: us-west-1

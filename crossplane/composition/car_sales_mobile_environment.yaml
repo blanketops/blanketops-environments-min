@@ -69,7 +69,7 @@ spec:
                     "essential":true
                   }
                 ]
-              family: car-sales-ecs-cluster-service
+              family: car-sales-ecs-mobile-service
               region: eu-north-1
         patches:
         - type: FromCompositeFieldPath
@@ -81,15 +81,15 @@ spec:
               EU: "eu-north-1"
               US: "us-east-2"
 
-      - name: mobile-service #deployment
+      - name: car-sales-ecs-mobile-service #deployment
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: Service
           metadata:
-            name: car-sales-ecs-cluster-service
+            name: car-sales-ecs-mobile-service
           spec:
             forProvider:
-              cluster: car-sales-ecs-cluster
+              cluster: car-sales-ecs-mobile-cluster
               launchType: EC2
               propagateTags: TASK_DEFINITION
               region: us-west-1
