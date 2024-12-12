@@ -1,0 +1,22 @@
+apiVersion: kubernetes.crossplane.io/v1alpha2
+kind: Object
+metadata:
+  name: blanketops-environments-min-configuration
+spec:
+  forProvider:
+    manifest:
+      apiVersion: v1
+      data:
+        sample-key: sample-value
+      kind: ConfigMap
+      metadata:
+        namespace: default
+  providerConfigRef:
+    name: kubernetes-provider
+  references:
+  - dependsOn:
+      # releaseData, any orphans
+      apiVersion: v1
+      kind: ConfigMap
+      name: bar
+      namespace: default

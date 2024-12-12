@@ -37,9 +37,10 @@ function_connect_to_crossplane_providerconfigs(){
    echo "Connect Base ProviderConfigs"
    echo "---------------------------------------------------------"
    kubectl apply -f providerconfigs/terraform.yaml
-   kubectl apply -f providerconfigs/localstack.yaml
-   # kubectl apply -f providerconfigs/aws.yaml
-   # kubectl apply -f providerconfigs/argocd.yaml
+   # kubectl apply -f providerconfigs/localstack.yaml
+   kubectl apply -f providerconfigs/aws.yaml
+   kubectl apply -f providerconfigs/argocd.yaml
+   kubectl apply -f providerconfigs/helm.yaml
    echo "---------------------------------------------------------"
 }
 
