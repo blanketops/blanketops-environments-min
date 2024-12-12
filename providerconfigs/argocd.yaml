@@ -1,7 +1,7 @@
 apiVersion: argocd.crossplane.io/v1alpha1
 kind: ProviderConfig
 metadata:
-  name: blanketops-argocd-config
+  name: default
 spec:
   credentials:
     secretRef:
