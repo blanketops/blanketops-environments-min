@@ -2,7 +2,7 @@
 apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
-  name: car-sales-microservice-environment
+  name: car-sales-mobile-environment
 spec:
   mode: Pipeline
   pipeline:
@@ -13,37 +13,12 @@ spec:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
       resources:
-      # - name: application
-      #   base:
-      #     apiVersion: dynamodb.aws.upbound.io/v1beta1
-      #     kind: Table
-      #     metadata:
-      #       name: car-sales-web-microservice-application
-      #     spec:
-      #       forProvider:
-      #         region: "us-east-2"
-      #         writeCapacity: 10
-      #         readCapacity: 10
-      #         attribute:
-      #         - name: name
-      #           type: S
-      #         hashKey: name
-
-      #   patches:
-      #   - type: FromCompositeFieldPath
-      #     fromFieldPath: "spec.location"
-      #     toFieldPath: "spec.forProvider.region"
-      #     transforms:
-      #     - type: map
-      #       map:
-      #         EU: "eu-north-1"
-      #         US: "us-east-2"
       - name: containerRegistries
         base:
           apiVersion: ecr.aws.upbound.io/v1beta1
           kind: Repository
           metadata:
-            name: car-sales-ecr-microservice-repository
+            name: car-sales-ecr-mobile-repository
           spec:
             forProvider:
               imageTagMutability: MUTABLE
@@ -81,14 +56,14 @@ spec:
           apiVersion: ecs.aws.upbound.io/v1beta1
           kind: TaskDefinition
           metadata:
-            name: car-sales-ecs-taskdefinition-microservice
+            name: car-sales-ecs-taskdefinition-mobile
           spec:
             forProvider:
               containerDefinitions: |-
                 [
                   {
                     "name": "microservice",
-                    "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-microservice-repository:develop",
+                    "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-mobile-repository:develop",
                     "cpu": 12,
                     "memory": 512,
                     "essential":true
@@ -120,7 +95,7 @@ spec:
               region: us-west-1
               taskDefinitionSelector:
                 matchLabels:
-                  testing.upbound.io/example-name: car-sales-ecs-taskdefinition-microservice
+                  testing.upbound.io/example-name: car-sales-ecs-taskdefinition-mobile
         patches:
         - type: FromCompositeFieldPath
           fromFieldPath: "spec.location"
@@ -130,59 +105,6 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
-      # - name: capacityProvider
-      #   base:
-      #     apiVersion: ecs.aws.upbound.io/v1beta1
-      #     kind: CapacityProvider
-      #     name: car-sales-ecs-capacity-provider
-      #     spec:
-      #       forProvider:
-      #         autoScalingGroupProvider:
-      #         - autoScalingGroupArnSelector:
-      #             matchLabels:
-      #               testing.upbound.io/example-name: car-sales-autoscaling-group
-      #           managedScaling:
-      #           - maximumScalingStepSize: 1000
-      #             minimumScalingStepSize: 1
-      #             status: ENABLED
-      #             targetCapacity: 10
-      #           managedTerminationProtection: DISABLED
-      #         region: eu-north-1
-      #   patches:
-      #   - type: FromCompositeFieldPath
-      #     fromFieldPath: "spec.location"
-      #     toFieldPath: "spec.forProvider.region"
-      #     transforms:
-      #     - type: map
-      #       map:
-      #         EU: "eu-north-1"
-      #         US: "us-east-2"
-      # - name: clusterCapacityProviders
-      #   base:
-      #     apiVersion: ecs.aws.upbound.io/v1beta1
-      #     kind: ClusterCapacityProviders
-      #     name: car-sales-ecs-cluster-capacity-providers
-      #     spec:
-      #       forProvider:
-      #         capacityProviders:
-      #         - EC2
-      #         clusterNameSelector:
-      #           matchLabels:
-      #             testing.upbound.io/example-name: car-sales-ecs-cluster
-      #         defaultCapacityProviderStrategy:
-      #         - base: 1
-      #           capacityProvider: EC2
-      #           weight: 100
-      #         region: eu-north-1
-      #   patches:
-      #   - type: FromCompositeFieldPath
-      #     fromFieldPath: "spec.location"
-      #     toFieldPath: "spec.forProvider.region"
-      #     transforms:
-      #     - type: map
-      #       map:
-      #         EU: "eu-north-1"
-      #         US: "us-east-2"
   compositeTypeRef:
     apiVersion: batch.blanketops.co.za/v1alpha1
     kind: Environment
