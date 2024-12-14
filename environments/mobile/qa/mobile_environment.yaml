@@ -1,0 +1,52 @@
+---
+apiVersion: batch.blanketops.co.za/v1alpha1
+kind: Environment
+metadata:
+  name: car-sales-web-mobile-environment
+spec:
+  location: "EU"
+  # namespace: prd
+  # type: mobile
+  # application:
+  #   name: car-sales-web-mobile-application
+  #   stack:
+  #     name: mobile
+  #     tier:
+  #       name: backend
+  #       programmingLanguageName: c#
+  # deployment:
+  #   name: car-sales-web-mobile-deployment
+  #   strategy: canary
+  #   scheduleType: manual
+  # infrastructure:
+  #   clusterName: blanketops-ecs-cluster
+  #   region: eu-north-1
+  #   capacityProvider: blanketops-ecs-capacity-provider
+  #   capacityProviders: blanketops-ecs-capacity-providers
+  # capacity:
+  #   scalingOperationName: blanketops-mobile-capacity-scaling-operation
+  #   scaling: blanketops-mobile-capacity-scaling
+  #   scalinggroupname: blanketops-aws-autoscaling-group
+  #   clustername: blanketops-aws-ecs-cluster
+  # containerRegistries:
+  # - name: blanketops-ecr-mobile-repository
+  #   region: eu-north-1
+  #   imageTagMutability: MUTABLE
+  # mobile:
+  # - name: car-sales-web-mobile
+  #   image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-mobile-repository:main
+  #   labels:
+  #     app: app
+  #     tier: mobile
+  #   size: 1
+  # release:
+  #   name: release 1
+  #   image:
+  #   number: 2
+  #   isReleased: true
+  #   dateReleased: 04/09/2024
+  #   deployedBranch: origin/main
+  #   rollback:
+  #     releaseName: release 1
+  #     isEnabled: false
+  #     releaseTag: v0.1.0

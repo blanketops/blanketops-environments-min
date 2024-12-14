@@ -1,0 +1,110 @@
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: car-sales-mobile-environment
+spec:
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+      - name: car-sales-ecr-mobile-repository #containerRegistries
+        base:
+          apiVersion: ecr.aws.upbound.io/v1beta1
+          kind: Repository
+          metadata:
+            name: car-sales-ecr-mobile-repository
+          spec:
+            forProvider:
+              imageTagMutability: MUTABLE
+              region: eu-north-1
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
+      - name: car-sales-ecs-mobile-cluster #infrastructure
+        base:
+          apiVersion: ecs.aws.upbound.io/v1beta1
+          kind: Cluster
+          metadata:
+            name: car-sales-ecs-mobile-cluster
+          spec:
+            forProvider:
+              region: eu-north-1
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
+
+      - name: mobile #Environment Type, spec
+        base:
+          apiVersion: ecs.aws.upbound.io/v1beta1
+          kind: TaskDefinition
+          metadata:
+            name: car-sales-ecs-taskdefinition-mobile
+          spec:
+            forProvider:
+              containerDefinitions: |-
+                [
+                  {
+                    "name": "mobile",
+                    "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-mobile-repository:develop",
+                    "cpu": 12,
+                    "memory": 512,
+                    "essential":true
+                  }
+                ]
+              family: car-sales-ecs-mobile-service
+              region: eu-north-1
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
+
+      - name: car-sales-ecs-mobile-service #deployment
+        base:
+          apiVersion: ecs.aws.upbound.io/v1beta1
+          kind: Service
+          metadata:
+            name: car-sales-ecs-mobile-service
+          spec:
+            forProvider:
+              cluster: car-sales-ecs-mobile-cluster
+              launchType: EC2
+              propagateTags: TASK_DEFINITION
+              region: eu-north-1
+              taskDefinitionSelector:
+                matchLabels:
+                  testing.upbound.io/example-name: car-sales-ecs-taskdefinition-mobile
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
+  compositeTypeRef:
+    apiVersion: batch.blanketops.co.za/v1alpha1
+    kind: Environment
