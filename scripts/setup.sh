@@ -131,3 +131,8 @@ sleep 600
 function_connect_to_crossplane_providerconfigs
 function_setup_localstack
 function_health_check_crossplane
+sleep 120
+k apply -f environments.batch.blanketops.co.za.yaml
+k apply -f argocd/environments/microservice/dev .
+argocd admin initial-password -n argocd
+kubectl port-forward svc/argocd-server -n argocd 8081:443
