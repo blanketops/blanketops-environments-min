@@ -1,7 +1,7 @@
 apiVersion: projects.argocd.crossplane.io/v1alpha1
 kind: Project
 metadata:
-  name: blanketops-environments--min-argocd-project
+  name: blanketops-environments-min-argocd-project
 spec:
   forProvider:
     projectLabels:

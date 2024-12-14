@@ -160,7 +160,7 @@ function_install_metallb(){
   clear
 }
 
-function_install_argocd
+#function_install_argocd
 function_install_crossplane
 sleep 30
 function_install_localstack
