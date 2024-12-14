@@ -14,17 +14,13 @@ metadata:
 spec:
   project: default
   sources:
-  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #xRD
-    path: environments/
-    targetRevision: develop
-
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Func
     path: environments/functions
     targetRevision: develop
     directory:
       recurse: true
 
-  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Comp/.\Env
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #xRD,#Comp/.\Env
     path: environments/microservice/qa
     targetRevision: develop
     directory:
@@ -40,4 +36,4 @@ spec:
       allowEmpty: true
     syncOptions:
     - CreateNamespace=true
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 100

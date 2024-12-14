@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: car-sales-web-microservice-prd-environment
+  name: car-sales-web-single-prd-environment
   namespace: argocd
   labels:
-    name: car-sales-web-microservice-dev-environment
+    name: car-sales-web-single-dev-environment
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/sync-wave: "1"
@@ -14,18 +14,14 @@ metadata:
 spec:
   project: default
   sources:
-  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #xRD
-    path: environments/
-    targetRevision: main
-
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Func
     path: environments/functions
     targetRevision: main
     directory:
       recurse: true
 
-  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Comp/.\Env
-    path: environments/microservice/prd
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #xRD,#Comp/.\Env
+    path: environments/single/prd
     targetRevision: main
     directory:
       recurse: true
@@ -40,4 +36,4 @@ spec:
       allowEmpty: true
     syncOptions:
     - CreateNamespace=true
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 1000

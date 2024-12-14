@@ -15,8 +15,10 @@ spec:
   project: default
   sources:
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git #xRD
-    path: environments/
+    path: environments/lmap-wamp/qa
     targetRevision: develop
+    directory:
+      recurse: true
 
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Func
     path: environments/functions
@@ -40,4 +42,4 @@ spec:
       allowEmpty: true
     syncOptions:
     - CreateNamespace=true
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 100
