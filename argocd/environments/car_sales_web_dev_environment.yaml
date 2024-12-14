@@ -14,26 +14,22 @@ metadata:
 spec:
   project: default
   sources:
-  - repoURL: https://github.com/blanketops/blanketops-environments-min.git
-    path: crossplane/resourcedefs
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #xRD
+    path: environments/
+    targetRevision: develop
+
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Func
+    path: environments/functions
     targetRevision: develop
     directory:
       recurse: true
-  - repoURL: https://github.com/blanketops/blanketops-environments-min.git
-    path: crossplane/functions
+
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Comp/.\Env
+    path: environments/microservice
     targetRevision: develop
     directory:
       recurse: true
-  - repoURL: https://github.com/blanketops/blanketops-environments-min.git
-    path: crossplane/compositions
-    targetRevision: develop
-    directory:
-      recurse: true
-  - repoURL: https://github.com/blanketops/blanketops-environments-min.git
-    path: environments
-    targetRevision: develop
-    directory:
-      recurse: true
+
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
