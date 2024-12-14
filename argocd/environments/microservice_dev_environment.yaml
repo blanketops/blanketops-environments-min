@@ -25,7 +25,7 @@ spec:
       recurse: true
 
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Comp/.\Env
-    path: environments/microservice
+    path: environments/microservice/dev
     targetRevision: develop
     directory:
       recurse: true
