@@ -3,6 +3,7 @@ apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: car-sales-web-microservice-composition
+  namespace: dev
 spec:
   mode: Pipeline
   pipeline:
