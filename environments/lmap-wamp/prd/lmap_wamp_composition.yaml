@@ -11,15 +11,15 @@ spec:
     functionRef:
       name: function-patch-and-transform
     input:
-    - name: car-sales-ecr-backend-repository #containerRegistries
+    - name: car-sales-ecr-backend-prd-repository #containerRegistries
       base:
         apiVersion: ecr.aws.upbound.io/v1beta1
         kind: Repository
         metadata:
-          name: car-sales-ecr-backend-repository
+          name: car-sales-ecr-backend-prd-repository
         spec:
           forProvider:
-            imageTagMutability: MUTABLE
+            imageTagMutability: IMMUTABLE
             region: eu-north-1
       patches:
       - type: FromCompositeFieldPath
@@ -31,15 +31,15 @@ spec:
             EU: "eu-north-1"
             US: "us-east-2"
 
-    - name: car-sales-ecr-frontend-repository #containerRegistries
+    - name: car-sales-ecr-frontend-prd-repository #containerRegistries
       base:
         apiVersion: ecr.aws.upbound.io/v1beta1
         kind: Repository
         metadata:
-          name: car-sales-ecr-frontend-repository
+          name: car-sales-ecr-frontend-prd-repository
         spec:
           forProvider:
-            imageTagMutability: MUTABLE
+            imageTagMutability: IMMUTABLE
             region: eu-north-1
       patches:
       - type: FromCompositeFieldPath
@@ -51,15 +51,15 @@ spec:
             EU: "eu-north-1"
             US: "us-east-2"
 
-    - name: car-sales-ecr-database-repository #containerRegistries
+    - name: car-sales-ecr-database-prd-repository #containerRegistries
       base:
         apiVersion: ecr.aws.upbound.io/v1beta1
         kind: Repository
         metadata:
-          name: car-sales-ecr-database-repository
+          name: car-sales-ecr-database-prd-repository
         spec:
           forProvider:
-            imageTagMutability: MUTABLE
+            imageTagMutability: IMMUTABLE
             region: eu-north-1
       patches:
       - type: FromCompositeFieldPath
@@ -71,7 +71,7 @@ spec:
             EU: "eu-north-1"
             US: "us-east-2"
 
-    - name: car-sales-ecr-webserver-repository #containerRegistries
+    - name: car-sales-ecr-webserver-prd-repository #containerRegistries
       base:
         apiVersion: ecr.aws.upbound.io/v1beta1
         kind: Repository
@@ -79,7 +79,7 @@ spec:
           name: car-sales-ecr-webserver-repository
         spec:
           forProvider:
-            imageTagMutability: MUTABLE
+            imageTagMutability: IMMUTABLE
             region: eu-north-1
       patches:
       - type: FromCompositeFieldPath
@@ -96,7 +96,7 @@ spec:
         apiVersion: ecs.aws.upbound.io/v1beta1
         kind: Cluster
         metadata:
-          name: car-sales-ecs-lmap-wamp-cluster
+          name: car-sales-ecs-lmap-wamp-prd-cluster
         spec:
           forProvider:
             region: eu-north-1
@@ -115,14 +115,14 @@ spec:
         apiVersion: ecs.aws.upbound.io/v1beta1
         kind: TaskDefinition
         metadata:
-          name: car-sales-ecs-taskdefinition-backend
+          name: car-sales-ecs-taskdefinition-prd-backend
         spec:
           forProvider:
             containerDefinitions: |-
               [
                 {
                   "name": "backend",
-                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:develop",
+                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:main",
                   "cpu": 12,
                   "memory": 512,
                   "essential":true
@@ -145,14 +145,14 @@ spec:
         apiVersion: ecs.aws.upbound.io/v1beta1
         kind: TaskDefinition
         metadata:
-          name: car-sales-ecs-taskdefinition-frontend
+          name: car-sales-ecs-taskdefinition-prd-frontend
         spec:
           forProvider:
             containerDefinitions: |-
               [
                 {
                   "name": "frontend",
-                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:develop",
+                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:main",
                   "cpu": 12,
                   "memory": 512,
                   "essential":true
@@ -175,20 +175,20 @@ spec:
         apiVersion: ecs.aws.upbound.io/v1beta1
         kind: TaskDefinition
         metadata:
-          name: car-sales-ecs-taskdefinition-database
+          name: car-sales-ecs-taskdefinition-prd-database
         spec:
           forProvider:
             containerDefinitions: |-
               [
                 {
                   "name": "database",
-                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:develop",
+                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:main",
                   "cpu": 12,
                   "memory": 512,
                   "essential":true
                 }
               ]
-            family: car-sales-ecs-lmap-wamp-cluster-service
+            family: car-sales-ecs-lmap-wamp-cluster-prd-service
             region: eu-north-1
       patches:
       - type: FromCompositeFieldPath
@@ -205,20 +205,20 @@ spec:
         apiVersion: ecs.aws.upbound.io/v1beta1
         kind: TaskDefinition
         metadata:
-          name: car-sales-ecs-taskdefinition-webserver
+          name: car-sales-ecs-taskdefinition-prd-webserver
         spec:
           forProvider:
             containerDefinitions: |-
               [
                 {
                   "name": "webserver",
-                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:develop",
+                  "image": "686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-lamp-wamp-repository:main",
                   "cpu": 12,
                   "memory": 512,
                   "essential":true
                 }
               ]
-            family: car-sales-ecs-lmap-wamp-cluster-service
+            family: car-sales-ecs-lmap-wamp-cluster-prd-service
             region: eu-north-1
       patches:
       - type: FromCompositeFieldPath
@@ -235,10 +235,10 @@ spec:
         apiVersion: ecs.aws.upbound.io/v1beta1
         kind: Service
         metadata:
-          name: car-sales-ecs-lmap-wamp-cluster-service
+          name: car-sales-ecs-lmap-wamp-cluster-prd-service
         spec:
           forProvider:
-            cluster: car-sales-ecs-cluster
+            cluster: car-sales-ecs-prd-cluster
             launchType: EC2
             propagateTags: TASK_DEFINITION
             region: eu-north-1

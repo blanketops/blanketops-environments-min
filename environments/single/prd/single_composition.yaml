@@ -14,7 +14,7 @@ spec:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
       resources:
-      - name: car-sales-ecr-single-repository #containerRegistries
+      - name: car-sales-ecr-single-live-repository #containerRegistries, #Triage decisions for prd, better way to implement?
         base:
           apiVersion: ecr.aws.upbound.io/v1beta1
           kind: Repository
@@ -22,7 +22,7 @@ spec:
             name: car-sales-ecr-single-repository
           spec:
             forProvider:
-              imageTagMutability: MUTABLE
+              imageTagMutability: IMMUTABLE
               region: eu-north-1
         patches:
         - type: FromCompositeFieldPath

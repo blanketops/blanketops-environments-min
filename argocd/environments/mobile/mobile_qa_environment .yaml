@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: car-sales-web-microservice-dev-environment
+  name: car-sales-web-microservice-qa-environment
   namespace: argocd
   labels:
     name: car-sales-web-microservice-dev-environment
@@ -25,14 +25,14 @@ spec:
       recurse: true
 
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Comp/.\Env
-    path: environments/microservice/dev
+    path: environments/microservice/qa
     targetRevision: develop
     directory:
       recurse: true
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: dev
+    namespace: qa
   syncPolicy:
     automated:
       prune: true

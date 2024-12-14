@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: car-sales-web-lmap-wamp-prd-environment
+  namespace: argocd
+  labels:
+    name: car-sales-web-lmap-wamp-dev-environment
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/hook-delete-policy: HookFailed
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #xRD
+    path: environments/
+    targetRevision: main
+
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Func
+    path: environments/functions
+    targetRevision: main
+    directory:
+      recurse: true
+
+  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Comp/.\Env
+    path: environments/lmap-wamp/prd
+    targetRevision: main
+    directory:
+      recurse: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: prd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: true
+    syncOptions:
+    - CreateNamespace=true
+  revisionHistoryLimit: 10

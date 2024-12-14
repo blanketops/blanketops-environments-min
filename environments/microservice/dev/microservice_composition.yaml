@@ -14,33 +14,15 @@ spec:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
       resources:
-      # - name: car-sales-ecr-microservice-repository #containerRegistries
-      #   base:
-      #     apiVersion: ecr.aws.upbound.io/v1beta1
-      #     kind: Repository
-      #     metadata:
-      #       name: car-sales-ecr-microservice-repository
-      #     spec:
-      #       forProvider:
-      #         imageTagMutability: MUTABLE
-      #         region: eu-north-1
-      #   patches:
-      #   - type: FromCompositeFieldPath
-      #     fromFieldPath: "spec.location"
-      #     toFieldPath: "spec.forProvider.region"
-      #     transforms:
-      #     - type: map
-      #       map:
-      #         EU: "eu-north-1"
-      #         US: "us-east-2"
-      - name: car-sales-ecs-microservice-cluster #infrastructure, #private cluster, 
+      - name: car-sales-ecr-microservice-repository #containerRegistries
         base:
-          apiVersion: ecs.aws.upbound.io/v1beta1
-          kind: Cluster
+          apiVersion: ecr.aws.upbound.io/v1beta1
+          kind: Repository
           metadata:
-            name: car-sales-ecs-microservice-cluster
+            name: car-sales-ecr-microservice-repository
           spec:
             forProvider:
+              imageTagMutability: MUTABLE
               region: eu-north-1
         patches:
         - type: FromCompositeFieldPath
@@ -51,13 +33,12 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
-
-      - name: car-sales-ecs-microservice-repository-public
+      - name: car-sales-ecs-microservice-cluster #infrastructure, #private cluster, 
         base:
-          apiVersion: ecrpublic.aws.upbound.io/v1beta1
-          kind: Repository
+          apiVersion: ecs.aws.upbound.io/v1beta1
+          kind: Cluster
           metadata:
-            name: car-sales-ecs-microservice-repository-public
+            name: car-sales-ecs-microservice-cluster
           spec:
             forProvider:
               region: eu-north-1
@@ -107,34 +88,6 @@ spec:
               family: car-sales-ecs-taskdefinition-microservice
               region: eu-north-1
 
-        patches:
-        - type: FromCompositeFieldPath
-          fromFieldPath: "spec.location"
-          toFieldPath: "spec.forProvider.region"
-          transforms:
-          - type: map
-            map:
-              EU: "eu-north-1"
-              US: "us-east-2"
-      - name: car-sales-ecs-microservice-service # deployment
-        base:
-          apiVersion: ecs.aws.upbound.io/v1beta1
-          kind: Service
-          metadata:
-            annotations:
-              meta.upbound.io/example-id: ecs/v1beta1/service-static-cluster
-            labels:
-              testing.upbound.io/example-name: car-sales-ecs-microservice-service
-            name: car-sales-ecs-microservice-service
-          spec:
-            forProvider:
-              cluster: car-sales-ecs-microservice-cluster
-              launchType: FARGATE
-              propagateTags: TASK_DEFINITION
-              region: eu-north-1
-              taskDefinitionSelector:
-                matchLabels:
-                  testing.upbound.io/example-name: car-sales-ecs-taskdefinition-microservice
         patches:
         - type: FromCompositeFieldPath
           fromFieldPath: "spec.location"

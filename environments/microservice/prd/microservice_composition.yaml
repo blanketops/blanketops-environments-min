@@ -14,25 +14,25 @@ spec:
       apiVersion: pt.fn.crossplane.io/v1beta1
       kind: Resources
       resources:
-      # - name: car-sales-ecr-microservice-repository #containerRegistries
-      #   base:
-      #     apiVersion: ecr.aws.upbound.io/v1beta1
-      #     kind: Repository
-      #     metadata:
-      #       name: car-sales-ecr-microservice-repository
-      #     spec:
-      #       forProvider:
-      #         imageTagMutability: MUTABLE
-      #         region: eu-north-1
-      #   patches:
-      #   - type: FromCompositeFieldPath
-      #     fromFieldPath: "spec.location"
-      #     toFieldPath: "spec.forProvider.region"
-      #     transforms:
-      #     - type: map
-      #       map:
-      #         EU: "eu-north-1"
-      #         US: "us-east-2"
+      - name: car-sales-ecr-microservice-repository #containerRegistries
+        base:
+          apiVersion: ecr.aws.upbound.io/v1beta1
+          kind: Repository
+          metadata:
+            name: car-sales-ecr-microservice-repository
+          spec:
+            forProvider:
+              imageTagMutability: IMMUTABLE
+              region: eu-north-1
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
       - name: car-sales-ecs-microservice-cluster #infrastructure, #private cluster, 
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
@@ -116,34 +116,6 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
-      # - name: car-sales-ecs-microservice-service # deployment
-      #   base:
-      #     apiVersion: ecs.aws.upbound.io/v1beta1
-      #     kind: Service
-      #     metadata:
-      #       annotations:
-      #         meta.upbound.io/example-id: ecs/v1beta1/service-static-cluster
-      #       labels:
-      #         testing.upbound.io/example-name: car-sales-ecs-microservice-service
-      #       name: car-sales-ecs-microservice-service
-      #     spec:
-      #       forProvider:
-      #         cluster: car-sales-ecs-microservice-cluster
-      #         launchType: FARGATE
-      #         propagateTags: TASK_DEFINITION
-      #         region: eu-north-1
-      #         taskDefinitionSelector:
-      #           matchLabels:
-      #             testing.upbound.io/example-name: car-sales-ecs-taskdefinition-microservice
-      #   patches:
-      #   - type: FromCompositeFieldPath
-      #     fromFieldPath: "spec.location"
-      #     toFieldPath: "spec.forProvider.region"
-      #     transforms:
-      #     - type: map
-      #       map:
-      #         EU: "eu-north-1"
-      #         US: "us-east-2"
       - name: car-sales-ecs-microservice-service
         base:
           apiVersion: ecs.aws.upbound.io/v1beta1
@@ -172,6 +144,45 @@ spec:
             map:
               EU: "eu-north-1"
               US: "us-east-2"
+
+      - name: car-sales-web-live-microservice-release
+        base:
+          apiVersion: helm.crossplane.io/v1beta1
+          kind: Release
+          metadata:
+            name: car-sales-microservice-prd-released
+          spec:
+            forProvider:
+              chart:
+                name: car-sales-microservice
+                repository: https://github.com/blanketops/blanketops-nginx-example.git
+                version: 0.1.1
+              namespace: prd
+              patchesFrom:
+              - configMapKeyRef:
+                key: patch.yaml
+                name: wp-patch
+                namespace: prd
+                optional: true
+              set:
+              - name: name
+                value: release1
+              - name: number
+                value: 12
+              - name: isReleased
+                value: true
+              - name: dateReleased
+                value: 04/09/2024
+              - name: deployedBranch
+                value: origin/main
+              values:
+                param1: release1
+                param2: 12
+                param3: true
+                param4: 04/09/2024
+                param5: origin/main
+              providerRef:
+                name: default
   compositeTypeRef:
     apiVersion: batch.blanketops.co.za/v1alpha1
     kind: Environment
