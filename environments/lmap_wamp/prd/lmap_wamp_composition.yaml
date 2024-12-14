@@ -3,6 +3,7 @@ apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: car-sales-lamp-wamp-environment
+  namespace: prd
 spec:
   mode: Pipeline
   pipeline:

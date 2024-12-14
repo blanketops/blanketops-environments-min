@@ -3,6 +3,7 @@ apiVersion: batch.blanketops.co.za/v1alpha1
 kind: Environment
 metadata:
   name: car-sales-web-lmap-wamp-environment
+  namespace: dev
 spec:
   location: "EU"
   # namespace: prd
