@@ -3,6 +3,7 @@ apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: car-sales-mobile-environment
+  namespace: dev
 spec:
   mode: Pipeline
   pipeline:
