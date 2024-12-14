@@ -1,0 +1,176 @@
+---
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: car-sales-web-microservice-composition
+spec:
+  mode: Pipeline
+  pipeline:
+  - step: patch-and-transform
+    functionRef:
+      name: function-patch-and-transform
+    input:
+      apiVersion: pt.fn.crossplane.io/v1beta1
+      kind: Resources
+      resources:
+      # - name: car-sales-ecr-microservice-repository #containerRegistries
+      #   base:
+      #     apiVersion: ecr.aws.upbound.io/v1beta1
+      #     kind: Repository
+      #     metadata:
+      #       name: car-sales-ecr-microservice-repository
+      #     spec:
+      #       forProvider:
+      #         imageTagMutability: MUTABLE
+      #         region: eu-north-1
+      #   patches:
+      #   - type: FromCompositeFieldPath
+      #     fromFieldPath: "spec.location"
+      #     toFieldPath: "spec.forProvider.region"
+      #     transforms:
+      #     - type: map
+      #       map:
+      #         EU: "eu-north-1"
+      #         US: "us-east-2"
+      - name: car-sales-ecs-microservice-cluster #infrastructure, #private cluster, 
+        base:
+          apiVersion: ecs.aws.upbound.io/v1beta1
+          kind: Cluster
+          metadata:
+            name: car-sales-ecs-microservice-cluster
+          spec:
+            forProvider:
+              region: eu-north-1
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
+
+      - name: car-sales-ecs-microservice-repository-public
+        base:
+          apiVersion: ecrpublic.aws.upbound.io/v1beta1
+          kind: Repository
+          metadata:
+            name: car-sales-ecs-microservice-repository-public
+          spec:
+            forProvider:
+              region: eu-north-1
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
+
+      - name: microservice #Environment Type, spec
+        base:
+          apiVersion: ecs.aws.upbound.io/v1beta1
+          kind: TaskDefinition
+          metadata:
+            name: car-sales-ecs-taskdefinition-microservice
+            labels:
+              testing.upbound.io/example-name: car-sales-ecs-taskdefinition-microservice
+          spec:
+            forProvider:
+              containerDefinitions: |-
+                [
+                  {
+                    "name": "microservice",
+                    "image": "public.ecr.aws/docker/library/httpd:latest",
+                    "cpu": 12,
+                    "memory": 512,
+                    "essential":true,
+                    "executionRoleArn": "arn:aws:iam::686255954747:role/ecsTaskRole",
+                    "networkMode": "awsvpc",
+                    "entryPoint": [
+                       "sh",
+                       "-c"
+                     ],
+                      "portMappings": [
+                        {
+                          "containerPort": 80,
+                          "hostPort": 80,
+                          "protocol": "tcp"
+                        }
+                      ]
+                  }
+                ]
+              family: car-sales-ecs-taskdefinition-microservice
+              region: eu-north-1
+
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
+      # - name: car-sales-ecs-microservice-service # deployment
+      #   base:
+      #     apiVersion: ecs.aws.upbound.io/v1beta1
+      #     kind: Service
+      #     metadata:
+      #       annotations:
+      #         meta.upbound.io/example-id: ecs/v1beta1/service-static-cluster
+      #       labels:
+      #         testing.upbound.io/example-name: car-sales-ecs-microservice-service
+      #       name: car-sales-ecs-microservice-service
+      #     spec:
+      #       forProvider:
+      #         cluster: car-sales-ecs-microservice-cluster
+      #         launchType: FARGATE
+      #         propagateTags: TASK_DEFINITION
+      #         region: eu-north-1
+      #         taskDefinitionSelector:
+      #           matchLabels:
+      #             testing.upbound.io/example-name: car-sales-ecs-taskdefinition-microservice
+      #   patches:
+      #   - type: FromCompositeFieldPath
+      #     fromFieldPath: "spec.location"
+      #     toFieldPath: "spec.forProvider.region"
+      #     transforms:
+      #     - type: map
+      #       map:
+      #         EU: "eu-north-1"
+      #         US: "us-east-2"
+      - name: car-sales-ecs-microservice-service
+        base:
+          apiVersion: ecs.aws.upbound.io/v1beta1
+          kind: Service
+          metadata:
+            annotations:
+              meta.upbound.io/example-id: ecs/v1beta1/service
+          name: car-sales-ecs-microservice-service
+          spec:
+            forProvider:
+              clusterSelector:
+                matchLabels:
+                  testing.upbound.io/example-name: car-sales-ecs-microservice-cluster
+                launchType: EC2
+                propagateTags: TASK_DEFINITION
+                region: eu-north-1
+                taskDefinitionSelector:
+                  matchLabels:
+                    testing.upbound.io/example-name: example-definition
+        patches:
+        - type: FromCompositeFieldPath
+          fromFieldPath: "spec.location"
+          toFieldPath: "spec.forProvider.region"
+          transforms:
+          - type: map
+            map:
+              EU: "eu-north-1"
+              US: "us-east-2"
+  compositeTypeRef:
+    apiVersion: batch.blanketops.co.za/v1alpha1
+    kind: Environment
