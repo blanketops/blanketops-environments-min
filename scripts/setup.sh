@@ -11,7 +11,8 @@ function_initialize_required_secrets(){
 
    echo "Installing LocalStack Secret"
    echo "---------------------------------------------------------" 
-   kubectl apply -f secrets/localstack_aws_secret.yaml
+   kubectl create secret generic localstack-aws-secret -n crossplane-system --from-file=creds=secrets/./aws-credentials.txt
+   #kubectl apply -f secrets/localstack_aws_secret.yaml
    echo "---------------------------------------------------------"
 }
 
@@ -27,6 +28,7 @@ function_connect_to_crossplane_providers(){
    kubectl apply -f providers/aws/aws_ecs.yaml
    kubectl apply -f providers/helm/helm.yaml
    kubectl apply -f providers/argocd/argocd.yaml
+   kubectl apply -f providers/kubernetes/kubernetes.yaml
 
    echo "---------------------------------------------------------"
 
@@ -37,10 +39,11 @@ function_connect_to_crossplane_providerconfigs(){
    echo "Connect Base ProviderConfigs"
    echo "---------------------------------------------------------"
    kubectl apply -f providerconfigs/terraform.yaml
-   # kubectl apply -f providerconfigs/localstack.yaml
+   #kubectl apply -f providerconfigs/localstack.yaml
    kubectl apply -f providerconfigs/aws.yaml
    kubectl apply -f providerconfigs/argocd.yaml
    kubectl apply -f providerconfigs/helm.yaml
+   kubectl apply -f providersconfigs/kubernetes.yaml
    echo "---------------------------------------------------------"
 }
 
