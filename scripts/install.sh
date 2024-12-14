@@ -1,5 +1,34 @@
 #!/bin/bash
 
+
+function_install_argocd(){
+   echo "Initializing Resources"
+   echo "---------------------------------------------------------"
+
+   kubectl create ns argocd
+   # kubectl apply -f secrets/argocd_blanketops_private_repo.yaml
+   kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+   echo "Complete!"
+   echo "----------------------------------------------------------------------------------"
+   echo "Waiting for Next Instructions...."
+   sleep 60
+   sleep 120
+   clear
+
+   echo "Patching ArgoCD Service"
+   echo "----------------------------------------------------------------------------------"
+
+   kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+
+   echo "Complete!"
+   echo "----------------------------------------------------------------------------------"
+   echo "Waiting for Next Instructions...."
+   sleep 10
+   clear
+}
+
+
 function_install_crossplane(){
    echo "---------------------------------------------------------"
    echo "Installing Crossplane Argocd Application"
@@ -131,7 +160,7 @@ function_install_metallb(){
   clear
 }
 
-
+function_install_argocd
 function_install_crossplane
 sleep 30
 function_install_localstack
