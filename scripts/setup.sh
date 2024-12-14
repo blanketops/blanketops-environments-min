@@ -25,6 +25,7 @@ function_connect_to_crossplane_providers(){
    kubectl apply -f providers/aws/aws_s3.yaml
    kubectl apply -f providers/aws/aws_dynamodb.yaml
    kubectl apply -f providers/aws/aws_ecr.yaml
+   kubectl apply -f providers/aws/aws_ecr_public.yaml
    kubectl apply -f providers/aws/aws_ecs.yaml
    kubectl apply -f providers/helm/helm.yaml
    kubectl apply -f providers/argocd/argocd.yaml
