@@ -3,6 +3,7 @@ apiVersion: apiextensions.crossplane.io/v1
 kind: Composition
 metadata:
   name: car-sales-single-environment
+  namespace: qa
 spec:
   mode: Pipeline
   pipeline:
