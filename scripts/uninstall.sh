@@ -34,6 +34,9 @@ function_uninstall(){
 
    kubectl patch crd/taskdefinition.ecs.aws.upbound.io -p '{"metadata":{"finalizers":[]}}' --type=merge
    kubectl delete taskdefinition.ecs.aws.upbound.io --all
+
+   helm repo remove localstack-charts
+   helm repo remove crossplane-stable
    echo "---------------------------------------------------------"
 
 }

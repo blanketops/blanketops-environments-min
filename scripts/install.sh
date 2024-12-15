@@ -7,7 +7,8 @@ function_install_argocd(){
 
    kubectl create ns argocd
    # kubectl apply -f secrets/argocd_blanketops_private_repo.yaml
-   kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+   kubectl apply -f argocd/install.yaml -n argocd
+   #kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"

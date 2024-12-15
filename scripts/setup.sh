@@ -124,10 +124,9 @@ function_setup_localstack(){
    clear
 }
 
-
+sleep 600
 function_initialize_required_secrets
 function_connect_to_crossplane_providers
-sleep 600
 function_connect_to_crossplane_providerconfigs
 function_setup_localstack
 function_health_check_crossplane

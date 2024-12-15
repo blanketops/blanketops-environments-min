@@ -27,5 +27,13 @@ spec:
                 oneOf:
                 - pattern: '^EU$'
                 - pattern: '^US$'
+              namespace:
+                type: string
+                oneOf:
+                - pattern: ^dev$''
+                - pattern: ^qa$''
+                - pattern: ^prd$''
+
             required:
             - location
+            - namespace
