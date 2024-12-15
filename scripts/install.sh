@@ -1,30 +1,29 @@
 #!/bin/bash
 
+function_install(){
+  function_install_argocd
+  function_install_crossplane
+}
 
 function_install_argocd(){
+   echo "---------------------------------------------------------"
    echo "Initializing Resources"
    echo "---------------------------------------------------------"
-
    kubectl create ns argocd
-   # kubectl apply -f secrets/argocd_blanketops_private_repo.yaml
    kubectl apply -f argocd/install.yaml -n argocd
-   #kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 60
    sleep 120
-   clear
-
    echo "Patching ArgoCD Service"
    echo "----------------------------------------------------------------------------------"
 
    kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
-
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
@@ -39,7 +38,7 @@ function_install_crossplane(){
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
@@ -53,36 +52,39 @@ function_install_localstack(){
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
 
 function_install_tekton_pipelines(){
+   echo "---------------------------------------------------------"
    echo "Initializing Pipeline Resources"
    echo "---------------------------------------------------------"
    kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
 
 function_install_tekton_dashboards(){
+   echo "---------------------------------------------------------"
    echo "Initializing Tekton Dasboard Resources"
    echo "---------------------------------------------------------"
    kubectl apply --filename https://storage.googleapis.com/tekton-releases/dashboard/latest/release.yaml
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
 
 function_install_tekton_triggers(){
+   echo "---------------------------------------------------------"
    echo "Initializing Triggers Resources"
    echo "---------------------------------------------------------"
    kubectl apply --filename https://storage.googleapis.com/tekton-releases/triggers/latest/release.yaml
@@ -90,7 +92,7 @@ function_install_tekton_triggers(){
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
@@ -103,12 +105,13 @@ function_install_the_knative_operator(){
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
 
 function_install_knative_serving_without_istio(){
+   echo "---------------------------------------------------------"
    echo "Verify signed images"
    echo "----------------------------------------"
    curl -sSL https://github.com/knative/serving/releases/download/knative-v1.16.0/serving-crds.yaml \
@@ -134,12 +137,13 @@ function_install_knative_serving_without_istio(){
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
 
 function_install_knative_eventing(){
+   echo "---------------------------------------------------------"
    echo "Verify signed images"
    echo "----------------------------------------"
    curl -sSL https://github.com/knative/serving/releases/download/knative-v1.16.0/serving-core.yaml \
@@ -158,7 +162,7 @@ function_install_knative_eventing(){
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
@@ -171,7 +175,7 @@ function_install_knative_github_sources(){
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
@@ -185,7 +189,7 @@ function_install_kourier(){
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions...."
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 }
@@ -203,9 +207,4 @@ function_install_metallb(){
   clear
 }
 
-function_install_argocd
-sleep 10
-function_install_crossplane
-#sleep 30
-#function_install_localstack
-
+function_install

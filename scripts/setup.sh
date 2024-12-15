@@ -1,5 +1,49 @@
 #!/bin/bash
 
+function_initialize(){
+   function_initialize_required_secrets
+}
+
+function_setup(){
+   # function_setup_localstack
+}
+
+function_health_check(){
+  function_health_check_crossplane
+}
+
+function_connect(){
+  function_connect_to_crossplane_providers
+  function_connect_to_crossplane_providerconfigs
+}
+
+
+function_boot_environments(){
+  echo "-----------------------------------------------------------------------------------------------------------------------------------"
+  echo "Booting Up Example Demonstration for A Microservices Development Environment, ideally running nginx web server displaying hello page"
+  echo "The below commands will"
+  echo "-----------------------------------------------------------------------------------------------------------------------------------"
+
+  echo "1. Install ArgoCD Defined cluster and project", here argocd/argocd_cluster.yaml
+  echo "2. Wait a little bit for resources to be in ready state"
+  echo "3. Install The BlanketOps Environment Resource Definition", here environments/environments.batch.blanketops.co.za.yaml
+  echo "4. Install the initial Patch and transform service/function containing our environment AWS Resources" here environments/services/patch_and_transform.yaml
+  echo "5. Install our microservices development environment via argodcd", here  kubectl apply -f argocd/environments/microservice/dev.yaml
+  echo "6. Get our Argocd password for initial sign in"
+  echo "7. Port Forward our argocd instance to port 8081"
+  echo "8. Visit http://localhost:8081", enter argocd password from step 6, your environment shall sync to the desired state defined in kind=Environment from step 5
+  sleep 30
+  echo "-----------------------------------------------------------------------------------------------------------------------------------------------"
+  kubectl apply -f services/argocd/argocd_cluster.yaml
+  kubectl apply -f services/argocd/argocd_project.yaml
+  sleep 120
+  kubectl apply -f environments/environments.batch.blanketops.co.za.yaml
+  kubectl apply -f environments/services/patch_and_transform.yaml
+  kubectl apply -f argocd/environments/microservice/dev.yaml
+  argocd admin initial-password -n argocd
+  kubectl port-forward svc/argocd-server -n argocd 8081:443
+
+}
 
 
 function_initialize_required_secrets(){
@@ -9,11 +53,15 @@ function_initialize_required_secrets(){
    kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=secrets/./aws-credentials.txt
    echo "---------------------------------------------------------"
 
-   echo "Installing LocalStack Secret"
-   echo "---------------------------------------------------------" 
-   kubectl create secret generic localstack-aws-secret -n crossplane-system --from-file=creds=secrets/./aws-credentials.txt
-   #kubectl apply -f secrets/localstack_aws_secret.yaml
-   echo "---------------------------------------------------------"
+   # echo "Installing LocalStack Secret"
+   # echo "---------------------------------------------------------" 
+   # kubectl create secret generic localstack-aws-secret -n crossplane-system --from-file=creds=secrets/./aws-credentials.txt
+   # kubectl apply -f secrets/localstack_aws_secret.yaml
+   # echo "---------------------------------------------------------"
+
+   echo "Complete!"
+   echo "----------------------------------------------------------------------------------"
+   echo "Waiting for Next Instructions!...."
 }
 
 
@@ -32,6 +80,9 @@ function_connect_to_crossplane_providers(){
    kubectl apply -f providers/kubernetes/kubernetes.yaml
 
    echo "---------------------------------------------------------"
+   echo "Complete!"
+   echo "----------------------------------------------------------------------------------"
+   echo "Waiting for Next Instructions!...."
 
 }
 
@@ -46,6 +97,9 @@ function_connect_to_crossplane_providerconfigs(){
    kubectl apply -f providerconfigs/helm.yaml
    kubectl apply -f providersconfigs/kubernetes.yaml
    echo "---------------------------------------------------------"
+   echo "Complete!"
+   echo "----------------------------------------------------------------------------------"
+   echo "Waiting for Next Instructions!...."
 }
 
 
@@ -57,6 +111,9 @@ function_health_check_crossplane(){
    clear
    kubectl api-resources  | grep crossplane
    echo "---------------------------------------------------------"
+   echo "Complete!"
+   echo "----------------------------------------------------------------------------------"
+   echo "Waiting for Next Instructions!...."
    clear
 }
 
@@ -74,6 +131,9 @@ function_setup_knative_github_sources(){
    kubectl --namespace default apply --filename github/github_source.yaml
    echo "---------------------------------------------------------"
    sleep 10
+   echo "Complete!"
+   echo "----------------------------------------------------------------------------------"
+   echo "Waiting for Next Instructions!...."
    clear
 }
 
@@ -88,6 +148,9 @@ function_setup_metallb(){
   kubectl apply -f metallb/lb_test.yaml
   sleep 30
   echo "---------------------------------------------------------"
+  echo "Complete!"
+  echo "----------------------------------------------------------------------------------"
+  echo "Waiting for Next Instructions!...."
   clear
 }
 
@@ -108,6 +171,9 @@ function_setup_kourier(){
    clear
    kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"ec2-13-61-123-118.eu-north-1.compute.amazonaws.com":""}}'
    echo "---------------------------------------------------------"
+   echo "Complete!"
+   echo "----------------------------------------------------------------------------------"
+   echo "Waiting for Next Instructions!...."
    sleep 10
    clear
 
@@ -121,24 +187,17 @@ function_setup_localstack(){
    export NODE_IP=$(kubectl get nodes --namespace "localstack" -o jsonpath="{.items[0].status.addresses[0].address}")
    echo http://$NODE_IP:$NODE_PORT
    echo "---------------------------------------------------------"
+   echo "Complete!"
+   echo "----------------------------------------------------------------------------------"
+   echo "Waiting for Next Instructions!...."
    clear
 }
 
-sleep 180
-function_initialize_required_secrets
-sleep 180
-function_connect_to_crossplane_providers
+function_initialize
 sleep 360
-function_connect_to_crossplane_providerconfigs
-# function_setup_localstack
-function_health_check_crossplane
+function_connect
+sleep 360
+function_health_check
+sleep 10
+function_boot_environments
 
-
-kubectl apply -f services/argocd/argocd_cluster.yaml
-kubectl apply -f services/argocd/argocd_project.yaml
-sleep 120
-kubectl apply -f environments/environments.batch.blanketops.co.za.yaml
-kubectl apply -f environments/services/patch_and_transform.yaml
-kubectl apply -f argocd/environments/microservice/prd.yaml
-argocd admin initial-password -n argocd
-kubectl port-forward svc/argocd-server -n argocd 8081:443
