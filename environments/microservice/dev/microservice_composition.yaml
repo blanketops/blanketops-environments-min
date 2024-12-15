@@ -39,6 +39,8 @@ spec:
           kind: Cluster
           metadata:
             name: car-sales-ecs-microservice-cluster
+            labels:
+              testing.upbound.io/example-name: car-sales-ecs-microservice-cluster
           spec:
             forProvider:
               region: eu-north-1
@@ -87,7 +89,6 @@ spec:
                 ]
               family: car-sales-ecs-taskdefinition-microservice
               region: eu-north-1
-
         patches:
         - type: FromCompositeFieldPath
           fromFieldPath: "spec.location"

@@ -12,14 +12,8 @@ metadata:
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
-  project: default
+  project: blanketops-environments-min-argocd-project
   sources:
-  - repoURL: https://github.com/blanketops/blanketops-environments-min.git #Func
-    path: environments/functions
-    targetRevision: develop
-    directory:
-      recurse: true
-
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git #xRD, #Comp/.\Env
     path: environments/single/dev
     targetRevision: develop
