@@ -131,11 +131,11 @@ sleep 600
 function_connect_to_crossplane_providerconfigs
 function_setup_localstack
 function_health_check_crossplane
-kubectl create ns argocd
 kubectl apply -f services/argocd/argocd_cluster.yaml
 kubectl apply -f services/argocd/argocd_project.yaml
 sleep 120
 kubectl apply -f environments/environments.batch.blanketops.co.za.yaml
-kubectl apply -f argocd/environments/microservice/dev.yaml
+kubectl apply -f environments/functions/patch_and_transform.yaml
+kubectl apply -f argocd/environments/microservice/prd.yaml
 argocd admin initial-password -n argocd
 kubectl port-forward svc/argocd-server -n argocd 8081:443

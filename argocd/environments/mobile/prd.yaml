@@ -4,7 +4,7 @@ metadata:
   name: car-sales-web-mobile-prd-environment
   namespace: argocd
   labels:
-    name: car-sales-web-mobile-dev-environment
+    name: car-sales-web-mobile-prd-environment
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/sync-wave: "1"
@@ -24,9 +24,9 @@ spec:
     namespace: prd
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       selfHeal: true
-      allowEmpty: true
+      allowEmpty: false
     syncOptions:
-    - CreateNamespace=true
-  revisionHistoryLimit: 10
+    - CreateNamespace=false
+  revisionHistoryLimit: 1000

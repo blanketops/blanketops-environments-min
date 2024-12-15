@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: car-sales-web-microservice-qa-environment
+  name: car-sales-web-lmap-wamp-qa-environment
   namespace: argocd
   labels:
-    name: car-sales-web-microservice-dev-environment
+    name: car-sales-web-lmap-wamp-dev-environment
   annotations:
     argocd.argoproj.io/hook: Sync
     argocd.argoproj.io/sync-wave: "1"
@@ -15,7 +15,7 @@ spec:
   project: blanketops-environments-min-argocd-project
   sources:
   - repoURL: https://github.com/blanketops/blanketops-environments-min.git #xRD,#Comp/.\Env
-    path: environments/microservice/qa
+    path: environments/lmap-wamp/qa
     targetRevision: develop
     directory:
       recurse: true
