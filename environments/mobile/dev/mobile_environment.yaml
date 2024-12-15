@@ -6,7 +6,7 @@ metadata:
   namespace: dev
 spec:
   location: "EU"
-  # namespace: prd
+  namespace: dev
   # type: mobile
   # application:
   #   name: car-sales-web-mobile-application

@@ -6,7 +6,7 @@ metadata:
   namespace: qa
 spec:
   location: "EU"
-  # namespace: prd
+  namespace: qa
   # type: lmap-wamp
   # application:
   #   name: car-sales-web-lmap-wamp-application

@@ -6,7 +6,7 @@ metadata:
   namespace: dev
 spec:
   location: "EU"
-  # namespace: prd
+  namespace: dev
   # type: lmap-wamp
   # application:
   #   name: car-sales-web-lmap-wamp-application

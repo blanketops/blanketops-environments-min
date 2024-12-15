@@ -124,12 +124,16 @@ function_setup_localstack(){
    clear
 }
 
-sleep 600
+sleep 180
 function_initialize_required_secrets
+sleep 180
 function_connect_to_crossplane_providers
+sleep 360
 function_connect_to_crossplane_providerconfigs
-function_setup_localstack
+# function_setup_localstack
 function_health_check_crossplane
+
+
 kubectl apply -f services/argocd/argocd_cluster.yaml
 kubectl apply -f services/argocd/argocd_project.yaml
 sleep 120

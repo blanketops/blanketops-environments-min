@@ -6,7 +6,7 @@ metadata:
   namespace: dev
 spec:
   location: "EU"
-  # namespace: prd
+  namespace: dev
   # type: microservices
   # application:
   #   name: car-sales-web-microservices-application

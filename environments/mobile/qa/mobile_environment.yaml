@@ -6,7 +6,7 @@ metadata:
   namespace: qa
 spec:
   location: "EU"
-  # namespace: prd
+  namespace: qa
   # type: mobile
   # application:
   #   name: car-sales-web-mobile-application
