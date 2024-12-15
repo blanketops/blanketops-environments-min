@@ -1,0 +1,16 @@
+apiVersion: repositories.argocd.crossplane.io/v1alpha1
+kind: Repository
+metadata:
+  name: blanketops-nginx-example-repository
+spec:
+  forProvider:
+    passwordRef:
+      key: token
+      name: bblanketops-nginx-example.git
+      namespace: crossplane-system
+    project: blanketops-environments-min-argocd-project
+    repo: https://github.com/blanketops/blanketops-nginx-example.git
+    type: git
+    username: blanketops-nginx-example-admin-user
+  providerConfigRef:
+    name: default

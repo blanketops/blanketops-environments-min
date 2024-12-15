@@ -8,9 +8,9 @@ spec:
       key: token
       name: blanketops-environments.git
       namespace: crossplane-system
-    project: blanketops-environments-project
-    repo: git@github.com:blanketops/blanketops-environments-min.git
+    project: blanketops-environments-min-argocd-project
+    repo: https://github.com/blanketops/blanketops-environments-min.git
     type: git
     username: blanketops-environments-admin-user
   providerConfigRef:
-    name: blanketops-argocd-config
+    name: default
