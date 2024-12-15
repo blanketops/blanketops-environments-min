@@ -30,16 +30,16 @@ spec:
               namespace:
                 type: string
                 oneOf:
-                - pattern: ^dev$''
-                - pattern: ^qa$''
-                - pattern: ^prd$''
+                - pattern: ^dev$'
+                - pattern: ^qa$'
+                - pattern: ^prd$'
               type:
                 type: string
                 oneOf:
-                - pattern: ^microservices$''
-                - pattern: ^single$''
-                - pattern: ^mobile$''
-                - pattern: ^lamp-wap$''
+                - pattern: ^microservices$'
+                - pattern: ^single$'
+                - pattern: ^mobile$'
+                - pattern: ^lamp-wap$'
             required:
             - location
             - namespace

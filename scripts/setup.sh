@@ -5,7 +5,7 @@ function_initialize(){
 }
 
 function_setup(){
-   # function_setup_localstack
+  function_setup_localstack
 }
 
 function_health_check(){
@@ -14,6 +14,7 @@ function_health_check(){
 
 function_connect(){
   function_connect_to_crossplane_providers
+  sleep 360
   function_connect_to_crossplane_providerconfigs
 }
 
@@ -27,8 +28,8 @@ function_boot_environments(){
   echo "1. Install ArgoCD Defined cluster and project", here argocd/argocd_cluster.yaml
   echo "2. Wait a little bit for resources to be in ready state"
   echo "3. Install The BlanketOps Environment Resource Definition", here environments/environments.batch.blanketops.co.za.yaml
-  echo "4. Install the initial Patch and transform service/function containing our environment AWS Resources" here environments/services/patch_and_transform.yaml
-  echo "5. Install our microservices development environment via argodcd", here  kubectl apply -f argocd/environments/microservice/dev.yaml
+  echo "4. Install the initial Patch and transform service/function containing our environment AWS Resources", here environments/services/patch_and_transform.yaml
+  echo "5. Install our microservices development environment via argodcd", here argocd/environments/microservice/dev.yaml
   echo "6. Get our Argocd password for initial sign in"
   echo "7. Port Forward our argocd instance to port 8081"
   echo "8. Visit http://localhost:8081", enter argocd password from step 6, your environment shall sync to the desired state defined in kind=Environment from step 5
@@ -196,7 +197,6 @@ function_setup_localstack(){
 function_initialize
 sleep 360
 function_connect
-sleep 360
 function_health_check
 sleep 10
 function_boot_environments
