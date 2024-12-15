@@ -138,7 +138,7 @@ kubectl apply -f services/argocd/argocd_cluster.yaml
 kubectl apply -f services/argocd/argocd_project.yaml
 sleep 120
 kubectl apply -f environments/environments.batch.blanketops.co.za.yaml
-kubectl apply -f environments/functions/patch_and_transform.yaml
+kubectl apply -f environments/services/patch_and_transform.yaml
 kubectl apply -f argocd/environments/microservice/prd.yaml
 argocd admin initial-password -n argocd
 kubectl port-forward svc/argocd-server -n argocd 8081:443
