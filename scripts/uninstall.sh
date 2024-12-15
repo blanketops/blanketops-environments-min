@@ -2,7 +2,36 @@
 
 function_uninstall(){
 
-  
+   echo "Deleting all ArgoCD Resources---------------------------"
+   echo "---------------------------------------------------------"
+   kubectl patch crd/applications.applications.argocd.crossplane.io -p '{"metadata":{"finalizers":[]}}' --type=merge
+   kubectl delete applications.applications.argocd.crossplane.io  --all
+
+   kubectl patch crd/applications.argoproj.io -p '{"metadata":{"finalizers":[]}}' --type=merge
+   kubectl delete applications.argoproj.io --all
+
+   kubectl patch crd/applicationsets.applicationsets.argocd.crossplane.io -p '{"metadata":{"finalizers":[]}}' --type=merge
+   kubectl delete applicationsets.applicationsets.argocd.crossplane.io --all
+
+   kubectl patch crd/applicationsets.argoproj.io -p '{"metadata":{"finalizers":[]}}' --type=merge
+   kubectl delete applicationsets.argoproj.io--all
+
+
+   kubectl patch crd/appprojects.argoproj.io -p '{"metadata":{"finalizers":[]}}' --type=merge
+   kubectl delete appprojects.argoproj.io --all
+
+   
+ 
+
+   kubectl patch crd/service.ecs.aws.upbound.io -p '{"metadata":{"finalizers":[]}}' --type=merge
+   kubectl delete service.ecs.aws.upbound.io --all
+
+   kubectl patch crd/taskdefinition.ecs.aws.upbound.io -p '{"metadata":{"finalizers":[]}}' --type=merge
+   kubectl delete taskdefinition.ecs.aws.upbound.io --all
+
+   helm repo remove localstack-charts
+   helm repo remove crossplane-stable
+   echo "---------------------------------------------------------"
    echo "Deleting all Crossplane Resources---------------------------"
    echo "---------------------------------------------------------"
    kubectl delete environment --all
@@ -28,6 +57,12 @@ function_uninstall(){
 
    kubectl patch crd/clustercapacityproviders.ecs.aws.upbound.io -p '{"metadata":{"finalizers":[]}}' --type=merge
    kubectl delete clustercapacityproviders.ecs.aws.upbound.io --all
+
+   applications.applications.argocd.crossplane.io
+   applications.argoproj.io
+   applicationsets.applicationsets.argocd.crossplane.io
+   applicationsets.argoproj.io
+   appprojects.argoproj.io
 
    kubectl patch crd/service.ecs.aws.upbound.io -p '{"metadata":{"finalizers":[]}}' --type=merge
    kubectl delete service.ecs.aws.upbound.io --all

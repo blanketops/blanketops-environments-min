@@ -33,7 +33,14 @@ spec:
                 - pattern: ^dev$''
                 - pattern: ^qa$''
                 - pattern: ^prd$''
-
+              type:
+                type: string
+                oneOf:
+                - pattern: ^microservices$''
+                - pattern: ^single$''
+                - pattern: ^mobile$''
+                - pattern: ^lamp-wap$''
             required:
             - location
             - namespace
+            - type

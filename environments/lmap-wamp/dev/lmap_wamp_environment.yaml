@@ -7,7 +7,7 @@ metadata:
 spec:
   location: "EU"
   namespace: dev
-  # type: lmap-wamp
+  type: lmap-wamp
   # application:
   #   name: car-sales-web-lmap-wamp-application
   #   stack:

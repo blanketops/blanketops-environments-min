@@ -7,7 +7,7 @@ metadata:
 spec:
   location: "EU"
   namespace: dev
-  # type: microservices
+  type: microservices
   # application:
   #   name: car-sales-web-microservice-application
   #   stack:
