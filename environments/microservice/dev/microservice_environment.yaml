@@ -39,7 +39,7 @@ spec:
     imageTagMutability: MUTABLE
 
   microservices:
-  - name: car-sales-web-microservice
+  - name: car-sales-ecs-taskdefinition-microservice
     image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-microservice-repository:feature#hello-world
     labels:
       app: app

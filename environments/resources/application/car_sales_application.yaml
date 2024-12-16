@@ -1,0 +1,65 @@
+apiVersion: pt.fn.crossplane.io/v1beta1
+kind: Resources
+resources:
+- name: car-sales-web-microservice-application
+  base:
+    apiVersion: dynamodb.aws.upbound.io/v1beta1
+    kind: Table
+    metadata:
+    annotations:
+      meta.upbound.io/example-id: dynamodb/v1beta1/table
+    name: car-sales-web-microservice-application
+  spec:
+    forProvider:
+      attribute:
+      - name: UserId
+        type: S
+      - name: GameTitle
+        type: S
+      - name: TopScore
+        type: N
+      billingMode: PROVISIONED
+      globalSecondaryIndex:
+      - hashKey: GameTitle
+        name: GameTitleIndex
+        nonKeyAttributes:
+        - UserId
+        projectionType: INCLUDE
+        rangeKey: TopScore
+        readCapacity: 10
+        writeCapacity: 10
+    hashKey: UserId
+    rangeKey: GameTitle
+    readCapacity: 20
+    region: us-west-1
+    tags:
+      Environment: development
+      Name: car-sales-web-microservice-application
+    writeCapacity: 20
+- name: car-sales-web-microservice-cluster #microservice #Environment Type, spec
+  base:
+    apiVersion: dynamodb.aws.upbound.io/v1beta1
+    kind: TableItem
+    metadata:
+      name: car-sales-web-microservice-application-stack
+    spec:
+      forProvider:
+        hashKey: UserId
+        item: |
+          {
+            "UserId": {"S": "user01"},
+            "GameTitle": {"S": "xplane"},
+            "TopScore": {"N": "12345"}
+          }
+        rangeKey: GameTitle
+        region: eu-north-1
+        tableName: example
+  patches:
+  - type: FromCompositeFieldPath
+    fromFieldPath: "spec.location"
+    toFieldPath: "spec.forProvider.region"
+    transforms:
+    - type: map
+      map:
+        EU: "eu-north-1"
+        US: "us-east-2"
