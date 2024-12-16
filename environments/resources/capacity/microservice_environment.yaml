@@ -25,14 +25,14 @@ spec:
   infrastructure:
     clusterName: blanketops-ecs-cluster
     region: eu-north-1
-    capacityProvider: blanketops-ecs-capacity-provider
-    capacityProviders: blanketops-ecs-capacity-providers
 
   capacity:
     scalingOperationName: blanketops-microservices-capacity-scaling-operation
     scaling: blanketops-microservices-capacity-scaling
-    scalinggroupname: blanketops-aws-autoscaling-group
-    clustername: blanketops-aws-ecs-cluster
+    scalingGroupName: blanketops-aws-autoscaling-group
+    clusterName: blanketops-aws-ecs-cluster
+    capacityProvider: blanketops-ecs-capacity-provider
+    clusterCapacityProviders: blanketops-ecs-capacity-providers
 
   containerRegistries:
   - name: blanketops-ecr-microservice-repository
