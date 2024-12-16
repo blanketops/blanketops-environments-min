@@ -41,7 +41,7 @@ spec:
 
   microservices:
   - name: car-sales-web-microservice
-    image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-microservice-repository:main
+    image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-microservice-repository:feature#hello-world
     labels:
       app: app
       tier: microservice
