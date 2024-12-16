@@ -39,7 +39,72 @@ spec:
                 - pattern: ^microservices$'
                 - pattern: ^single$'
                 - pattern: ^mobile$'
-                - pattern: ^lamp-wap$'
+                - pattern: ^lamp-wamp$'
+              backend:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  image:
+                    type: string
+                  size:
+                    type: integer
+                required:
+                - name
+                - size
+                - image
+              database:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  image:
+                    type: string
+                  size:
+                    type: integer
+                required:
+                - name
+                - size
+                - image
+              microservices:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  image:
+                    type: string
+                  size:
+                    type: integer
+                required:
+                - name
+                - size
+                - image
+            frontend:
+              type: object
+              properties:
+                name:
+                  type: string
+                image:
+                  type: string
+                size:
+                  type: integer
+              required:
+              - name
+              - size
+              - image
+            webserver:
+              type: object
+              properties:
+                name:
+                  type: string
+                image:
+                  type: string
+                size:
+                  type: integer
+              required:
+              - name
+              - size
+              - image
             required:
             - location
             - namespace
