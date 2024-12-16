@@ -1,20 +1,20 @@
 apiVersion: pt.fn.crossplane.io/v1beta1
 kind: Resources
 resources:
-- name: car-sales-web-microservicess
+- name: car-sales-web-single #single #Environment Type, spec
   base:
     apiVersion: ecs.aws.upbound.io/v1beta1
     kind: TaskDefinition
     metadata:
-      name: car-sales-ecs-taskdefinition-microservices
+      name: car-sales-ecs-taskdefinition-single
       labels:
-        testing.upbound.io/example-name: car-sales-ecs-taskdefinition-microservices
+        testing.upbound.io/example-name: car-sales-ecs-taskdefinition-single
     spec:
       forProvider:
         containerDefinitions: |-
           [
             {
-              "name": "microservices",
+              "name": "single",
               "image": "public.ecr.aws/docker/library/httpd:latest",
               "cpu": 12,
               "memory": 512,
@@ -34,7 +34,7 @@ resources:
                 ]
             }
           ]
-        family: car-sales-ecs-taskdefinition-microservices
+        family: car-sales-ecs-taskdefinition-single
         region: eu-north-1
 
   patches:
