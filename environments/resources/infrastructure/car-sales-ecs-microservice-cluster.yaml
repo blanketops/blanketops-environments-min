@@ -1,0 +1,23 @@
+apiVersion: pt.fn.crossplane.io/v1beta1
+kind: Resources
+resources:
+- name: car-sales-web-microservice-clusterName #microservice #Environment Type, spec
+  base:
+    apiVersion: ecs.aws.upbound.io/v1beta1
+    kind: Cluster
+    metadata:
+      name: car-sales-web-microservice-clusterName
+      labels:
+        testing.upbound.io/example-name: car-sales-web-microservice-clusterName
+    spec:
+      forProvider:
+        region: eu-north-1
+  patches:
+  - type: FromCompositeFieldPath
+    fromFieldPath: "spec.location"
+    toFieldPath: "spec.forProvider.region"
+    transforms:
+    - type: map
+      map:
+        EU: "eu-north-1"
+        US: "us-east-2"
