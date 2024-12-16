@@ -9,14 +9,14 @@ resources:
     annotations:
       meta.upbound.io/example-id: ecs/v1beta1/capacityprovider
     labels:
-      testing.upbound.io/example-name: blanketops-ecs-capacity-provider
-    name: blanketops-ecs-capacity-provider
+      testing.upbound.io/example-name: car-sales-ecs-capacity-provider
+    name: car-sales-ecs-capacity-provider
     spec:
       forProvider:
         autoScalingGroupProvider:
         - autoScalingGroupArnSelector:
             matchLabels:
-              testing.upbound.io/example-name: blanketops-autoscaling-group
+              testing.upbound.io/example-name: car-sales-autoscaling-group
           managedScaling:
           - maximumScalingStepSize: 1000
             minimumScalingStepSize: 1

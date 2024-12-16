@@ -7,15 +7,15 @@ resources:
     kind: ClusterCapacityProviders
     metadata:
       labels:
-        testing.upbound.io/example-name: blanketops-ecs-cluster-capacity-providers
-      name: blanketops-ecs-cluster-capacity-providers
+        testing.upbound.io/example-name: car-sales-ecs-cluster-capacity-providers
+      name: car-sales-ecs-cluster-capacity-providers
       spec:
         forProvider:
           capacityProviders:
           - EC2
           clusterNameSelector:
             matchLabels:
-              testing.upbound.io/example-name: blanketops-ecs-cluster
+              testing.upbound.io/example-name: car-sales-web-microservice-cluster
           defaultCapacityProviderStrategy:
           - base: 1
             capacityProvider: EC2

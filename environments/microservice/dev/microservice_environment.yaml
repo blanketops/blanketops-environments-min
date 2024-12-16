@@ -19,23 +19,22 @@ spec:
 
   deployment:
     name: car-sales-web-microservices-deployment
-    strategy: canary
-    scheduleType: manual
+    strategy: canary #
+    scheduleType: manual #
 
   infrastructure:
-    clusterName: blanketops-ecs-cluster
+    clusterName: car-sales-web-microservice-cluster #
     region: eu-north-1
 
   capacity:
-    scalingOperationName: blanketops-microservices-capacity-scaling-operation
-    scaling: blanketops-microservices-capacity-scaling
-    scalingGroupName: blanketops-aws-autoscaling-group
-    clusterName: blanketops-aws-ecs-cluster
-    capacityProvider: blanketops-ecs-capacity-provider
-    clusterCapacityProviders: blanketops-ecs-capacity-providers
+    scalingOperationName: blanketops-microservices-capacity-scaling-operation #
+    scaling: blanketops-microservices-capacity-scaling #
+    scalingGroupName: blanketops-aws-autoscaling-group #
+    capacityProvider: car-sales-ecs-capacity-provider ##
+    clusterCapacityProviders: car-sales-ecs-cluster-capacity-providers ##
 
   containerRegistries:
-  - name: blanketops-ecr-microservice-repository
+  - name: car-sales-ecr-microservice-repository
     region: eu-north-1
     imageTagMutability: MUTABLE
 

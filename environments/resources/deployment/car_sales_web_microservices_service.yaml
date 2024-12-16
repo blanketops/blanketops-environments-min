@@ -15,6 +15,4 @@ spec:
     region: eu-north-1
     taskDefinitionSelector:
       matchLabels:
-        testing.upbound.io/example-name: blanketops-ecs-taskdefinition-single
-
-# we will need more services, per application/environment type?        
+        testing.upbound.io/example-name: car-sales-ecs-taskdefinition-microservice
