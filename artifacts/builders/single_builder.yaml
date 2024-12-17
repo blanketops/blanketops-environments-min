@@ -1,0 +1,19 @@
+apiVersion: kpack.io/v1alpha2
+kind: Builder
+metadata:
+  name: single-image-builder
+  namespace: dev
+spec:
+  serviceAccountName: single-service-account
+  tag: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-single-repository:develop
+  stack:
+    name: base
+    kind: ClusterStack
+  store:
+    name: default
+    kind: ClusterStore
+  order:
+  - group:
+    - id: paketo-buildpacks/java
+  - group:
+    - id: paketo-buildpacks/nodejs
