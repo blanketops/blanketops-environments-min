@@ -12,7 +12,7 @@ spec:
     kind: Builder
   source:
     git:
-      url: git@github.com:blanketops/blanketops-nginx-example.git
+      url: https://github.com/blanketops/blanketops-nginx-example.git
       revision: refs/heads/develop
 ---
 

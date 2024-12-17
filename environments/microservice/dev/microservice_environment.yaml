@@ -12,7 +12,7 @@ spec:
       tier:
         name: backend
         programmingLanguageName: c#
-  build:
+  builder:
     name: car-sales-web-microservices-build
     imageToBuild: public.ecr.aws/docker/library/httpd:latest
     scheduleType: manual

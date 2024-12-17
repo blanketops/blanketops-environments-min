@@ -52,7 +52,7 @@ spec:
                 - name
                 - size
                 - image
-              build:
+              builder:
                 type: object
                 properties:
                   name:
@@ -64,6 +64,18 @@ spec:
                     oneOf:
                     - pattern: '^manual$'
                     - pattern: '^automatic$'
+              buildPipelines:
+                type: array
+                items:
+                  properties:
+                    name:
+                      type: string
+                    tasks:
+                    type: array
+                    items:
+                      properties:
+                        name:
+                          type: string
               capacity:
                 type: object
                 properties:
@@ -154,13 +166,18 @@ spec:
                 - pattern: '^dev$'
                 - pattern: '^qa$'
                 - pattern: '^prd$'
-              pipelines:
+              packageApplicationPipelines:
                 type: array
                 items:
                   properties:
                     name:
                       type: string
-
+                    tasks:
+                    type: array
+                    items:
+                      properties:
+                        name:
+                          type: string
               release:
                 type: object
                 properties:

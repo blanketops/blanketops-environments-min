@@ -1,7 +1,7 @@
 apiVersion: kpack.io/v1alpha1
 kind: Image
 metadata:
-  name: microservice
+  name: car-sales-web-microservices-build
   namespace: dev
 spec:
   tag: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-microservice-repository:develop
@@ -11,5 +11,5 @@ spec:
     kind: Builder
   source:
     git:
-      url: git@github.com:blanketops/blanketops-nginx-example.git
+      url: https://github.com/blanketops/blanketops-nginx-example.git
       revision: refs/heads/develop
