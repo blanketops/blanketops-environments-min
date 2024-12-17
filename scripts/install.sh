@@ -3,6 +3,14 @@
 function_install(){
   function_install_argocd
   function_install_crossplane
+  function_install_knative_serving_without_istio
+  function_install_knative_eventing
+  function_install_knative_github_sources
+  function_install_tekton_dashboards
+  function_install_tekton_pipelines
+  function_install_tekton_triggers
+  function_install_kourier
+  function_install_metallb
 }
 
 function_install_argocd(){

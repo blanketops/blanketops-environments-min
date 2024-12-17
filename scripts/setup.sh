@@ -5,7 +5,10 @@ function_initialize(){
 }
 
 function_setup(){
-  function_setup_localstack
+   function_setup_kourier
+   function_setup_knative_github_sources
+   function_setup_eventing
+   function_setup_metallb
 }
 
 function_health_check(){
@@ -22,7 +25,15 @@ function_setup_eventing(){
    echo "---------------------------------------------------------"
    echo "Setting up Eventing"
    echo "---------------------------------------------------------"
-   kubectl apply -f manager/eventing
+   kubectl create ns devops
+   kubectl apply -f manager/eventing/eventing_service_account.yaml
+   kubectl apply -f manager/eventing/eventing_role.yaml
+   kubectl apply -f manager/eventing/eventing_role_binding.yaml
+   kubectl apply -f manager/eventing/eventing_deployment.yaml
+   kubectl apply -f manager/eventing/eventing_service.yaml
+   kn source apiserver create blanketopsapiserversource --namespace devops --mode "Resource" --resource "Event:v1" --service-account eventing-service-account --sink github-message-dumper
+   kubectl run busybox --image=busybox --namespace=devops --restart=Never -- ls
+   kubectl logs --namespace=devops -l app=github-message-dumper --tail=100
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
