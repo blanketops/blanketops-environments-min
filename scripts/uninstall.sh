@@ -11,7 +11,6 @@ function_uninstall(){
    kubectl delete compositeresourcedefinition --all
    echo "---------------------------------------------------------"
 
-
    echo "Deleting all ArgoCD Resources---------------------------"
    echo "---------------------------------------------------------"
    kubectl patch crd/applications.applications.argocd.crossplane.io -p '{"metadata":{"finalizers":[]}}' --type=merge
@@ -62,7 +61,6 @@ function_uninstall(){
    helm repo remove localstack-charts
    helm repo remove crossplane-stable
    echo "---------------------------------------------------------"
-
 }
 
 function_uninstall

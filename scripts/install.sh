@@ -11,7 +11,6 @@ function_install_argocd(){
    echo "---------------------------------------------------------"
    kubectl create ns argocd
    kubectl apply -f argocd/install.yaml -n argocd
-
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
@@ -19,7 +18,6 @@ function_install_argocd(){
    sleep 120
    echo "Patching ArgoCD Service"
    echo "----------------------------------------------------------------------------------"
-
    kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
