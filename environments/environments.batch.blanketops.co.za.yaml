@@ -39,9 +39,10 @@ spec:
               containerRegistries:
                 type: array
                 items:
+                  type: object
                   name:
                     type: string
-                  imageTagImmutability:
+                  imageTagMutability:
                     type: string
               capacity:
                 type: object
@@ -57,9 +58,22 @@ spec:
                   clusterCapacityProviders:
                     type: string
               application:
+                type: object
                 properties:
                   name:
                     type: string
+                  stack:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      tier:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          programmingLanguageName:
+                            type: string
               location:
                 type: string
                 oneOf:
@@ -119,32 +133,55 @@ spec:
                   - name
                   - size
                   - image
-            frontend:
-              type: object
-              properties:
-                name:
-                  type: string
-                image:
-                  type: string
-                size:
-                  type: integer
-              required:
-              - name
-              - size
-              - image
-            webserver:
-              type: object
-              properties:
-                name:
-                  type: string
-                image:
-                  type: string
-                size:
-                  type: integer
-              required:
-              - name
-              - size
-              - image
+              frontend:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  image:
+                    type: string
+                  size:
+                    type: integer
+                required:
+                - name
+                - size
+                - image
+              webserver:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  image:
+                    type: string
+                  size:
+                    type: integer
+                required:
+                - name
+                - size
+                - image
+              release:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  number:
+                    type: integer
+                  isReleased:
+                    type: boolean
+                  dateReleased:
+                    type: string
+                  deployedBranch:
+                    type: string
+                  rollback:
+                    type: object
+                    properties:
+                      releaseName:
+                        type: string
+                      isEnabled:
+                        type: boolean
+                      releaseTag:
+                        type: string
+
             required:
             - location
             - namespace

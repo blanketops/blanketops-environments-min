@@ -8,46 +8,52 @@ spec:
   location: "EU"
   namespace: prd
   type: microservices
-  # application:
-  #   name: car-sales-web-microservices-application
-  #   stack:
-  #     name: microservices
-  #     tier:
-  #       name: backend
-  #       programmingLanguageName: c#
-  # deployment:
-  #   name: car-sales-web-microservices-deployment
-  #   strategy: canary
-  #   scheduleType: manual
-  # infrastructure:
-  #   clusterName: blanketops-ecs-cluster
-  #   region: eu-north-1
-  #   capacityProvider: blanketops-ecs-capacity-provider
-  #   capacityProviders: blanketops-ecs-capacity-providers
-  # capacity:
-  #   scalingOperationName: blanketops-microservices-capacity-scaling-operation
-  #   scaling: blanketops-microservices-capacity-scaling
-  #   scalinggroupname: blanketops-aws-autoscaling-group
-  #   clustername: blanketops-aws-ecs-cluster
-  # containerRegistries:
-  # - name: blanketops-ecr-microservice-repository
-  #   region: eu-north-1
-  #   imageTagMutability: MUTABLE
-  # microservices:
-  # - name: car-sales-web-microservice
-  #   image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-microservice-repository:main
-  #   labels:
-  #     app: app
-  #     tier: microservice
-  #   size: 1
-  # release:
-  #   name: release 1
-  #   image:
-  #   number: 2
-  #   isReleased: true
-  #   dateReleased: 04/09/2024
-  #   deployedBranch: origin/main
-  #   rollback:
-  #     releaseName: release 1
-  #     isEnabled: false
-  #     releaseTag: v0.1.0
+
+  application:
+    name: car-sales-web-microservices-application
+    stack:
+      name: microservices
+      tier:
+        name: backend
+        programmingLanguageName: c#
+
+  deployment:
+    name: car-sales-web-microservices-deployment
+    strategy: canary
+    scheduleType: manual
+
+  infrastructure:
+    clusterName: blanketops-ecs-cluster
+    region: eu-north-1
+    capacityProvider: blanketops-ecs-capacity-provider
+    capacityProviders: blanketops-ecs-capacity-providers
+
+  capacity:
+    scalingOperationName: blanketops-microservices-capacity-scaling-operation
+    scaling: blanketops-microservices-capacity-scaling
+    scalinggroupname: blanketops-aws-autoscaling-group
+    clustername: blanketops-aws-ecs-cluster
+
+  containerRegistries:
+  - name: blanketops-ecr-microservice-repository
+    region: eu-north-1
+    imageTagMutability: MUTABLE
+
+  microservices:
+  - name: car-sales-web-microservice
+    image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-microservice-repository:main
+    labels:
+      app: app
+      tier: microservice
+    size: 1
+
+  release:
+    name: release 1
+    number: 2
+    isReleased: true
+    dateReleased: 04/09/2024
+    deployedBranch: origin/main
+    rollback:
+      releaseName: release 1
+      isEnabled: false
+      releaseTag: v0.1.0

@@ -26,9 +26,9 @@ spec:
     clusterName: car-sales-web-microservice-cluster #
 
   capacity:
-    scalingOperationName: blanketops-microservices-capacity-scaling-operation #
-    scaling: blanketops-microservices-capacity-scaling #
-    scalingGroupName: blanketops-aws-autoscaling-group #
+    scalingOperationName: car-sales-microservices-capacity-scaling-operation #
+    scaling: car-sales-microservices-capacity-scaling #
+    scalingGroupName: car-sales-aws-autoscaling-group #
     capacityProvider: car-sales-ecs-capacity-provider ##
     clusterCapacityProviders: car-sales-ecs-cluster-capacity-providers ##
 
@@ -38,7 +38,7 @@ spec:
 
   microservices:
   - name: car-sales-ecs-taskdefinition-microservice
-    image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-microservice-repository:feature#hello-world
+    image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-microservice-repository:feature#hello-world
     labels:
       app: app
       tier: microservice
