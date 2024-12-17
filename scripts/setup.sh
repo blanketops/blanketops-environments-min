@@ -167,9 +167,9 @@ function_setup_metallb(){
   echo "SetUp Metallb Resources"
   echo "---------------------------------------------------------"
   pwd
-  kubectl apply -f bare_metal_loadbalanceraddress_pool.yaml
-  kubectl apply -f bare_metal_loadbalancerl2_advertisement.yaml
-  kubectl apply -f bare_metal_loadbalancerlb_test.yaml
+  kubectl apply -f bare_metal_loadbalancer/address_pool.yaml
+  kubectl apply -f bare_metal_loadbalancer/l2_advertisement.yaml
+  kubectl apply -f bare_metal_loadbalancer/lb_test.yaml
   sleep 30
   echo "---------------------------------------------------------"
   echo "Complete!"

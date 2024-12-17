@@ -4,12 +4,13 @@ function_install(){
   function_install_argocd
   function_install_crossplane
   function_install_knative_serving_without_istio
+  function_install_kourier
   function_install_knative_eventing
   function_install_knative_github_sources
   function_install_tekton_dashboards
   function_install_tekton_pipelines
   function_install_tekton_triggers
-  function_install_kourier
+
   function_install_metallb
 }
 
@@ -103,19 +104,6 @@ function_install_tekton_triggers(){
    clear
 }
 
-function_install_the_knative_operator(){
-   echo "-------------------------------------"
-   echo "Initializing KNative Operator Resources"
-   echo "---------------------------------------------------------"
-   kubectl apply -f https://github.com/knative/operator/releases/download/knative-v1.16.0/operator.yaml
-   echo "---------------------------------------------------------"
-   echo "Complete!"
-   echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions!...."
-   sleep 10
-   clear
-}
-
 function_install_knative_serving_without_istio(){
    echo "---------------------------------------------------------"
    echo "Verify signed images"
@@ -137,8 +125,8 @@ function_install_knative_serving_without_istio(){
    echo "Initializing KNative Serving Resources"
    echo "---------------------------------------------------------"
    kubectl create namespace knative-serving
-   kubectl apply -f https://github.com/knative/serving/releases/knative-v1.16.0/download/serving-crds.yaml
-   kubectl apply -f https://github.com/knative/serving/releases/knative-v1.16.0/download/serving-core.yaml
+   kubectl apply -f dependencies/serving-core.yaml
+   kubectl apply -f dependencies/serving-crd.yaml
    
    echo "---------------------------------------------------------"
    echo "Complete!"
@@ -163,7 +151,7 @@ function_install_knative_eventing(){
    echo "Initializing KNative Eventing Resources"
    echo "---------------------------------------------------------"
    kubectl create namespace knative-eventing
-   kubectl apply -f https://github.com/knative/eventing/releases/download/knative-v1.16.3/eventing-crds.yaml
+   kubectl apply -f dependencies/eventing-crds.yaml
    
    echo "---------------------------------------------------------"
    echo "Complete!"
@@ -177,7 +165,7 @@ function_install_knative_github_sources(){
    echo "-------------------------------------"
    echo "Initializing KNatibe Github Resources"
    echo "---------------------------------------------------------"
-   kubectl apply -f github/github.yaml
+   kubectl apply -f manager/resources/github/github.yaml
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
@@ -190,8 +178,8 @@ function_install_kourier(){
    echo "-------------------------------------"
    echo "Initializing Kourier Resources"
    echo "---------------------------------------------------------"
-   kubectl apply -f dependecies/kourier/kourier.yaml
-   kubectl apply -f dependecies/kourier/loadbalancer.yaml -n kourier-system
+   kubectl apply -f dependencies/kourier/kourier.yaml
+   kubectl apply -f dependencies/kourier/loadbalancer.yaml -n kourier-system
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
