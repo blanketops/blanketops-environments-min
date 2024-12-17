@@ -182,8 +182,8 @@ function_install_kourier(){
    echo "-------------------------------------"
    echo "Initializing Kourier Resources"
    echo "---------------------------------------------------------"
-   kubectl apply -f kourier/kourier.yaml
-   kubectl apply -f kourier/loadbalancer.yaml -n kourier-system
+   kubectl apply -f dependecies/kourier/kourier.yaml
+   kubectl apply -f dependecies/kourier/loadbalancer.yaml -n kourier-system
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
@@ -196,7 +196,7 @@ function_install_metallb(){
   echo "-------------------------------------"
   echo "Initializing Metallb Resources"
   echo "---------------------------------------------------------"
-  kubectl apply -f metallb/metallb.yaml
+  kubectl apply -f bare_metal_loadbalancer/metallb.yaml
   echo "---------------------------------------------------------"
   echo "Complete!"
   echo "----------------------------------------------------------------------------------"

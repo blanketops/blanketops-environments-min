@@ -10,7 +10,7 @@ teardown:
 .PHONY: cluster
 cluster:
 	@echo "\n🔧 Creating Kubernetes cluster..."
-	kind create cluster -n blanketops --config kind/kind_config.yaml
+	kind create cluster -n blanketops --config dependecies/kind/kind_config.yaml
 	kubectl cluster-info --context kind-blanketops
 	sleep 15
 	kubectl get pod -A

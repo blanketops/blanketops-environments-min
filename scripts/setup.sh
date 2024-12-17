@@ -125,11 +125,11 @@ function_setup_knative_github_sources(){
    sleep 60
    kubectl -n knative-sources get pods --selector control-plane=github-controller-manager
    sleep 10
-   kubectl --namespace default apply --filename github/github_service.yaml
+   kubectl --namespace default apply --filename manager/resources/github_service.yaml
    sleep 10
    kubectl --namespace default apply --filename secrets/github_secret.yaml
    sleep 10
-   kubectl --namespace default apply --filename github/github_source.yaml
+   kubectl --namespace default apply --filename manager/resources/github_source.yaml
    echo "---------------------------------------------------------"
    sleep 10
    echo "Complete!"
@@ -144,9 +144,9 @@ function_setup_metallb(){
   echo "SetUp Metallb Resources"
   echo "---------------------------------------------------------"
   pwd
-  kubectl apply -f metallb/address_pool.yaml
-  kubectl apply -f metallb/l2_advertisement.yaml
-  kubectl apply -f metallb/lb_test.yaml
+  kubectl apply -f bare_metal_loadbalanceraddress_pool.yaml
+  kubectl apply -f bare_metal_loadbalancerl2_advertisement.yaml
+  kubectl apply -f bare_metal_loadbalancerlb_test.yaml
   sleep 30
   echo "---------------------------------------------------------"
   echo "Complete!"
