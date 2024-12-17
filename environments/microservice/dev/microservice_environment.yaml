@@ -65,6 +65,6 @@ spec:
     eventListerName: car-sales-microservice-tekton-event-listener
 
   packageApplicationPipelines:
-  - name: car-sales-web-microservices-pacakage-pipeline
+  - name: car-sales-web-microservices-package-pipeline
 
   type: microservices
