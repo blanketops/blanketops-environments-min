@@ -16,6 +16,8 @@ spec:
     name: car-sales-web-microservices-build
     imageToBuild: public.ecr.aws/docker/library/httpd:latest
     scheduleType: manual
+  buildPipelines:
+
   capacity:
     scalingOperationName: car-sales-microservices-capacity-scaling-operation #
     scaling: car-sales-microservices-capacity-scaling #
