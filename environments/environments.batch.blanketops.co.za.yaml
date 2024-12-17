@@ -48,6 +48,8 @@ spec:
                     type: string
                   size:
                     type: integer
+                  containerPort:
+                    type: integer
                 required:
                 - name
                 - size
@@ -64,23 +66,21 @@ spec:
                     oneOf:
                     - pattern: '^manual$'
                     - pattern: '^automatic$'
+
               buildPipelines:
                 type: array
                 items:
+                  type: object
                   properties:
                     name:
                       type: string
-                    type: array
-                    items:
-                      properties:
-                        name:
-                          type: string
-                        tasks:
-                          type: array
-                          items:
-                            properties:
-                              name:
-                                type: string
+                    tasks:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          name:
+                            type: string
               capacity:
                 type: object
                 properties:
@@ -98,10 +98,11 @@ spec:
                 type: array
                 items:
                   type: object
-                  name:
-                    type: string
-                  imageTagMutability:
-                    type: string
+                  properties:
+                    name:
+                      type: string
+                    imageTagMutability:
+                      type: string
               database:
                 type: object
                 properties:
@@ -110,6 +111,8 @@ spec:
                   image:
                     type: string
                   size:
+                    type: integer
+                  containerPort:
                     type: integer
                 required:
                 - name
@@ -136,6 +139,8 @@ spec:
                     type: string
                   size:
                     type: integer
+                  containerPort:
+                    type: integer
                 required:
                 - name
                 - size
@@ -161,6 +166,8 @@ spec:
                       type: string
                     size:
                       type: integer
+                    containerPort:
+                      type: integer
                   required:
                   - name
                   - size
@@ -171,23 +178,29 @@ spec:
                 - pattern: '^dev$'
                 - pattern: '^qa$'
                 - pattern: '^prd$'
+
               packageApplicationPipelines:
                 type: array
                 items:
+                  type: object
                   properties:
                     name:
                       type: string
-                    type: array
-                    items:
-                      properties:
-                        name:
-                          type: string
-                        tasks:
-                          type: array
-                          items:
-                            properties:
-                              name:
-                                type: string
+              service:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  remoteSourceCodeRepositoryLink:
+                    type: string
+                  remoteSourceCodeRepositorySecretName:
+                    type: string
+                  eventName:
+                    type: string
+                  eventListerName:
+                    type: string
+                  githubSourceWebhook:
+                    type: string
               release:
                 type: object
                 properties:
@@ -225,6 +238,8 @@ spec:
                   image:
                     type: string
                   size:
+                    type: integer
+                  containerPort:
                     type: integer
                 required:
                 - name
