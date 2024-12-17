@@ -58,8 +58,8 @@ function_boot_environments(){
   echo "8. Visit http://localhost:8081", enter argocd password from step 6, your environment shall sync to the desired state defined in kind=Environment from step 5
   sleep 30
   echo "-----------------------------------------------------------------------------------------------------------------------------------------------"
-  kubectl apply -f services/argocd/argocd_cluster.yaml
-  kubectl apply -f services/argocd/argocd_project.yaml
+  kubectl apply -f manager/resources/argocd/argocd_cluster.yaml
+  kubectl apply -f manager/resources/argocd/argocd_project.yaml
   sleep 120
   kubectl apply -f environments/environments.batch.blanketops.co.za.yaml
   kubectl apply -f environments/functions/patch_and_transform.yaml
