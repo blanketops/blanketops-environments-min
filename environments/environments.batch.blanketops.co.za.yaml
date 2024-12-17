@@ -59,6 +59,11 @@ spec:
                     type: string
                   imageToBuild:
                     type: string
+                  scheduleType:
+                    type: string
+                    oneOf:
+                    - pattern: '^manual$'
+                    - pattern: '^automatic$'
               capacity:
                 type: object
                 properties:
@@ -102,6 +107,9 @@ spec:
                     type: string
                   scheduleType:
                     type: string
+                    oneOf:
+                    - pattern: '^manual$'
+                    - pattern: '^automatic$'
               frontend:
                 type: object
                 properties:
@@ -146,13 +154,13 @@ spec:
                 - pattern: '^dev$'
                 - pattern: '^qa$'
                 - pattern: '^prd$'
-              type:
-                type: string
-                oneOf:
-                - pattern: '^microservices$'
-                - pattern: '^single$'
-                - pattern: '^mobile$'
-                - pattern: '^lamp-wamp$'
+              pipelines:
+                type: array
+                items:
+                  properties:
+                    name:
+                      type: string
+
               release:
                 type: object
                 properties:
@@ -175,6 +183,13 @@ spec:
                         type: boolean
                       releaseTag:
                         type: string
+              type:
+                type: string
+                oneOf:
+                - pattern: '^microservices$'
+                - pattern: '^single$'
+                - pattern: '^mobile$'
+                - pattern: '^lamp-wamp$'
               webserver:
                 type: object
                 properties:
@@ -188,7 +203,6 @@ spec:
                 - name
                 - size
                 - image
-
             required:
             - location
             - namespace
