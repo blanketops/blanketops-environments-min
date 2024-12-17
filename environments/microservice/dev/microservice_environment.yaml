@@ -5,10 +5,6 @@ metadata:
   name: car-sales-web-microservices-environment
   namespace: dev
 spec:
-  location: "EU"
-  namespace: dev
-  type: microservices
-
   application:
     name: car-sales-web-microservices-application
     stack:
@@ -16,30 +12,32 @@ spec:
       tier:
         name: backend
         programmingLanguageName: c#
-
-  deployment:
-    name: car-sales-web-microservices-deployment
-    strategy: canary #
-    scheduleType: manual #
-
-  infrastructure:
-    clusterName: car-sales-web-microservice-cluster #
-
+  build:
+    name: car-sales-web-microservices-build
+    imageToBuild: public.ecr.aws/docker/library/httpd:latest
   capacity:
     scalingOperationName: car-sales-microservices-capacity-scaling-operation #
     scaling: car-sales-microservices-capacity-scaling #
     scalingGroupName: car-sales-aws-autoscaling-group #
     capacityProvider: car-sales-ecs-capacity-provider ##
     clusterCapacityProviders: car-sales-ecs-cluster-capacity-providers ##
-
   containerRegistries:
   - name: car-sales-ecr-microservice-repository
     imageTagMutability: MUTABLE
-
+  deployment:
+    name: car-sales-web-microservices-deployment
+    strategy: canary #
+    scheduleType: manual #
+  infrastructure:
+    clusterName: car-sales-web-microservice-cluster #
+  location: "EU"
+  namespace: dev
   microservices:
   - name: car-sales-ecs-taskdefinition-microservice
     image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-microservice-repository:feature#hello-world
+    containerPort: 80
     labels:
       app: app
       tier: microservice
     size: 1
+  type: microservices

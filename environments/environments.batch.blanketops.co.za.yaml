@@ -59,8 +59,6 @@ spec:
                     type: string
                   imageToBuild:
                     type: string
-                  containerPort:
-                    type: integer
               capacity:
                 type: object
                 properties:
