@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: eventing-role-binding
+  namespace: devops
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: eventing
+subjects:
+- kind: ServiceAccount
+  name: eventing-service-account
+  namespace: devops

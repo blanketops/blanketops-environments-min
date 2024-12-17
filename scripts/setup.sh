@@ -18,6 +18,18 @@ function_connect(){
   function_connect_to_crossplane_providerconfigs
 }
 
+function_setup_eventing(){
+   echo "---------------------------------------------------------"
+   echo "Setting up Eventing"
+   echo "---------------------------------------------------------"
+   kubectl apply -f manager/eventing
+   echo "---------------------------------------------------------"
+   echo "Complete!"
+   echo "----------------------------------------------------------------------------------"
+   echo "Waiting for Next Instructions!...."
+   clear
+}
+
 
 function_boot_environments(){
   echo "-----------------------------------------------------------------------------------------------------------------------------------"
