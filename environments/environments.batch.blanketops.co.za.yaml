@@ -22,6 +22,44 @@ spec:
           spec:
             type: object
             properties:
+              deployment:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  strategy:
+                    type: string
+                  scheduleType:
+                    type: string
+              infrastructure:
+                type: object
+                properties:
+                  clusterName:
+                    type: string
+              containerRegistries:
+                type: array
+                items:
+                  name:
+                    type: string
+                  imageTagImmutability:
+                    type: string
+              capacity:
+                type: object
+                properties:
+                  scalingOperationName:
+                    type: string
+                  scaling:
+                    type: string
+                  scalingGroupName:
+                    type: string
+                  capacityProvider:
+                    type: string
+                  clusterCapacityProviders:
+                    type: string
+              application:
+                properties:
+                  name:
+                    type: string
               location:
                 type: string
                 oneOf:
@@ -30,16 +68,16 @@ spec:
               namespace:
                 type: string
                 oneOf:
-                - pattern: ^dev$'
-                - pattern: ^qa$'
-                - pattern: ^prd$'
+                - pattern: '^dev$'
+                - pattern: '^qa$'
+                - pattern: '^prd$'
               type:
                 type: string
                 oneOf:
-                - pattern: ^microservices$'
-                - pattern: ^single$'
-                - pattern: ^mobile$'
-                - pattern: ^lamp-wamp$'
+                - pattern: '^microservices$'
+                - pattern: '^single$'
+                - pattern: '^mobile$'
+                - pattern: '^lamp-wamp$'
               backend:
                 type: object
                 properties:
@@ -67,18 +105,20 @@ spec:
                 - size
                 - image
               microservices:
-                type: object
-                properties:
-                  name:
-                    type: string
-                  image:
-                    type: string
-                  size:
-                    type: integer
-                required:
-                - name
-                - size
-                - image
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    image:
+                      type: string
+                    size:
+                      type: integer
+                  required:
+                  - name
+                  - size
+                  - image
             frontend:
               type: object
               properties:

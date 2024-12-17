@@ -24,7 +24,6 @@ spec:
 
   infrastructure:
     clusterName: car-sales-web-microservice-cluster #
-    region: eu-north-1
 
   capacity:
     scalingOperationName: blanketops-microservices-capacity-scaling-operation #
@@ -35,7 +34,6 @@ spec:
 
   containerRegistries:
   - name: car-sales-ecr-microservice-repository
-    region: eu-north-1
     imageTagMutability: MUTABLE
 
   microservices:
