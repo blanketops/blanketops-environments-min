@@ -12,7 +12,7 @@ spec:
       name: mobile
       tier:
         name: backend
-        programmingLanguageName: c#
+        programmingLanguageName: java
 
   builder:
     name: car-sales-web-mobile-build

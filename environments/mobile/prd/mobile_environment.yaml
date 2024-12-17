@@ -5,49 +5,78 @@ metadata:
   name: car-sales-web-mobile-environment
   namespace: prd
 spec:
+
+  application:
+    name: car-sales-web-mobile-application
+    stack:
+      name: mobile
+      tier:
+        name: backend
+        programmingLanguageName: java
+
+  builder:
+    name: car-sales-web-mobile-build
+    imageToBuild: public.ecr.aws/docker/library/httpd:latest
+    scheduleType: automatic
+
+  buildPipelines:
+  - name: car-sales-web-mobile-build-and-push-pipeline
+    tasks:
+    - name: git-clone
+    - name: build-and-push-to-registry
+
+  capacity:
+    scalingOperationName: car-sales-mobile-capacity-scaling-operation #
+    scaling: car-sales-mobile-capacity-scaling #
+    scalingGroupName: car-sales-aws-autoscaling-group #
+    capacityProvider: car-sales-ecs-capacity-provider ##
+    clusterCapacityProviders: car-sales-ecs-cluster-capacity-providers ##
+
+  containerRegistries:
+  - name: car-sales-ecr-microservice-repository
+    imageTagMutability: MUTABLE
+
+  deployment:
+    name: car-sales-web-mobile-deployment
+    strategy: rolling-upgrade #
+    scheduleType: automatic #
+
+  infrastructure:
+    clusterName: car-sales-web-microservice-cluster #
+
   location: "EU"
+
+  mobile:
+    name: car-sales-ecs-taskdefinition-microservice
+    image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-microservice-repository:feature#hello-world
+    containerPort: 80
+    # labels:
+    #   app: app
+    #   tier: microservice
+    size: 1
+
   namespace: prd
+  service:
+    name: github-message-dumper
+    remoteSourceCodeRepositoryLink: https://github.com/blanketops/blanketops-nginx-example.git
+    remoteSourceCodeRepositorySecretName: githubsecret
+    githubSourceWebhook: githubsourcesample
+    eventName:
+    eventListerName: car-sales-microservice-tekton-event-listener
+
+  packageApplicationPipelines:
+  - name: car-sales-web-mobile-package-pipeline
+
   type: mobile
-  # application:
-  #   name: car-sales-web-mobile-application
-  #   stack:
-  #     name: mobile
-  #     tier:
-  #       name: backend
-  #       programmingLanguageName: c#
-  # deployment:
-  #   name: car-sales-web-mobile-deployment
-  #   strategy: canary
-  #   scheduleType: manual
-  # infrastructure:
-  #   clusterName: blanketops-ecs-cluster
-  #   region: eu-north-1
-  #   capacityProvider: blanketops-ecs-capacity-provider
-  #   capacityProviders: blanketops-ecs-capacity-providers
-  # capacity:
-  #   scalingOperationName: blanketops-mobile-capacity-scaling-operation
-  #   scaling: blanketops-mobile-capacity-scaling
-  #   scalinggroupname: blanketops-aws-autoscaling-group
-  #   clustername: blanketops-aws-ecs-cluster
-  # containerRegistries:
-  # - name: blanketops-ecr-mobile-repository
-  #   region: eu-north-1
-  #   imageTagMutability: MUTABLE
-  # mobile:
-  # - name: car-sales-web-mobile
-  #   image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/blanketops-ecr-mobile-repository:main
-  #   labels:
-  #     app: app
-  #     tier: mobile
-  #   size: 1
-  # release:
-  #   name: release 1
-  #   image:
-  #   number: 2
-  #   isReleased: true
-  #   dateReleased: 04/09/2024
-  #   deployedBranch: origin/main
-  #   rollback:
-  #     releaseName: release 1
-  #     isEnabled: false
-  #     releaseTag: v0.1.0
+
+  release:
+    name: release 1
+    image:
+    number: 2
+    isReleased: true
+    dateReleased: 04/09/2024
+    deployedBranch: origin/main
+    rollback:
+      releaseName: release 1
+      isEnabled: false
+      releaseTag: v0.1.0
