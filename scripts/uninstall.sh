@@ -2,14 +2,14 @@
 
 function_uninstall(){
 
-   # echo "---------------------------------------------------------"
-   # echo "Deleting all Crossplane Resources---------------------------"
-   # echo "---------------------------------------------------------"
-   # kubectl patch crd/environments.batch.blanketops.co.za -p '{"metadata":{"finalizers":[]}}' --type=merge
-   # kubectl delete environment --all
-   # kubectl delete composition --all
-   # kubectl delete compositeresourcedefinition --all
-   # echo "--------------------------------------------------------------------------------------------------------------------------------"
+   echo "---------------------------------------------------------"
+   echo "Deleting all Crossplane Resources---------------------------"
+   echo "---------------------------------------------------------"
+   kubectl patch crd/environments.batch.blanketops.co.za -p '{"metadata":{"finalizers":[]}}' --type=merge
+   kubectl delete environment --all
+   kubectl delete composition --all
+   kubectl delete compositeresourcedefinition --all
+   echo "--------------------------------------------------------------------------------------------------------------------------------"
 
    echo "Silence Patch all CRD Finalizers--------------------------------------------------------------------------------------------------------"
    echo "----------------------------------------------------------------------------------------------------------------------------------------"
@@ -192,200 +192,185 @@ function_uninstall(){
    sleep 10
    clear
 
-
-
    echo " Teardown the Silenced Resources!--------------------------------------------------------------------------------------------------------"
    echo "----------------------------------------------------------------------------------------------------------------------------------------"
-   kubectl delete accountsettingdefaults.ecs.aws.upbound.io  --all
-   kubectl delete addresspools.metallb.io   --all
-   kubectl delete apiserversources.sources.knative.dev  --all
-   kubectl delete applications.applications.argocd.crossplane.io    --all
-   kubectl delete appprojects.argoproj.io --all
+   kubectl delete accountsettingdefaults.ecs.aws.upbound.io                      --all
+   kubectl delete addresspools.metallb.io                                        --all
+   kubectl delete apiserversources.sources.knative.dev                           --all
+   kubectl delete applications.applications.argocd.crossplane.io                 --all
+   kubectl delete appprojects.argoproj.io                                        --all
 
-   kubectl delete applicationsets.applicationsets.argocd.crossplane.io   --all
-   kubectl delete applicationsets.argoproj.io --all
-   kubectl delete appprojects.argoproj.io  --all
-   kubectl delete bfdprofiles.metallb.io  --all
-   kubectl delete bgpadvertisements.metallb.io  --all
+   kubectl delete applicationsets.applicationsets.argocd.crossplane.io           --all
+   kubectl delete applicationsets.argoproj.io                                    --all
+   kubectl delete appprojects.argoproj.io                                        --all
+   kubectl delete bfdprofiles.metallb.io                                         --all
+   kubectl delete bgpadvertisements.metallb.io                                   --all
 
-   kubectl delete bgppeers.metallb.io     --all
-   kubectl delete brokers.eventing.knative.dev  --all
-   kubectl delete bucketacls.s3.aws.upbound.io     --all
-   kubectl delete bfdprofiles.metallb.io  --all
-   kubectl delete bucketanalyticsconfigurations.s3.aws.upbound.io   --all
+   kubectl delete bgppeers.metallb.io                                            --all
+   kubectl delete brokers.eventing.knative.dev                                   --all
+   kubectl delete bucketacls.s3.aws.upbound.io                                   --all
+   kubectl delete bfdprofiles.metallb.io                                         --all
+   kubectl delete bucketanalyticsconfigurations.s3.aws.upbound.io                --all
 
-   kubectl delete bucketcorsconfigurations.s3.aws.upbound.io     --all
-   kubectl delete bucketintelligenttieringconfigurations.s3.aws.upbound.io  --all
-   kubectl delete bucketinventories.s3.aws.upbound.io        --all
-   kubectl delete bucketlifecycleconfigurations.s3.aws.upbound.io    --all
-   kubectl delete bucketloggings.s3.aws.upbound.io    --all
+   kubectl delete bucketcorsconfigurations.s3.aws.upbound.io                     --all
+   kubectl delete bucketintelligenttieringconfigurations.s3.aws.upbound.io       --all
+   kubectl delete bucketinventories.s3.aws.upbound.io                            --all
+   kubectl delete bucketlifecycleconfigurations.s3.aws.upbound.io                --all
+   kubectl delete bucketloggings.s3.aws.upbound.io                               --all
 
-   kubectl delete bucketmetrics.s3.aws.upbound.io      --all
-   kubectl delete bucketnotifications.s3.aws.upbound.io  --all
-   kubectl delete bucketobjectlockconfigurations.s3.aws.upbound.io     --all
-   kubectl delete bucketobjects.s3.aws.upbound.io   --all
-   kubectl delete bucketownershipcontrols.s3.aws.upbound.io     --all
+   kubectl delete bucketmetrics.s3.aws.upbound.io                                --all
+   kubectl delete bucketnotifications.s3.aws.upbound.io                          --all
+   kubectl delete bucketobjectlockconfigurations.s3.aws.upbound.io               --all
+   kubectl delete bucketobjects.s3.aws.upbound.io                                --all
+   kubectl delete bucketownershipcontrols.s3.aws.upbound.io                      --all
 
-   kubectl delete bucketpolicies.s3.aws.upbound.io     --all
-   kubectl delete bucketpublicaccessblocks.s3.aws.upbound.io    --all
-   kubectl delete bucketreplicationconfigurations.s3.aws.upbound.io      --all
-   kubectl delete bucketrequestpaymentconfigurations.s3.aws.upbound.io --all
-   kubectl delete buckets.s3.aws.upbound.io    --all
+   kubectl delete bucketpolicies.s3.aws.upbound.io                               --all
+   kubectl delete bucketpublicaccessblocks.s3.aws.upbound.io                     --all
+   kubectl delete bucketreplicationconfigurations.s3.aws.upbound.io              --all
+   kubectl delete bucketrequestpaymentconfigurations.s3.aws.upbound.io           --all
+   kubectl delete buckets.s3.aws.upbound.io                                      --all
 
    kubectl delete bucketserversideencryptionconfigurations.s3.aws.upbound.io     --all
-   kubectl delete bucketversionings.s3.aws.upbound.io  --all
-   kubectl delete bucketwebsiteconfigurations.s3.aws.upbound.io     --all
-   kubectl delete capacityproviders.ecs.aws.upbound.io    --all
-   kubectl delete certificates.networking.internal.knative.dev   --all
+   kubectl delete bucketversionings.s3.aws.upbound.io                            --all
+   kubectl delete bucketwebsiteconfigurations.s3.aws.upbound.io                  --all
+   kubectl delete capacityproviders.ecs.aws.upbound.io                           --all
+   kubectl delete certificates.networking.internal.knative.dev                   --all
 
-   kubectl delete channels.messaging.knative.dev     --all
-   kubectl delete clustercapacityproviders.ecs.aws.upbound.io  --all
-   kubectl delete clusterdomainclaims.networking.internal.knative.dev     --all
-   kubectl delete clusterinterceptors.triggers.tekton.dev     --all
-   kubectl delete clusters.cluster.argocd.crossplane.io     --all
+   kubectl delete channels.messaging.knative.dev                                 --all
+   kubectl delete clustercapacityproviders.ecs.aws.upbound.io                    --all
+   kubectl delete clusterdomainclaims.networking.internal.knative.dev            --all
+   kubectl delete clusterinterceptors.triggers.tekton.dev                        --all
+   kubectl delete clusters.cluster.argocd.crossplane.io                          --all
 
-   kubectl delete clusters.ecs.aws.upbound.io       --all
-   kubectl delete clustertasks.tekton.dev   --all
-   kubectl delete clustertriggerbindings.triggers.tekton.dev     --all
-   kubectl delete communities.metallb.io    --all
-   kubectl delete compositeresourcedefinitions.apiextensions.crossplane.io   --all 
+   kubectl delete clusters.ecs.aws.upbound.io                                    --all
+   kubectl delete clustertasks.tekton.dev                                        --all
+   kubectl delete clustertriggerbindings.triggers.tekton.dev                     --all
+   kubectl delete communities.metallb.io                                         --all
+   kubectl delete compositeresourcedefinitions.apiextensions.crossplane.io       --all 
 
-   kubectl delete compositionrevisions.apiextensions.crossplane.io     --all
-   kubectl delete compositions.apiextensions.crossplane.io   --all
-   kubectl delete configurationrevisions.pkg.crossplane.io      --all
-   kubectl delete configurations.pkg.crossplane.io    --all
-   kubectl delete configurations.serving.knative.dev  --all 
+   kubectl delete compositionrevisions.apiextensions.crossplane.io               --all
+   kubectl delete compositions.apiextensions.crossplane.io                       --all
+   kubectl delete configurationrevisions.pkg.crossplane.io                       --all
+   kubectl delete configurations.pkg.crossplane.io                               --all
+   kubectl delete configurations.serving.knative.dev                             --all 
 
-   kubectl delete containersources.sources.knative.dev     --all
-   kubectl delete contributorinsights.dynamodb.aws.upbound.io   --all
-   kubectl delete controllerconfigs.pkg.crossplane.io     --all
-   kubectl delete customruns.tekton.dev      --all
-   kubectl delete deploymentruntimeconfigs.pkg.crossplane.io     --all 
+   kubectl delete containersources.sources.knative.dev                           --all
+   kubectl delete contributorinsights.dynamodb.aws.upbound.io                    --all
+   kubectl delete controllerconfigs.pkg.crossplane.io                            --all
+   kubectl delete customruns.tekton.dev                                          --all
+   kubectl delete deploymentruntimeconfigs.pkg.crossplane.io                     --all 
 
-   kubectl delete directorybuckets.s3.aws.upbound.io        --all
-   kubectl delete domainmappings.serving.knative.dev   --all
-   kubectl delete environmentclaim.batch.blanketops.co.za       --all
-   kubectl delete environmentconfigs.apiextensions.crossplane.io   --all
-   kubectl delete environments.batch.blanketops.co.za      --all 
+   kubectl delete directorybuckets.s3.aws.upbound.io                             --all
+   kubectl delete domainmappings.serving.knative.dev                             --all
+   kubectl delete environmentclaim.batch.blanketops.co.za                        --all
+   kubectl delete environmentconfigs.apiextensions.crossplane.io                 --all
+   kubectl delete environments.batch.blanketops.co.za                            --all 
 
-   kubectl delete eventlisteners.triggers.tekton.dev      --all
-   kubectl delete eventpolicies.eventing.knative.dev --all
-   kubectl delete eventtypes.eventing.knative.dev       --all
-   kubectl delete extensions.dashboard.tekton.dev    --all
-   kubectl delete functionrevisions.pkg.crossplane.io o   --all 
+   kubectl delete eventlisteners.triggers.tekton.dev                             --all
+   kubectl delete eventpolicies.eventing.knative.dev                             --all
+   kubectl delete eventtypes.eventing.knative.dev                                --all
+   kubectl delete extensions.dashboard.tekton.dev                                --all
+   kubectl delete functionrevisions.pkg.crossplane.io o                          --all 
 
-   kubectl delete functions.pkg.crossplane.io       --all
-   kubectl delete githubbindings.bindings.knative.dev  --all
-   kubectl delete githubsources.sources.knative.dev       --all
-   kubectl delete globaltables.dynamodb.aws.upbound.io   --all
-   kubectl delete imageconfigs.pkg.crossplane.io     --all 
+   kubectl delete functions.pkg.crossplane.io                                    --all
+   kubectl delete githubbindings.bindings.knative.dev                            --all
+   kubectl delete githubsources.sources.knative.dev                              --all
+   kubectl delete globaltables.dynamodb.aws.upbound.io                           --all
+   kubectl delete imageconfigs.pkg.crossplane.io                                 --all 
 
-   kubectl delete images.caching.internal.knative.dev      --all
-   kubectl delete ingresses.networking.internal.knative.dev     --all
-   kubectl delete interceptors.triggers.tekton.dev   --all
-   kubectl delete ipaddresspools.metallb.io        --all
-   kubectl delete jobsinks.sinks.knative.dev     --all 
+   kubectl delete images.caching.internal.knative.dev                            --all
+   kubectl delete ingresses.networking.internal.knative.dev                      --all
+   kubectl delete interceptors.triggers.tekton.dev                               --all
+   kubectl delete ipaddresspools.metallb.io                                      --all
+   kubectl delete jobsinks.sinks.knative.dev                                     --all 
 
-   kubectl delete bgppeers.metallb.io     --all
-   kubectl delete brokers.eventing.knative.dev  --all
-   kubectl delete bucketacls.s3.aws.upbound.io     --all
-   kubectl delete bfdprofiles.metallb.io  --all
-   kubectl delete bucketanalyticsconfigurations.s3.aws.upbound.io   --all 
+   kubectl delete kinesisstreamingdestinations.dynamodb.aws.upbound.io           --all
+   kubectl delete l2advertisements.metallb.io                                    --all
+   kubectl delete lifecyclepolicies.ecr.aws.upbound.io                           --all
+   kubectl delete locks.pkg.crossplane.io                                        --all
+   kubectl delete metrics.autoscaling.internal.knative.dev                       --all 
 
+   kubectl delete objectcopies.s3.aws.upbound.io                                 --all
+   kubectl delete objects.kubernetes.crossplane.io                               --all
+   kubectl delete objects.s3.aws.upbound.io                                      --all
+   kubectl delete observedobjectcollections.kubernetes.crossplane.io             --all
+   kubectl delete parallels.flows.knative.dev                                    --all 
 
-      kubectl delete bgppeers.metallb.io     --all
-   kubectl delete brokers.eventing.knative.dev  --all
-   kubectl delete bucketacls.s3.aws.upbound.io     --all
-   kubectl delete bfdprofiles.metallb.io  --all
-   kubectl delete bucketanalyticsconfigurations.s3.aws.upbound.io   --all 
+   kubectl delete pingsources.sources.knative.dev                                --all
+   kubectl delete pipelineruns.tekton.dev                                        --all
+   kubectl delete pipelines.tekton.dev                                           --all
+   kubectl delete podautoscalers.autoscaling.internal.knative.dev                --all
+   kubectl delete projects.projects.argocd.crossplane.io                         --all 
 
+   kubectl delete providerconfigs.argocd.crossplane.io                           --all
+   kubectl delete providerconfigs.aws.upbound.io                                 --all
+   kubectl delete providerconfigs.helm.crossplane.io                             --all
+   kubectl delete providerconfigs.kubernetes.crossplane.io                       --all
+   kubectl delete providerconfigs.tf.upbound.io                                  --all 
 
+   kubectl delete providerconfigusages.argocd.crossplane.io                      --all
+   kubectl delete providerconfigusages.aws.upbound.io                            --all
+   kubectl delete providerconfigusages.helm.crossplane.io                        --all
+   kubectl delete providerconfigusages.kubernetes.crossplane.io                  --all
+   kubectl delete providerconfigusages.tf.upbound.io                             --all 
 
-kinesisstreamingdestinations.dynamodb.aws.upbound.io         2024-12-18T07:30:03Z
-l2advertisements.metallb.io                                  2024-12-18T07:23:35Z
-lifecyclepolicies.ecr.aws.upbound.io                         2024-12-18T07:30:17Z
-locks.pkg.crossplane.io                                      2024-12-18T07:21:43Z
-metrics.autoscaling.internal.knative.dev                     2024-12-18T07:21:56Z
+   kubectl delete providerrevisions.pkg.crossplane.io                            --all
+   kubectl delete providers.pkg.crossplane.io                                    --all
+   kubectl delete pullthroughcacherules.ecr.aws.upbound.io                       --all
+   kubectl delete registrypolicies.ecr.aws.upbound.io                            --all
+   kubectl delete registryscanningconfigurations.ecr.aws.upbound.io              --all 
 
-objectcopies.s3.aws.upbound.io                               2024-12-18T07:30:07Z
-objects.kubernetes.crossplane.io                             2024-12-18T07:29:57Z
-objects.s3.aws.upbound.io                                    2024-12-18T07:30:07Z
-observedobjectcollections.kubernetes.crossplane.io           2024-12-18T07:29:57Z
-parallels.flows.knative.dev                                  2024-12-18T07:22:38Z
+   kubectl delete releases.helm.crossplane.io                                    --all
+   kubectl delete replicationconfigurations.ecr.aws.upbound.io                   --all
+   kubectl delete repositories.ecr.aws.upbound.io                                --all
+   kubectl delete repositories.ecrpublic.aws.upbound.io                          --all
+   kubectl delete repositories.repositories.argocd.crossplane.io                 --all 
 
-pingsources.sources.knative.dev                              2024-12-18T07:22:38Z
-pipelineruns.tekton.dev                                      2024-12-18T07:23:11Z
-pipelines.tekton.dev                                         2024-12-18T07:23:11Z
-podautoscalers.autoscaling.internal.knative.dev              2024-12-18T07:21:56Z
-projects.projects.argocd.crossplane.io                       2024-12-18T07:29:57Z
+   kubectl delete repositorypolicies.ecr.aws.upbound.io                          --all
+   kubectl delete repositorypolicies.ecrpublic.aws.upbound.io                    --all
+   kubectl delete resolutionrequests.resolution.tekton.dev                       --all
+   kubectl delete resourcepolicies.dynamodb.aws.upbound.io                       --all
+   kubectl delete resources.pt.fn.crossplane.io                                  --all 
 
-providerconfigs.argocd.crossplane.io                         2024-12-18T07:29:57Z
-providerconfigs.aws.upbound.io                               2024-12-18T07:30:02Z
-providerconfigs.helm.crossplane.io                           2024-12-18T07:29:52Z
-providerconfigs.kubernetes.crossplane.io                     2024-12-18T07:29:57Z
-providerconfigs.tf.upbound.io                                2024-12-18T07:29:58Z
+   kubectl delete revisions.serving.knative.dev                                  --all
+   kubectl delete routes.serving.knative.dev                                     --all
+   kubectl delete sequences.flows.knative.dev                                    --all
+   kubectl delete serverlessservices.networking.internal.knative.dev             --all
+   kubectl delete services.ecs.aws.upbound.io                                    --all 
 
-providerconfigusages.argocd.crossplane.io                    2024-12-18T07:29:57Z
-providerconfigusages.aws.upbound.io                          2024-12-18T07:30:02Z
-providerconfigusages.helm.crossplane.io                      2024-12-18T07:29:52Z
-providerconfigusages.kubernetes.crossplane.io                2024-12-18T07:29:57Z
-providerconfigusages.tf.upbound.io                           2024-12-18T07:29:58Z
-providerrevisions.pkg.crossplane.io                          2024-12-18T07:21:43Z
-providers.pkg.crossplane.io                                  2024-12-18T07:21:43Z
-pullthroughcacherules.ecr.aws.upbound.io                     2024-12-18T07:30:17Z
-registrypolicies.ecr.aws.upbound.io                          2024-12-18T07:30:17Z
-registryscanningconfigurations.ecr.aws.upbound.io            2024-12-18T07:30:17Z
-releases.helm.crossplane.io                                  2024-12-18T07:29:52Z
-replicationconfigurations.ecr.aws.upbound.io                 2024-12-18T07:30:17Z
-repositories.ecr.aws.upbound.io                              2024-12-18T07:30:17Z
-repositories.ecrpublic.aws.upbound.io                        2024-12-18T07:30:18Z
-repositories.repositories.argocd.crossplane.io               2024-12-18T07:29:57Z
-repositorypolicies.ecr.aws.upbound.io                        2024-12-18T07:30:17Z
-repositorypolicies.ecrpublic.aws.upbound.io                  2024-12-18T07:30:18Z
-resolutionrequests.resolution.tekton.dev                     2024-12-18T07:23:11Z
-resourcepolicies.dynamodb.aws.upbound.io                     2024-12-18T07:30:03Z
-resources.pt.fn.crossplane.io                                2024-12-18T07:41:39Z
-revisions.serving.knative.dev                                2024-12-18T07:21:56Z
-routes.serving.knative.dev                                   2024-12-18T07:21:56Z
-sequences.flows.knative.dev                                  2024-12-18T07:22:38Z
-serverlessservices.networking.internal.knative.dev           2024-12-18T07:21:56Z
-services.ecs.aws.upbound.io                                  2024-12-18T07:30:16Z
-services.serving.knative.dev                                 2024-12-18T07:21:56Z
-sinkbindings.sources.knative.dev                             2024-12-18T07:22:38Z
-stepactions.tekton.dev                                       2024-12-18T07:23:11Z
-storeconfigs.aws.upbound.io                                  2024-12-18T07:30:02Z
-storeconfigs.secrets.crossplane.io                           2024-12-18T07:21:43Z
-storeconfigs.tf.upbound.io                                   2024-12-18T07:29:58Z
-subscriptions.messaging.knative.dev                          2024-12-18T07:22:38Z
-tableitems.dynamodb.aws.upbound.io                           2024-12-18T07:30:03Z
-tablereplicas.dynamodb.aws.upbound.io                        2024-12-18T07:30:03Z
-tables.dynamodb.aws.upbound.io                               2024-12-18T07:30:03Z
-tags.dynamodb.aws.upbound.io                                 2024-12-18T07:30:03Z
-taskdefinitions.ecs.aws.upbound.io                           2024-12-18T07:30:16Z
-taskruns.tekton.dev                                          2024-12-18T07:23:11Z
-tasks.tekton.dev                                             2024-12-18T07:23:11Z
-triggerbindings.triggers.tekton.dev                          2024-12-18T07:23:23Z
-triggers.eventing.knative.dev                                2024-12-18T07:22:38Z
-triggers.triggers.tekton.dev                                 2024-12-18T07:23:23Z
-triggertemplates.triggers.tekton.dev                         2024-12-18T07:23:23Z
-usages.apiextensions.crossplane.io                           2024-12-18T07:21:42Z
-verificationpolicies.tekton.dev                              2024-12-18T07:23:11Z
-workspaces.tf.upbound.io                                     2024-12-18T07:29:58Z
+   kubectl delete services.serving.knative.dev                                   --all
+   kubectl delete sinkbindings.sources.knative.dev                               --all
+   kubectl delete stepactions.tekton.dev                                         --all
+   kubectl delete storeconfigs.aws.upbound.io                                    --all
+   kubectl delete storeconfigs.secrets.crossplane.io                             --all 
 
+   kubectl delete storeconfigs.tf.upbound.io                                     --all
+   kubectl delete subscriptions.messaging.knative.dev                            --all
+   kubectl delete tableitems.dynamodb.aws.upbound.io                             --all
+   kubectl delete tablereplicas.dynamodb.aws.upbound.io                          --all
+   kubectl delete tables.dynamodb.aws.upbound.io                                 --all 
 
+   kubectl delete tags.dynamodb.aws.upbound.io                                   --all
+   kubectl delete triggertemplates.triggers.tekton.dev                           --all
+   kubectl delete tasks.tekton.dev                                               --all
+   kubectl delete triggerbindings.triggers.tekton.dev                            --all 
 
+   kubectl delete triggers.eventing.knative.dev                                  --all
+   kubectl delete triggers.triggers.tekton.dev                                   --all
+   kubectl delete verificationpolicies.tekton.dev                                --all
+   kubectl delete usages.apiextensions.crossplane.io                             --all
+   kubectl delete workspaces.tf.upbound.io                                       --all
 
-
-   # echo "---------------------------------------------------------"
-   # echo "Deleting Namespaces"
-   # echo "---------------------------------------------------------" 
-   # kubectl delete namespaces --all --force
-   # echo "---------------------------------------------------------"
-   # clear
+   echo "------------------------------------------------------------------------------------------------------------------"
+   echo "Deleting Namespaces"
+   echo "------------------------------------------------------------------------------------------------------------------" 
+   kubectl delete namespaces                                                     --all --force
+   echo "--------------------------------------------------------------------------------------------------------------------"
+   clear
 
    helm repo remove localstack-charts
    helm repo remove crossplane-stable
-   echo "---------------------------------------------------------"
+   echo "-----------------------------------------------------------------------------------------------------------------------"
 }
 
 function_uninstall
