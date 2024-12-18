@@ -1,0 +1,24 @@
+apiVersion: sources.knative.dev/v1alpha1
+kind: GitHubSource
+metadata:
+  name: github-source-issue
+spec:
+  eventTypes:
+  - issue
+  ownerAndRepository: blanketops/blanketops-nginx-example
+  accessToken:
+    secretKeyRef:
+      name: githubsecret
+      key: accessToken
+  secretToken:
+    secretKeyRef:
+      name: githubsecret
+      key: secretToken
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: github-message-dumper
+
+# To use GitHub Enterprise you would need to add an entry for your githubAPIURL similar to the following example
+# githubAPIURL: "https://github.mycompany.com/api/v3/"
