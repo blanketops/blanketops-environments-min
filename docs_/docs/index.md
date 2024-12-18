@@ -2,52 +2,88 @@
 
 ![Image title](images/Screenshot.png)
 
-* BlanketOps aims to revolutionarize the rise of DevOps through extensive customization of cloud native resources tailored for your organization's needs.
+
+## Overview 🏠
+
+- Blanketizing managed cloud resources to procure application environments of your choice.
+
+- Build, deploy, scale, package and release from the same manifest, manage environment resources in isolation.
+
+- Abstraction where it matters, built with GitOps and DevSecOps principles, add your customized touch.
+
+- Procure and deploy to a set of microservices containers, depencies, pipelines, services in minutes!.
+
+- Developement, QA and Production Environments for an application of your choice.
+
+- Zero fault tolerant centralized and distributed secrets management.
+
+- Need worry not about managing dockerfiles, If you do not want to ofcourse.😄
+
+- Offering Environment types from years of research, bringing closer the necessary tools and the ideology of managing in isolation, yet in opposite from.
 
 
-## Overview
+* Example environments/microservice/dev/microservice_environment.yaml
+```
+---
+apiVersion: batch.blanketops.co.za/v1alpha1
+kind: Environment
+metadata:
+  name: car-sales-web-microservices-environment
+  namespace: dev
+spec:
+  application:
+    name: car-sales-web-microservices-application
+    stack:
+      name: microservices
+      tier:
+        name: backend
+        programmingLanguageName: java
 
-* Blanket Ops Environments is Internal developer platform for organizations and startups to quickly setup resources in the cloud following a DevOps Model by leveraging our kubernetes custom api.
+  builder:
+    name: car-sales-web-microservices-build
+    imageToBuild: public.ecr.aws/docker/library/httpd:latest
+    scheduleType: automatic
 
-* A platform agnostic system that communicates with cloud providers you register for(support only for AWS in this release), to create,update,view and delete resources, as compositions or exacts of cloud services. 
+  buildPipelines:
+  - name: car-sales-web-microservices-build-and-push-pipeline
+    tasks:
+    - name: git-clone
+    - name: build-and-push-to-registry
+  capacity:
+    scalingOperationName: car-sales-microservices-capacity-scaling-operation
+    scaling: car-sales-microservices-capacity-scaling
+    scalingGroupName: car-sales-aws-autoscaling-group
+    capacityProvider: car-sales-ecs-capacity-provider
+    clusterCapacityProviders: car-sales-ecs-cluster-capacity-providers
+  containerRegistries:
+  - name: car-sales-ecr-microservice-repository
+    imageTagMutability: MUTABLE
+  deployment:
+    name: car-sales-web-microservices-deployment
+    strategy: rolling-upgrade
+    scheduleType: automatic
+  infrastructure:
+    clusterName: car-sales-web-microservice-cluster
+  location: "EU"
+  microservices:
+  - name: car-sales-ecs-taskdefinition-microservice
+    image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-microservice-repository:feature#hello-world
+    containerPort: 80
+    labels:
+      app: app
+      tier: microservices
+    size: 1
+  namespace: dev
+  service:
+    name: github-message-dumper
+    remoteSourceCodeRepositoryLink: https://github.com/blanketops/blanketops-nginx-example.git
+    remoteSourceCodeRepositorySecretName: githubsecret
+    githubSourceWebhook: githubsourcesample
+    eventName:
+    eventListerName: car-sales-microservice-tekton-event-listener
 
-* Container Registries, Releases,Pipelines,Processes and Deployments from years of research following industry best practices.
+  packageApplicationPipelines:
+  - name: car-sales-web-microservices-package-pipeline
 
-## Prerequisites
-
-* `Make`    : Makefile execution
-* `Kubectl` : Interact with cluster of choice
-* `Kind`    : Install for a faster demonstration and trying out on the fly.
-* `BlanketOps` : BlanketOps offerings
-
-## Resources
-
-* `Make`    : [Make](https://gnu.org/software/make/)
-* `Kubectl` : [Kubectl](https://kubernetes.io/docs/reference/kubectl/)
-* `Kind`    : [Kind](https://kind.sigs.k8s.io/)
-* `BlanketOps` : [BlanketOps](https://blanketops/co.za/)
-
-## Commands
-
-* `make cluster`  - Create a Kind cluster locally .
-* `make install`  - Install Supporting BlanketOps manifests.
-* `make services` - Interact with BlanketOps Enviroments.
-* `make setup`    - Setup and execute HealthChecks on the BlanketOps installed manifests.
-* `make teardown` - Delete Kind cluster and docker prune resources.
-* `make -h`       - Learn more about BlanketOps Commands, Subcommands and Flags.
-
-
-## CLI Commands
-
-* `blanketops auth`   - Authentication management to cli.
-* `blanketops environments` -  Interact with environments.
-* `blanketops --h  ` -  View more information about commands, subcommands and flags.
-
-## CLI SubCommands
-
-<!-- ## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files. -->
+  type: microservices
+```
