@@ -61,7 +61,7 @@ spec:
     remoteSourceCodeRepositoryLink: https://github.com/blanketops/blanketops-nginx-example.git
     remoteSourceCodeRepositorySecretName: githubsecret
     githubSourceWebhook: githubsourcesample
-    eventName:
+    eventName: pull_request
     eventListerName: car-sales-microservice-tekton-event-listener
 
   packageApplicationPipelines:
