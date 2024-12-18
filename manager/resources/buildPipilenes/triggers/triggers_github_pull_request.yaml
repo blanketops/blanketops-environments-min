@@ -1,0 +1,23 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: Trigger
+metadata:
+  name: trigger-github-pull-request
+spec:
+  triggers:
+  - name: github-listener
+    interceptors:
+    - ref:
+        name: "github"
+        kind: ClusterInterceptor
+        apiVersion: triggers.tekton.dev
+      params:
+      - name: "secretRef"
+        value:
+          secretName: tekton-triggers-pull-request-secret
+          secretKey: token
+      - name: "eventTypes"
+        value: [ "pull_request" ]
+  bindings:
+  - ref: pipeline-binding
+  template:
+    ref: pipeline-template
