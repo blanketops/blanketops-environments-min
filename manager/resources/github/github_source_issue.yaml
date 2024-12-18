@@ -8,11 +8,11 @@ spec:
   ownerAndRepository: blanketops/blanketops-nginx-example
   accessToken:
     secretKeyRef:
-      name: githubsecret
+      name: github-source-issue-secret
       key: accessToken
   secretToken:
     secretKeyRef:
-      name: githubsecret
+      name: github-source-issue-secret
       key: secretToken
   sink:
     ref:
