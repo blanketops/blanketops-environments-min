@@ -1,10 +1,10 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
-  name: eventlistener
+  name: eventlistener-issue
 spec:
   triggerGroups:
-  - name: github-pr-group
+  - name: github-issue-group
     interceptors:
     - name: "validate GitHub payload and filter on eventType"
       ref:
