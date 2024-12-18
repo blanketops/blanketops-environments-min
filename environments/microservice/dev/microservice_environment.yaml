@@ -26,11 +26,11 @@ spec:
     - name: build-and-push-to-registry
 
   capacity:
-    scalingOperationName: car-sales-microservices-capacity-scaling-operation #
-    scaling: car-sales-microservices-capacity-scaling #
-    scalingGroupName: car-sales-aws-autoscaling-group #
-    capacityProvider: car-sales-ecs-capacity-provider ##
-    clusterCapacityProviders: car-sales-ecs-cluster-capacity-providers ##
+    scalingOperationName: car-sales-microservices-capacity-scaling-operation
+    scalingPlanName: car-sales-microservices-capacity-scaling-plan
+    scalingGroupName: car-sales-aws-autoscaling-group
+    capacityProvider: car-sales-ecs-capacity-provider
+    clusterCapacityProviders: car-sales-ecs-cluster-capacity-providers
 
   containerRegistries:
   - name: car-sales-ecr-microservice-repository
@@ -38,11 +38,11 @@ spec:
 
   deployment:
     name: car-sales-web-microservices-deployment
-    strategy: rolling-upgrade #
-    scheduleType: automatic #
+    strategy: rolling-upgrade
+    scheduleType: automatic
 
   infrastructure:
-    clusterName: car-sales-web-microservice-cluster #
+    clusterName: car-sales-web-microservice-cluster
 
   location: "EU"
 

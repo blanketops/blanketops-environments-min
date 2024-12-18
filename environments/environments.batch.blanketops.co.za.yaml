@@ -86,7 +86,7 @@ spec:
                 properties:
                   scalingOperationName:
                     type: string
-                  scaling:
+                  scalingPlanName:
                     type: string
                   scalingGroupName:
                     type: string

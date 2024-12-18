@@ -20,23 +20,22 @@ function_connect(){
 }
 
 function_setup_eventing(){
-   echo "---------------------------------------------------------"
-   echo "Setting up Eventing"
-   echo "---------------------------------------------------------"
-   kubectl create ns devops
-   kubectl apply -f manager/eventing/eventing_service_account.yaml
-   kubectl apply -f manager/eventing/eventing_role.yaml
-   kubectl apply -f manager/eventing/eventing_role_binding.yaml
-   kubectl apply -f manager/eventing/eventing_deployment.yaml
-   kubectl apply -f manager/eventing/eventing_service.yaml
-   #kn source apiserver create blanketopsapiserversource --namespace devops --mode "Resource" --resource "Event:v1" --service-account eventing-service-account --sink github-message-dumper
-   kubectl run busybox --image=busybox --namespace=devops --restart=Never -- ls
-   kubectl logs --namespace=devops -l app=github-message-dumper --tail=100
-   echo "---------------------------------------------------------"
-   echo "Complete!"
-   echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions!...."
-   
+  echo "---------------------------------------------------------"
+  echo "Setting up Eventing"
+  echo "---------------------------------------------------------"
+  kubectl create ns devops
+  kubectl apply -f manager/eventing/eventing_service_account.yaml
+  kubectl apply -f manager/eventing/eventing_role.yaml
+  kubectl apply -f manager/eventing/eventing_role_binding.yaml
+  kubectl apply -f manager/eventing/eventing_deployment.yaml
+  kubectl apply -f manager/eventing/eventing_service.yaml
+  #kn source apiserver create blanketopsapiserversource --namespace devops --mode "Resource" --resource "Event:v1" --service-account eventing-service-account --sink github-message-dumper
+  kubectl run busybox --image=busybox --namespace=devops --restart=Never -- ls
+  kubectl logs --namespace=devops -l app=github-message-dumper --tail=100
+  echo "---------------------------------------------------------"
+  echo "Complete!"
+  echo "----------------------------------------------------------------------------------"
+  echo "Waiting for Next Instructions!...." 
 }
 
 
@@ -46,11 +45,11 @@ function_boot_environments(){
   echo "The below commands will"
   echo "-----------------------------------------------------------------------------------------------------------------------------------"
 
-  echo "1. Install ArgoCD Defined cluster and project", here argocd/argocd_cluster.yaml
+  echo "1. Install ArgoCD Defined cluster and project", here dependencies/argocd/argocd_cluster.yaml
   echo "2. Wait a little bit for resources to be in ready state"
   echo "3. Install The BlanketOps Environment Resource Definition", here environments/environments.batch.blanketops.co.za.yaml
   echo "4. Install the initial Patch and transform service/function containing our environment AWS Resources", here environments/services/patch_and_transform.yaml
-  echo "5. Install our microservices development environment via argodcd", here argocd/environments/microservice/dev.yaml
+  echo "5. Install our microservices development environment via argodcd", here dependencies/argocd/environments/microservice/dev.yaml
   echo "6. Get our Argocd password for initial sign in"
   echo "7. Port Forward our argocd instance to port 8081"
   echo "8. Visit http://localhost:8081", enter argocd password from step 6, your environment shall sync to the desired state defined in kind=Environment from step 5
@@ -61,8 +60,8 @@ function_boot_environments(){
     : $((secs--))
   done
   echo "-----------------------------------------------------------------------------------------------------------------------------------------------"
-  kubectl apply -f argocd/clusters/argocd_cluster.yaml
-  kubectl apply -f argocd/projects/argocd_project.yaml
+  kubectl apply -f dependencies/argocd/clusters/argocd_cluster.yaml
+  kubectl apply -f dependencies/argocd/projects/argocd_project.yaml
   secs=$((5 * 3))
   while [ $secs -gt 0 ]; do
     echo -ne "$secs\033[0K\r"
@@ -71,18 +70,18 @@ function_boot_environments(){
   done
   kubectl apply -f environments/environments.batch.blanketops.co.za.yaml
   kubectl apply -f manager/functions/patch_and_transform.yaml
-  kubectl apply -f argocd/environments/microservice/dev.yaml
+  kubectl apply -f dependencies/argocd/environments/microservice/dev.yaml
   argocd admin initial-password -n argocd
   kubectl port-forward svc/argocd-server -n argocd 8081:443
 }
 
 
 function_initialize_required_secrets(){
-   echo "---------------------------------------------------------"
-   echo "Installing AWS Crossplane Secret"
-   echo "---------------------------------------------------------" 
-   kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=secrets/./aws-credentials.txt
-   echo "---------------------------------------------------------"
+  echo "---------------------------------------------------------"
+  echo "Installing AWS Crossplane Secret"
+  echo "---------------------------------------------------------" 
+  kubectl create secret generic aws-secret -n crossplane-system --from-file=creds=secrets/./aws-credentials.txt
+  echo "---------------------------------------------------------"
 
    # echo "Installing LocalStack Secret"
    # echo "---------------------------------------------------------" 
@@ -90,65 +89,65 @@ function_initialize_required_secrets(){
    # kubectl apply -f secrets/localstack_aws_secret.yaml
    # echo "---------------------------------------------------------"
 
-   echo "Complete!"
-   echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions!...."
+  echo "Complete!"
+  echo "----------------------------------------------------------------------------------"
+  echo "Waiting for Next Instructions!...."
 }
 
 
 function_connect_to_crossplane_providers(){
-   echo "---------------------------------------------------------" 
-   echo "Connect Crossplane Base Providers"
-   echo "---------------------------------------------------------"
-   kubectl apply -f providers/terraform/terraform.yaml
-   kubectl apply -f providers/aws/aws_s3.yaml
-   kubectl apply -f providers/aws/aws_dynamodb.yaml
-   kubectl apply -f providers/aws/aws_ecr.yaml
-   kubectl apply -f providers/aws/aws_ecr_public.yaml
-   kubectl apply -f providers/aws/aws_ecs.yaml
-   kubectl apply -f providers/helm/helm.yaml
-   kubectl apply -f providers/argocd/argocd.yaml
-   kubectl apply -f providers/kubernetes/kubernetes.yaml
-   echo "---------------------------------------------------------"
-   echo "Complete!"
-   echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions!...."
+  echo "---------------------------------------------------------" 
+  echo "Connect Crossplane Base Providers"
+  echo "---------------------------------------------------------"
+  kubectl apply -f providers/terraform/terraform.yaml
+  kubectl apply -f providers/aws/aws_s3.yaml
+  kubectl apply -f providers/aws/aws_dynamodb.yaml
+  kubectl apply -f providers/aws/aws_ecr.yaml
+  kubectl apply -f providers/aws/aws_ecr_public.yaml
+  kubectl apply -f providers/aws/aws_ecs.yaml
+  kubectl apply -f providers/helm/helm.yaml
+  kubectl apply -f providers/argocd/argocd.yaml
+  kubectl apply -f providers/kubernetes/kubernetes.yaml
+  echo "---------------------------------------------------------"
+  echo "Complete!"
+  echo "----------------------------------------------------------------------------------"
+  echo "Waiting for Next Instructions!...."
 
-   secs=$((5 * 72))
-   while [ $secs -gt 0 ]; do
-    echo -ne "$secs\033[0K\r"
-    sleep 1
-    : $((secs--))
-   done
+  secs=$((5 * 72))
+  while [ $secs -gt 0 ]; do
+   echo -ne "$secs\033[0K\r"
+   sleep 1
+   : $((secs--))
+  done
 }
 
 function_connect_to_crossplane_providerconfigs(){
-   echo "---------------------------------------------------------" 
-   echo "Connect Base ProviderConfigs"
-   echo "---------------------------------------------------------"
-   kubectl apply -f providerconfigs/terraform.yaml
-   #kubectl apply -f providerconfigs/localstack.yaml
-   kubectl apply -f providerconfigs/aws.yaml
-   kubectl apply -f providerconfigs/argocd.yaml
-   kubectl apply -f providerconfigs/helm.yaml
-   kubectl apply -f providersconfigs/kubernetes.yaml
-   echo "---------------------------------------------------------"
-   echo "Complete!"
-   echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions!...."
+  echo "---------------------------------------------------------" 
+  echo "Connect Base ProviderConfigs"
+  echo "---------------------------------------------------------"
+  kubectl apply -f providerconfigs/terraform.yaml
+  #kubectl apply -f providerconfigs/localstack.yaml
+  kubectl apply -f providerconfigs/aws.yaml
+  kubectl apply -f providerconfigs/argocd.yaml
+  kubectl apply -f providerconfigs/helm.yaml
+  kubectl apply -f providersconfigs/kubernetes.yaml
+  echo "---------------------------------------------------------"
+  echo "Complete!"
+  echo "----------------------------------------------------------------------------------"
+  echo "Waiting for Next Instructions!...."
 }
 
 
 function_health_check_crossplane(){
-   echo "---------------------------------------------------------"
-   echo "HealthCheck Crossplane Installation"
-   echo "---------------------------------------------------------"
-   kubectl get pod --namespace crossplane-system
-   kubectl api-resources  | grep crossplane
-   echo "---------------------------------------------------------"
-   echo "Complete!"
-   echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions!...." 
+  echo "---------------------------------------------------------"
+  echo "HealthCheck Crossplane Installation"
+  echo "---------------------------------------------------------"
+  kubectl get pod --namespace crossplane-system
+  kubectl api-resources  | grep crossplane
+  echo "---------------------------------------------------------"
+  echo "Complete!"
+  echo "----------------------------------------------------------------------------------"
+  echo "Waiting for Next Instructions!...." 
 }
 
 function_setup_knative_github_sources(){
