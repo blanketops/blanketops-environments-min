@@ -62,7 +62,7 @@ function_boot_environments(){
   kubectl apply -f argocd/projects/argocd_project.yaml
   sleep 120
   kubectl apply -f environments/environments.batch.blanketops.co.za.yaml
-  kubectl apply -f environments/functions/patch_and_transform.yaml
+  kubectl apply -f manager/functions/patch_and_transform.yaml
   kubectl apply -f argocd/environments/microservice/dev.yaml
   argocd admin initial-password -n argocd
   kubectl port-forward svc/argocd-server -n argocd 8081:443
@@ -132,7 +132,6 @@ function_health_check_crossplane(){
    echo "HealthCheck Crossplane Installation"
    echo "---------------------------------------------------------"
    kubectl get pod --namespace crossplane-system
-   clear
    kubectl api-resources  | grep crossplane
    echo "---------------------------------------------------------"
    echo "Complete!"
@@ -148,11 +147,11 @@ function_setup_knative_github_sources(){
    sleep 60
    kubectl -n knative-sources get pods --selector control-plane=github-controller-manager
    sleep 10
-   kubectl --namespace default apply --filename manager/resources/github_service.yaml
+   kubectl --namespace default apply --filename manager/resources/github/github_service.yaml
    sleep 10
    kubectl --namespace default apply --filename secrets/github_secret.yaml
    sleep 10
-   kubectl --namespace default apply --filename manager/resources/github_source.yaml
+   kubectl --namespace default apply --filename manager/resources/github/github_source.yaml
    echo "---------------------------------------------------------"
    sleep 10
    echo "Complete!"
@@ -222,5 +221,6 @@ sleep 360
 function_connect
 function_health_check
 sleep 10
+function_setup
 function_boot_environments
 

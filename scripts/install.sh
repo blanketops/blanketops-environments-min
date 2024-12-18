@@ -10,7 +10,6 @@ function_install(){
   function_install_tekton_dashboards
   function_install_tekton_pipelines
   function_install_tekton_triggers
-
   function_install_metallb
 }
 
@@ -125,8 +124,8 @@ function_install_knative_serving_without_istio(){
    echo "Initializing KNative Serving Resources"
    echo "---------------------------------------------------------"
    kubectl create namespace knative-serving
-   kubectl apply -f dependencies/serving-core.yaml
-   kubectl apply -f dependencies/serving-crd.yaml
+   kubectl apply -f dependencies/knative/serving-core.yaml
+   kubectl apply -f dependencies/knative/serving-crd.yaml
    
    echo "---------------------------------------------------------"
    echo "Complete!"
@@ -151,7 +150,7 @@ function_install_knative_eventing(){
    echo "Initializing KNative Eventing Resources"
    echo "---------------------------------------------------------"
    kubectl create namespace knative-eventing
-   kubectl apply -f dependencies/eventing-crds.yaml
+   kubectl apply -f dependencies/knative/eventing-crds.yaml
    
    echo "---------------------------------------------------------"
    echo "Complete!"
