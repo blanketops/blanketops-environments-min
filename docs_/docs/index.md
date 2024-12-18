@@ -30,8 +30,8 @@
 ## Commands
 
 * `make cluster`  - Create a Kind cluster locally .
-* `make install`  - Install BlanketOps manifests.
-* `make services` - Interact with BlanketOps Enviroments
+* `make install`  - Install Supporting BlanketOps manifests.
+* `make services` - Interact with BlanketOps Enviroments.
 * `make setup`    - Setup and execute HealthChecks on the BlanketOps installed manifests.
 * `make teardown` - Delete Kind cluster and docker prune resources.
 * `make -h`       - Learn more about BlanketOps Commands, Subcommands and Flags.
