@@ -1,0 +1,400 @@
+﻿{
+  "apiVersion": "apiextensions.crossplane.io/v1",
+  "kind": "CompositeResourceDefinition",
+  "metadata": {
+    "name": "environments.batch.blanketops.co.za"
+  },
+  "spec": {
+    "group": "batch.blanketops.co.za",
+    "names": {
+      "kind": "Environment",
+      "plural": "environments"
+    },
+    "claimNames": {
+      "kind": "EnvironmentClaim",
+      "plural": "environmentclaim"
+    },
+    "versions": [
+      {
+        "name": "v1alpha1",
+        "served": true,
+        "referenceable": true,
+        "schema": {
+          "openAPIV3Schema": {
+            "type": "object",
+            "properties": {
+              "spec": {
+                "type": "object",
+                "properties": {
+                  "application": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "stack": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "tier": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "programmingLanguageName": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "backend": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "image": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "integer"
+                      },
+                      "containerPort": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "size",
+                      "image"
+                    ]
+                  },
+                  "builder": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "imageToBuild": {
+                        "type": "string"
+                      },
+                      "scheduleType": {
+                        "type": "string",
+                        "oneOf": [
+                          {
+                            "pattern": "^manual$"
+                          },
+                          {
+                            "pattern": "^automatic$"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "buildPipelines": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "tasks": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "capacity": {
+                    "type": "object",
+                    "properties": {
+                      "scalingOperationName": {
+                        "type": "string"
+                      },
+                      "scalingPlanName": {
+                        "type": "string"
+                      },
+                      "scalingGroupName": {
+                        "type": "string"
+                      },
+                      "capacityProvider": {
+                        "type": "string"
+                      },
+                      "clusterCapacityProviders": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "containerRegistries": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "imageTagMutability": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "database": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "image": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "integer"
+                      },
+                      "containerPort": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "size",
+                      "image"
+                    ]
+                  },
+                  "deployment": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "strategy": {
+                        "type": "string"
+                      },
+                      "scheduleType": {
+                        "type": "string",
+                        "oneOf": [
+                          {
+                            "pattern": "^manual$"
+                          },
+                          {
+                            "pattern": "^automatic$"
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  "frontend": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "image": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "integer"
+                      },
+                      "containerPort": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "size",
+                      "image"
+                    ]
+                  },
+                  "infrastructure": {
+                    "type": "object",
+                    "properties": {
+                      "clusterName": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "location": {
+                    "type": "string",
+                    "oneOf": [
+                      {
+                        "pattern": "^EU$"
+                      },
+                      {
+                        "pattern": "^US$"
+                      }
+                    ]
+                  },
+                  "microservices": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "image": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "integer"
+                        },
+                        "containerPort": {
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "size",
+                        "image"
+                      ]
+                    }
+                  },
+                  "namespace": {
+                    "type": "string",
+                    "oneOf": [
+                      {
+                        "pattern": "^dev$"
+                      },
+                      {
+                        "pattern": "^qa$"
+                      },
+                      {
+                        "pattern": "^prd$"
+                      }
+                    ]
+                  },
+                  "packageApplicationPipelines": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "service": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "remoteSourceCodeRepositoryLink": {
+                        "type": "string"
+                      },
+                      "remoteSourceCodeRepositorySecretName": {
+                        "type": "string"
+                      },
+                      "eventName": {
+                        "type": "string"
+                      },
+                      "eventListerName": {
+                        "type": "string"
+                      },
+                      "githubSourceWebhook": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "release": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "number": {
+                        "type": "integer"
+                      },
+                      "isReleased": {
+                        "type": "boolean"
+                      },
+                      "dateReleased": {
+                        "type": "string"
+                      },
+                      "deployedBranch": {
+                        "type": "string"
+                      },
+                      "rollback": {
+                        "type": "object",
+                        "properties": {
+                          "releaseName": {
+                            "type": "string"
+                          },
+                          "isEnabled": {
+                            "type": "boolean"
+                          },
+                          "releaseTag": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "oneOf": [
+                      {
+                        "pattern": "^microservices$"
+                      },
+                      {
+                        "pattern": "^single$"
+                      },
+                      {
+                        "pattern": "^mobile$"
+                      },
+                      {
+                        "pattern": "^lamp-wamp$"
+                      }
+                    ]
+                  },
+                  "webserver": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "image": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "integer"
+                      },
+                      "containerPort": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "size",
+                      "image"
+                    ]
+                  }
+                },
+                "required": [
+                  "location",
+                  "namespace",
+                  "type"
+                ]
+              }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

@@ -9,7 +9,6 @@ repo_url: https://github.com/blanketops/blanketops-environments-min
 nav:
 - 'index.md'
 - 'getting_started.md'
-- 'installation.md'
 - 'examples_and_usage.md'
 
 site_name: BlanketOps Environments

@@ -11,16 +11,18 @@
 
 - Abstraction where it matters, built with GitOps and DevSecOps principles, add your customized touch.
 
-- Procure and deploy to a set of microservices containers, depencies, pipelines, services in minutes!.
+- Procure and deploy to a set of microservices containers, depencies, pipelines, and services.
 
 - Developement, QA and Production Environments for an application of your choice.
+
+- CD/CI Pipelines fully and or partially automated through rules you setup.
 
 - Zero fault tolerant centralized and distributed secrets management.
 
 - Need worry not about managing dockerfiles, If you do not want to ofcourse.😄
 
-- Offering Environment types from years of research, bringing closer the necessary tools and the ideology of managing in isolation, yet in opposite from.
-
+- Offering Environment types from years of research, bringing closer the necessary tools to manage multiple application resources as a single unit.
+  From Microservices, single stack, mobile crossplatform, native, Lmamp-Wamp.
 
 * Example environments/microservice/dev/microservice_environment.yaml
 ```
@@ -38,12 +40,10 @@ spec:
       tier:
         name: backend
         programmingLanguageName: java
-
   builder:
     name: car-sales-web-microservices-build
     imageToBuild: public.ecr.aws/docker/library/httpd:latest
     scheduleType: automatic
-
   buildPipelines:
   - name: car-sales-web-microservices-build-and-push-pipeline
     tasks:
@@ -67,7 +67,7 @@ spec:
   location: "EU"
   microservices:
   - name: car-sales-ecs-taskdefinition-microservice
-    image: 686255954747.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-microservice-repository:feature#hello-world
+    image: <aws-account-id>.dkr.ecr.eu-north-1.amazonaws.com/car-sales-ecr-microservice-repository:feature#hello-world
     containerPort: 80
     labels:
       app: app
@@ -79,11 +79,37 @@ spec:
     remoteSourceCodeRepositoryLink: https://github.com/blanketops/blanketops-nginx-example.git
     remoteSourceCodeRepositorySecretName: githubsecret
     githubSourceWebhook: githubsourcesample
-    eventName:
+    eventName: pull_request
     eventListerName: car-sales-microservice-tekton-event-listener
-
   packageApplicationPipelines:
   - name: car-sales-web-microservices-package-pipeline
-
   type: microservices
 ```
+- That was a lot of yaml, but we have achieved the following!
+
+
+
+## Authors
+- [@blanketops](https://github.com/nkanyezi-solutions)
+
+## Acknowledgements
+- [NimboStack](https://nimbostack.com)
+- [Crossplane](https://www.crossplane.io/)
+- [ArgoCD](https://argo-cd.readthedocs.io/en/stable/)
+- [KNative](https://knative.dev/docs/)
+- [Helm](https://helm.sh/)
+- [Carvel](https://carvel.dev/kapp/)
+- [Tekton](https://tekton.dev/)
+
+## Features
+- Light/dark mode toggle
+- Live previews
+- Fullscreen mode
+- Cross platform
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
+[![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+
+
+
