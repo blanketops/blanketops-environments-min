@@ -1,16 +1,9 @@
 #!/bin/bash
 
 function_install(){
-  function_install_argocd
-  function_install_crossplane
-  function_install_knative_serving_without_istio
-  function_install_kourier
-  function_install_knative_eventing
-  function_install_knative_github_sources
-  function_install_tekton_dashboards
   function_install_tekton_pipelines
   function_install_tekton_triggers
-  function_install_metallb
+  function_install_tekton_dashboards
 }
 
 function_install_argocd(){
@@ -116,13 +109,16 @@ function_install_tekton_dashboards(){
   echo "----------------------------------------------------------------------------------"
   echo "Waiting for Next Instructions!...."
 
-  secs=$((5 * 1))
+  secs=$((5 * 30))
   while [ $secs -gt 0 ]; do
     echo -ne "$secs\033[0K\r"
     sleep 1
     : $((secs--))
   done
-  
+
+  echo "7. Port Forward our Tekton Dashboards instance to port 9097"
+  echo "8. Visit http://localhost:9097"
+  kubectl port-forward -n tekton-pipelines service/tekton-dashboard 9097:9097
 }
 
 function_install_tekton_triggers(){
@@ -142,7 +138,6 @@ function_install_tekton_triggers(){
     sleep 1
     : $((secs--))
   done
-  
 }
 
 function_install_knative_serving_without_istio(){
@@ -184,7 +179,6 @@ function_install_knative_serving_without_istio(){
     sleep 1
     : $((secs--))
   done
-  
 }
 
 function_install_knative_eventing(){
@@ -218,7 +212,6 @@ function_install_knative_eventing(){
     sleep 1
     : $((secs--))
   done
-  
 }
 
 function_install_knative_github_sources(){
@@ -236,8 +229,7 @@ function_install_knative_github_sources(){
     echo -ne "$secs\033[0K\r"
     sleep 1
     : $((secs--))
-  done
-  
+  done 
 }
 
 function_install_kourier(){
@@ -256,8 +248,7 @@ function_install_kourier(){
     echo -ne "$secs\033[0K\r"
     sleep 1
     : $((secs--))
-  done
-  
+  done 
 }
 
 function_install_metallb(){
@@ -275,8 +266,7 @@ function_install_metallb(){
     echo -ne "$secs\033[0K\r"
     sleep 1
     : $((secs--))
-  done
-  
+  done  
 }
 
 function_install
