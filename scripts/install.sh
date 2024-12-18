@@ -22,15 +22,24 @@ function_install_argocd(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 60
-   sleep 120
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done 
    echo "Patching ArgoCD Service"
    echo "----------------------------------------------------------------------------------"
    kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done
    clear
 }
 
@@ -45,7 +54,12 @@ function_install_crossplane(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+    secs=$((5 * 1))
+    while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+    done
    clear
 }
 
@@ -59,7 +73,12 @@ function_install_localstack(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done
    clear
 }
 
@@ -72,7 +91,12 @@ function_install_tekton_pipelines(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done
    clear
 }
 
@@ -85,7 +109,12 @@ function_install_tekton_dashboards(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done
    clear
 }
 
@@ -99,7 +128,12 @@ function_install_tekton_triggers(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done
    clear
 }
 
@@ -131,7 +165,12 @@ function_install_knative_serving_without_istio(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done
    clear
 }
 
@@ -156,7 +195,12 @@ function_install_knative_eventing(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done
    clear
 }
 
@@ -169,7 +213,12 @@ function_install_knative_github_sources(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done
    clear
 }
 
@@ -183,7 +232,12 @@ function_install_kourier(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done
    clear
 }
 
@@ -196,7 +250,12 @@ function_install_metallb(){
   echo "Complete!"
   echo "----------------------------------------------------------------------------------"
   echo "Waiting for Next Instructions...."
-  sleep 10
+  secs=$((5 * 1))
+  while [ $secs -gt 0 ]; do
+    echo -ne "$secs\033[0K\r"
+    sleep 1
+    : $((secs--))
+  done
   clear
 }
 

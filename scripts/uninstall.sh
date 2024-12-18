@@ -189,7 +189,12 @@ function_uninstall(){
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   sleep 10
+   secs=$((5 * 1))
+   while [ $secs -gt 0 ]; do
+     echo -ne "$secs\033[0K\r"
+     sleep 1
+     : $((secs--))
+   done
    clear
 
    echo " Teardown the Silenced Resources!--------------------------------------------------------------------------------------------------------"

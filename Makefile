@@ -12,7 +12,6 @@ cluster:
 	@echo "\n🔧 Creating Kubernetes cluster..."
 	kind create cluster -n blanketops --config dependencies/kind/kind_config.yaml
 	kubectl cluster-info --context kind-blanketops
-	sleep 15
 	kubectl get pod -A
 	clear
 

@@ -17,7 +17,12 @@ function_health_check(){
 
 function_connect(){
   function_connect_to_crossplane_providers
-  sleep 360
+  secs=$((5 * 72))
+	while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	done  
   function_connect_to_crossplane_providerconfigs
 }
 
@@ -56,11 +61,21 @@ function_boot_environments(){
   echo "6. Get our Argocd password for initial sign in"
   echo "7. Port Forward our argocd instance to port 8081"
   echo "8. Visit http://localhost:8081", enter argocd password from step 6, your environment shall sync to the desired state defined in kind=Environment from step 5
-  sleep 30
+  secs=$((5 * 3))
+  while [ $secs -gt 0 ]; do
+    echo -ne "$secs\033[0K\r"
+    sleep 1
+    : $((secs--))
+  done
   echo "-----------------------------------------------------------------------------------------------------------------------------------------------"
   kubectl apply -f argocd/clusters/argocd_cluster.yaml
   kubectl apply -f argocd/projects/argocd_project.yaml
-  sleep 120
+  secs=$((5 * 3))
+  while [ $secs -gt 0 ]; do
+    echo -ne "$secs\033[0K\r"
+    sleep 1
+    : $((secs--))
+  done
   kubectl apply -f environments/environments.batch.blanketops.co.za.yaml
   kubectl apply -f manager/functions/patch_and_transform.yaml
   kubectl apply -f argocd/environments/microservice/dev.yaml
@@ -144,16 +159,41 @@ function_setup_knative_github_sources(){
    echo "---------------------------------------------------------"
    echo "HealthCheck KNative Github Resources Installation"
    echo "---------------------------------------------------------" 
-   sleep 60
+   secs=$((5 * 12))
+   while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	 done  
    kubectl -n knative-sources get pods --selector control-plane=github-controller-manager
-   sleep 10
+   secs=$((5 * 2))
+	 while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	 done  
    kubectl --namespace default apply --filename manager/resources/github/github_service.yaml
-   sleep 10
+   secs=$((5 * 2))
+	 while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	 done  
    kubectl --namespace default apply --filename secrets/github_secret.yaml
-   sleep 10
+   secs=$((5 * 2))
+	 while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	 done  
    kubectl --namespace default apply --filename manager/resources/github/github_source.yaml
    echo "---------------------------------------------------------"
-   sleep 10
+   secs=$((5 * 2))
+	 while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	 done  
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
@@ -169,7 +209,12 @@ function_setup_metallb(){
   kubectl apply -f bare_metal_loadbalancer/address_pool.yaml
   kubectl apply -f bare_metal_loadbalancer/l2_advertisement.yaml
   kubectl apply -f bare_metal_loadbalancer/lb_test.yaml
-  sleep 30
+  secs=$((5 * 6))
+	while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	done  
   echo "---------------------------------------------------------"
   echo "Complete!"
   echo "----------------------------------------------------------------------------------"
@@ -179,48 +224,85 @@ function_setup_metallb(){
 
 
 function_setup_kourier(){
-   echo "---------------------------------------------------------"
-   echo "SetUp Kourier and Components"
-   echo "---------------------------------------------------------"
-   sleep 10
-   kubectl patch configmap/config-network -n knative-serving --type merge -p '{"data":{"ingress.class":"kourier.ingress.networking.knative.dev"}}'
-   sleep 10
-   kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
-   sleep 15
-   kubectl -n "knative-serving" patch configmap/config-kourier --type merge -p '{"data":{"cipher-suites":"ECDHE-ECDSA-AES128-GCM-SHA256,ECDHE-ECDSA-CHACHA20-POLY1305"}}'
-   kubectl patch configmap/config-kourier -n knative-serving --type merge -p '{"data":{"enable-proxy-protocol":"true"}}'
-   kubectl get configmap config-kourier --namespace knative-serving --output yaml
-   sleep 10
-   clear
-   kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"ec2-13-61-123-118.eu-north-1.compute.amazonaws.com":""}}'
-   echo "---------------------------------------------------------"
-   echo "Complete!"
-   echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions!...."
-   sleep 10
-   clear
+  echo "---------------------------------------------------------"
+  echo "SetUp Kourier and Components"
+  echo "---------------------------------------------------------"
 
+  secs=$((5 * 32))
+	while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	done  
+
+  kubectl patch configmap/config-network -n knative-serving --type merge -p '{"data":{"ingress.class":"kourier.ingress.networking.knative.dev"}}'
+
+  secs=$((5 * 2))
+	while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	done  
+  kubectl create secret tls ${CERT_NAME} --key ${KEY_FILE} --cert ${CERT_FILE}
+  secs=$((5 * 3))
+	while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+  done  
+  kubectl -n "knative-serving" patch configmap/config-kourier --type merge -p '{"data":{"cipher-suites":"ECDHE-ECDSA-AES128-GCM-SHA256,ECDHE-ECDSA-CHACHA20-POLY1305"}}'
+  kubectl patch configmap/config-kourier -n knative-serving --type merge -p '{"data":{"enable-proxy-protocol":"true"}}'
+  kubectl get configmap config-kourier --namespace knative-serving --output yaml
+  secs=$((5 * 2))
+	while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	done  
+  clear
+  kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"ec2-13-61-123-118.eu-north-1.compute.amazonaws.com":""}}'
+  echo "---------------------------------------------------------"
+  echo "Complete!"
+  echo "----------------------------------------------------------------------------------"
+  echo "Waiting for Next Instructions!...."
+  secs=$((5 * 2))
+	while [$secs -gt 0]; do
+	  echo -ne "secs\03[0K\r]"
+	  sleep 1
+	  : $((secs--))
+	done  
+  clear
 }
 
 function_setup_localstack(){
-   echo "---------------------------------------------------------"
-   echo "Setting up LocalStack"
-   echo "---------------------------------------------------------"
-   export NODE_PORT=$(kubectl get --namespace "localstack" -o jsonpath="{.spec.ports[0].nodePort}" services localstack)
-   export NODE_IP=$(kubectl get nodes --namespace "localstack" -o jsonpath="{.items[0].status.addresses[0].address}")
-   echo http://$NODE_IP:$NODE_PORT
-   echo "---------------------------------------------------------"
-   echo "Complete!"
-   echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions!...."
-   clear
+  echo "---------------------------------------------------------"
+  echo "Setting up LocalStack"
+  echo "---------------------------------------------------------"
+  export NODE_PORT=$(kubectl get --namespace "localstack" -o jsonpath="{.spec.ports[0].nodePort}" services localstack)
+  export NODE_IP=$(kubectl get nodes --namespace "localstack" -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
+  echo "---------------------------------------------------------"
+  echo "Complete!"
+  echo "----------------------------------------------------------------------------------"
+  echo "Waiting for Next Instructions!...."
+  clear
 }
 
 function_initialize
-sleep 360
+ secs=$((5 * 72))
+ while [$secs -gt 0]; do
+   echo -ne "secs\03[0K\r]"
+	 sleep 1
+	 : $((secs--))
+ done  
 function_connect
 function_health_check
-sleep 10
+ secs=$((5 * 2))
+ while [$secs -gt 0]; do
+   echo -ne "secs\03[0K\r]"
+	 sleep 1
+	 : $((secs--))
+ done  
 function_setup
 function_boot_environments
 
