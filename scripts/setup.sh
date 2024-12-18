@@ -17,13 +17,6 @@ function_health_check(){
 
 function_connect(){
   function_connect_to_crossplane_providers
-  secs=$((5 * 72))
-	while [$secs -gt 0]; do
-	  echo -ne "secs\03[0K\r]"
-	  sleep 1
-	  : $((secs--))
-	done  
-  function_connect_to_crossplane_providerconfigs
 }
 
 function_setup_eventing(){
@@ -36,14 +29,14 @@ function_setup_eventing(){
    kubectl apply -f manager/eventing/eventing_role_binding.yaml
    kubectl apply -f manager/eventing/eventing_deployment.yaml
    kubectl apply -f manager/eventing/eventing_service.yaml
-   kn source apiserver create blanketopsapiserversource --namespace devops --mode "Resource" --resource "Event:v1" --service-account eventing-service-account --sink github-message-dumper
+   #kn source apiserver create blanketopsapiserversource --namespace devops --mode "Resource" --resource "Event:v1" --service-account eventing-service-account --sink github-message-dumper
    kubectl run busybox --image=busybox --namespace=devops --restart=Never -- ls
    kubectl logs --namespace=devops -l app=github-message-dumper --tail=100
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
-   clear
+   
 }
 
 
@@ -81,7 +74,6 @@ function_boot_environments(){
   kubectl apply -f argocd/environments/microservice/dev.yaml
   argocd admin initial-password -n argocd
   kubectl port-forward svc/argocd-server -n argocd 8081:443
-
 }
 
 
@@ -117,12 +109,17 @@ function_connect_to_crossplane_providers(){
    kubectl apply -f providers/helm/helm.yaml
    kubectl apply -f providers/argocd/argocd.yaml
    kubectl apply -f providers/kubernetes/kubernetes.yaml
-
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
    echo "Waiting for Next Instructions!...."
 
+   secs=$((5 * 72))
+   while [ $secs -gt 0 ]; do
+    echo -ne "$secs\033[0K\r"
+    sleep 1
+    : $((secs--))
+   done
 }
 
 function_connect_to_crossplane_providerconfigs(){
@@ -151,53 +148,53 @@ function_health_check_crossplane(){
    echo "---------------------------------------------------------"
    echo "Complete!"
    echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions!...."
-   clear
+   echo "Waiting for Next Instructions!...." 
 }
 
 function_setup_knative_github_sources(){
-   echo "---------------------------------------------------------"
-   echo "HealthCheck KNative Github Resources Installation"
-   echo "---------------------------------------------------------" 
-   secs=$((5 * 12))
-   while [$secs -gt 0]; do
-	  echo -ne "secs\03[0K\r]"
-	  sleep 1
-	  : $((secs--))
-	 done  
-   kubectl -n knative-sources get pods --selector control-plane=github-controller-manager
-   secs=$((5 * 2))
-	 while [$secs -gt 0]; do
-	  echo -ne "secs\03[0K\r]"
-	  sleep 1
-	  : $((secs--))
-	 done  
-   kubectl --namespace default apply --filename manager/resources/github/github_service.yaml
-   secs=$((5 * 2))
-	 while [$secs -gt 0]; do
-	  echo -ne "secs\03[0K\r]"
-	  sleep 1
-	  : $((secs--))
-	 done  
-   kubectl --namespace default apply --filename secrets/github_secret.yaml
-   secs=$((5 * 2))
-	 while [$secs -gt 0]; do
-	  echo -ne "secs\03[0K\r]"
-	  sleep 1
-	  : $((secs--))
-	 done  
-   kubectl --namespace default apply --filename manager/resources/github/github_source.yaml
-   echo "---------------------------------------------------------"
-   secs=$((5 * 2))
-	 while [$secs -gt 0]; do
-	  echo -ne "secs\03[0K\r]"
-	  sleep 1
-	  : $((secs--))
-	 done  
-   echo "Complete!"
-   echo "----------------------------------------------------------------------------------"
-   echo "Waiting for Next Instructions!...."
-   clear
+  echo "---------------------------------------------------------"
+  echo "HealthCheck KNative Github Resources Installation"
+  echo "---------------------------------------------------------" 
+
+  # secs=$((5 * 12))
+  # while [$secs -gt 0]; do
+	#  echo -ne "secs\03[0K\r]"
+	#  sleep 1
+	#  : $((secs--))
+	# done  
+
+  kubectl -n knative-sources get pods --selector control-plane=github-controller-manager
+  secs=$((5 * 2))
+	while [$secs -gt 0]; do
+	 echo -ne "secs\03[0K\r]"
+	 sleep 1
+	 : $((secs--))
+	done  
+  kubectl --namespace default apply --filename manager/resources/github/github_service.yaml
+  secs=$((5 * 2))
+	while [$secs -gt 0]; do
+	 echo -ne "secs\03[0K\r]"
+	 sleep 1
+	 : $((secs--))
+	done  
+  kubectl --namespace default apply --filename secrets/github_secret.yaml
+  secs=$((5 * 2))
+	while [$secs -gt 0]; do
+	 echo -ne "secs\03[0K\r]"
+	 sleep 1
+	 : $((secs--))
+	done  
+  kubectl --namespace default apply --filename manager/resources/github/github_source.yaml
+  echo "---------------------------------------------------------"
+  secs=$((5 * 2))
+	while [$secs -gt 0]; do
+	 echo -ne "secs\03[0K\r]"
+	 sleep 1
+	 : $((secs--))
+	done  
+  echo "Complete!"
+  echo "----------------------------------------------------------------------------------"
+  echo "Waiting for Next Instructions!...."
 }
 
 
@@ -206,9 +203,9 @@ function_setup_metallb(){
   echo "SetUp Metallb Resources"
   echo "---------------------------------------------------------"
   pwd
-  kubectl apply -f bare_metal_loadbalancer/address_pool.yaml
-  kubectl apply -f bare_metal_loadbalancer/l2_advertisement.yaml
-  kubectl apply -f bare_metal_loadbalancer/lb_test.yaml
+  kubectl apply -f dependencies/bare_metal_loadbalancer/address_pool.yaml
+  kubectl apply -f dependencies/bare_metal_loadbalancer/l2_advertisement.yaml
+  kubectl apply -f dependencies/bare_metal_loadbalancer/lb_test.yaml
   secs=$((5 * 6))
 	while [$secs -gt 0]; do
 	  echo -ne "secs\03[0K\r]"
@@ -219,7 +216,7 @@ function_setup_metallb(){
   echo "Complete!"
   echo "----------------------------------------------------------------------------------"
   echo "Waiting for Next Instructions!...."
-  clear
+  
 }
 
 
@@ -259,7 +256,7 @@ function_setup_kourier(){
 	  sleep 1
 	  : $((secs--))
 	done  
-  clear
+  
   kubectl patch configmap/config-domain -n knative-serving --type merge -p '{"data":{"ec2-13-61-123-118.eu-north-1.compute.amazonaws.com":""}}'
   echo "---------------------------------------------------------"
   echo "Complete!"
@@ -270,8 +267,7 @@ function_setup_kourier(){
 	  echo -ne "secs\03[0K\r]"
 	  sleep 1
 	  : $((secs--))
-	done  
-  clear
+	done
 }
 
 function_setup_localstack(){
@@ -285,24 +281,11 @@ function_setup_localstack(){
   echo "Complete!"
   echo "----------------------------------------------------------------------------------"
   echo "Waiting for Next Instructions!...."
-  clear
+  
 }
 
 function_initialize
- secs=$((5 * 72))
- while [$secs -gt 0]; do
-   echo -ne "secs\03[0K\r]"
-	 sleep 1
-	 : $((secs--))
- done  
 function_connect
 function_health_check
- secs=$((5 * 2))
- while [$secs -gt 0]; do
-   echo -ne "secs\03[0K\r]"
-	 sleep 1
-	 : $((secs--))
- done  
 function_setup
 function_boot_environments
-

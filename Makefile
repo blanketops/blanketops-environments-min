@@ -1,6 +1,6 @@
 .PHONY: teardown
 teardown:
-	@echo "\n♻️  Deleting Kubernetes cluster..."
+	@echo "♻️  Deleting Kubernetes cluster..."
 	kind delete clusters --all
 	docker system prune -a
 	docker volume prune
@@ -9,7 +9,7 @@ teardown:
 
 .PHONY: cluster
 cluster:
-	@echo "\n🔧 Creating Kubernetes cluster..."
+	@echo "🎓Creating Kubernetes cluster..."
 	kind create cluster -n blanketops --config dependencies/kind/kind_config.yaml
 	kubectl cluster-info --context kind-blanketops
 	kubectl get pod -A
@@ -18,19 +18,19 @@ cluster:
 
 .PHONY: install
 install:
-	@echo "\n♻️  Executing install.sh..."
+	@echo "🔧  Executing install.sh..."
 	 bash scripts/install.sh
 	 clear
 
 .PHONY: uninstall
 uninstall:
-	@echo "\n♻️  Executing uninstall.sh..."
+	@echo "✂️ Executing uninstall.sh..."
 	 bash scripts/uninstall.sh
 	 clear	 
 
 .PHONY: setup
 setup:
-	@echo "\n♻️  Executing setup.sh..."
+	@echo "🚀 Executing setup.sh..."
 	 bash scripts/setup.sh
 	 clear
 
