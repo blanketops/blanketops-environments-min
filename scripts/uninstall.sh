@@ -2,14 +2,14 @@
 
 function_uninstall(){
 
-   echo "---------------------------------------------------------"
-   echo "Deleting all Crossplane Resources---------------------------"
-   echo "---------------------------------------------------------"
-   kubectl patch crd/environments.batch.blanketops.co.za -p '{"metadata":{"finalizers":[]}}' --type=merge
-   kubectl delete environment --all
-   kubectl delete composition --all
-   kubectl delete compositeresourcedefinition --all
-   echo "--------------------------------------------------------------------------------------------------------------------------------"
+  #  echo "---------------------------------------------------------"
+  #  echo "Deleting all Crossplane Resources---------------------------"
+  #  echo "---------------------------------------------------------"
+  #  kubectl patch crd/environments.batch.blanketops.co.za -p '{"metadata":{"finalizers":[]}}' --type=merge
+  #  kubectl delete environment --all
+  #  kubectl delete composition --all
+  #  kubectl delete compositeresourcedefinition --all
+  #  echo "--------------------------------------------------------------------------------------------------------------------------------"
 
    echo "------------------------------------------------------------------------------------------------------------------"
    echo "Deleting Namespaces"
