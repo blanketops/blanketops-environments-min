@@ -1,1 +1,28 @@
 site_name: BlanketOps Enviroments
+extra:
+  social:
+  - icon: fontawesome/brands/mastodon
+    link: https://fosstodon.org/@squidfunk
+  version:
+    provider: mike
+
+repo_url: https://github.com/blanketops/blanketops-environments-min
+nav:
+- 'index.md'
+
+theme:
+  features:
+  - navigation.footer
+  name: material
+  custom_dir: overrides
+  palette:
+  - scheme: default
+    primary: teal
+    toggle:
+      icon: material/brightness-7
+      name: Switch to dark mode
+  - scheme: slate
+    primary: teal
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
